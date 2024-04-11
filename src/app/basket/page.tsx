@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function page() {
 	return (
-		<div>Basket</div>
+		<div className='container'>Basket</div>
 	)
 }

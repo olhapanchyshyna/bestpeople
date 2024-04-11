@@ -1,5 +1,5 @@
 import React from 'react'
 
 export default function Page() {
-		<div>Catalog</div>
+		<div className='container'>Catalog</div>
 }
