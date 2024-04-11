@@ -4,7 +4,7 @@ import Phone from './phone'
 
 export default function Footer() {
 	return (
-		<footer className="bg-[url('/footer-bg.png')] pt-[50px] pb-[30px]">
+		<footer className="bg-[url('/footer-bg.png')] pt-[50px] pb-[30px] bg-no-repeat bg-cover">
 			<div className='container border-t-2 border-slate-400 flex flex-col h-[300px]  justify-between'>
 				<div className='mt-[30px] flex justify-between'>
 					{/* 1 */}
