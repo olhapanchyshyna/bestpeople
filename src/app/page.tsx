@@ -1,6 +1,8 @@
+import Advantages from '@/components/advantages'
 import CategorySlider from '@/components/category-slider'
 import Image from 'next/image'
 import React from 'react'
+
 
 export default function page() {
 	return (
@@ -15,6 +17,7 @@ export default function page() {
 				/>
 			</section>
 			<CategorySlider/>
+			<Advantages/>
 		</main>
 	)
 }
