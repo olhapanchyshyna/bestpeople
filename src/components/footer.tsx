@@ -25,7 +25,7 @@ export default function Footer() {
 					{/* 2 */}
 					<div className='h-[150px]'>
 						<ul className='text-[#E1E1E1] h-full flex flex-col justify-between'>
-							<li className='text-[#B3DB11]'>Catalog</li>
+							<li className='green'>Catalog</li>
 							<li>Shop</li>
 							<li>My office</li>
 							<li>Most selled</li>
@@ -34,7 +34,7 @@ export default function Footer() {
 					{/* 3 */}
 					<div className='h-[150px]'>
 						<ul className='text-[#E1E1E1] h-full flex flex-col justify-between'>
-							<li className='text-[#B3DB11]'>Best&People</li>
+							<li className='green'>Best&People</li>
 							<li>About Company</li>
 							<li>Possibilities</li>
 							<li>Contacts</li>
@@ -43,7 +43,7 @@ export default function Footer() {
 					{/* 4 */}
 					<div className='h-[100px]'>
 						<ul className='text-[#E1E1E1] h-full flex flex-col justify-between'>
-							<li className='text-[#B3DB11]'>
+							<li className='green'>
 								{' '}
 								<Phone type='footer' width={20} height={20} />{' '}
 							</li>

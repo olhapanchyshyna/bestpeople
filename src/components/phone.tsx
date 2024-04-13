@@ -18,7 +18,7 @@ export default function Phone({ type, width, height }: PhoneProps) {
 			/>
 			<div
 				className={`${
-					type === 'header' ? 'text-[#6E860B]' : 'text-[#B3DB11]'
+					type === 'header' ? 'dark-green' : 'green'
 				} text-xl`}
 			>
 				095 463 39 76
