@@ -4,8 +4,8 @@ import Phone from './phone'
 
 export default function PageIcons() {
 	return (
-		<div className='flex justify-between w-64'>
-			<Phone type='header' width={28} height={28}/>
+		<div className='flex justify-between lg:w-64 order-3 md:order-none'>
+			<Phone type='header' width={28} height={28} className='hidden lg:flex'/>
 			<div className='flex items-center justify-between w-16'>
 				<Link href='/login'>
 					<Image src='profile.svg' alt='profile' width={30} height={30} />

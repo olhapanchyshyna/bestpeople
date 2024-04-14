@@ -23,7 +23,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={cn(roboto.className, 'm-auto')}>
-				{/* <Header /> */}
+				<Header />
 				<main>{children}</main>
 				<Footer />
 			</body>
