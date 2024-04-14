@@ -1,25 +1,30 @@
-import Advantages from '@/components/advantages'
-import Benefits from '@/components/benefits'
-import CategorySlider from '@/components/category-slider'
-import Image from 'next/image'
-import React from 'react'
-
+import Advantages from "@/components/advantages";
+import Benefits from "@/components/benefits";
+import CategorySlider from "@/components/category-slider";
+import Image from "next/image";
 
 export default function page() {
-	return (
-		<main>
-			<section>
-				<Image
-					src='/bg-with-arms.png'
-					alt='bg-with-arms'
-					width={1880}
-					height={750}
-					className='xl:w-[100vw] xl:h-[80vh] m-auto bg-no-repeat'
-				/>
-			</section>
-			<CategorySlider/>
-			<Advantages/>
-			<Benefits/>
-		</main>
-	)
+  return (
+    <main>
+      <section>
+        <picture>
+          <source
+            media="(max-width: 550px)"
+            srcSet="/bg-with-arms-mobile.png"
+            className=""
+          />
+          <Image
+            src="/bg-with-arms.png"
+            alt="bg-with-arms"
+            width={1880}
+            height={750}
+            className="m-auto bg-no-repeat max-[450px]:h-[430px] max-[550px]:h-[500px]  xl:h-[80vh] xl:w-[100vw]"
+          />
+        </picture>
+      </section>
+      <CategorySlider />
+      <Advantages />
+      <Benefits />
+    </main>
+  );
 }
