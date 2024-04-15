@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "./button";
+import TextWithIcon from "./text-with-icon";
 
 const benefitsItems = [
   {
@@ -34,25 +35,11 @@ export default function Benefits() {
 
         <div className="flex flex-col items-center justify-between lg:flex-row lg:items-end">
           <div className="order-3 lg:order-none">
-            {benefitsItems.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="mb-[10px] flex items-start lg:items-center"
-                >
-                  <Image
-                    src="/checkmark-circle-green.svg"
-                    alt="checkmark-circle"
-                    width={15}
-                    height={15}
-                    className="mt-[5px] lg:mt-0"
-                  />
-                  <h3 className="ml-[7px] text-[16px] text-black">
-                    {item.title}
-                  </h3>
-                </div>
-              );
-            })}
+            <TextWithIcon
+              Items={benefitsItems}
+              iconSrc="/checkmark-circle-green.svg"
+            />
+
             <Button text="More" href="/" className="mt-[20px] lg:mt-[55px]" />
           </div>
           <div>
