@@ -19,8 +19,8 @@ const benefitsItems = [
 export default function Benefits() {
   return (
     <section className=" flex flex-col bg-[#F7F8FA] py-[50px] lg:py-[90px]">
-      <div className='container'>
-        <div className="mb-[20px] text-center lg:text-left order-1 lg:order-none">
+      <div className="container">
+        <div className="order-1 mb-[20px] text-center lg:order-none lg:text-left">
           <h1
             className="dark-green text-[40px]"
             style={{ textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}
@@ -32,20 +32,20 @@ export default function Benefits() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between">
-          <div className='order-3 lg:order-none'>
+        <div className="flex flex-col items-center justify-between lg:flex-row lg:items-end">
+          <div className="order-3 lg:order-none">
             {benefitsItems.map((item, index) => {
               return (
                 <div
                   key={index}
-                  className="mb-[10px] flex lg:items-center items-start"
+                  className="mb-[10px] flex items-start lg:items-center"
                 >
                   <Image
                     src="/checkmark-circle-green.svg"
                     alt="checkmark-circle"
                     width={15}
                     height={15}
-                    className='mt-[5px] lg:mt-0'
+                    className="mt-[5px] lg:mt-0"
                   />
                   <h3 className="ml-[7px] text-[16px] text-black">
                     {item.title}
@@ -53,11 +53,11 @@ export default function Benefits() {
                 </div>
               );
             })}
-            <Button text="More" className="lg:mt-[55px] mt-[20px]" />
+            <Button text="More" href="/" className="mt-[20px] lg:mt-[55px]" />
           </div>
-          <div >
+          <div>
             <Image
-            className='order-2 lg:order-none mb-[40px] lg:mb-0'
+              className="order-2 mb-[40px] lg:order-none lg:mb-0"
               src="/benefits.png"
               alt="d"
               width={380}

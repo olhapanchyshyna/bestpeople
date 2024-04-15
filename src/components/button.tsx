@@ -1,11 +1,13 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
+import Link from 'next/link'
 
 type ButtonProps = {
   text: string;
   className?: string;
+  href: string;
 };
 
-export default function Button({ text, className }: ButtonProps) {
+export default function Button({ text, className, href }: ButtonProps) {
   return (
     <button
       className={cn(
@@ -13,7 +15,7 @@ export default function Button({ text, className }: ButtonProps) {
         className,
       )}
     >
-      {text}
+      <Link href={href}>{text}</Link>
     </button>
   );
 }
