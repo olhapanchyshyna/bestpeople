@@ -31,7 +31,7 @@ const catalogItems: MenuItem[] = [
 const navItems: MenuItem[] = [
   { name: "Catalog", src: "/catalog" },
   { name: "About company", src: "/about-company" },
-  { name: "Contacts", src: "/contacts" },
+  // { name: "Contacts", src: "/contacts" },
 ];
 
 export default function NavigationMenuItems() {
@@ -46,7 +46,7 @@ export default function NavigationMenuItems() {
   return (
     <>
       <NavigationMenu className="hidden justify-between md:flex">
-        <NavigationMenuList className="flex w-[350px] !justify-between text-base">
+        <NavigationMenuList className="flex w-[250px] !justify-between text-base">
           {/* Catalog */}
           <NavigationMenuItem>
             <NavigationMenuTrigger className="px-0 text-base font-normal">
@@ -56,7 +56,7 @@ export default function NavigationMenuItems() {
               {renderMenuItems(catalogItems)}
             </NavigationMenuContent>
           </NavigationMenuItem>
-          {/* About company & Contacts */}
+          {/* About company */}
           {renderMenuItems(navItems.slice(1))}
         </NavigationMenuList>
       </NavigationMenu>
