@@ -6,10 +6,10 @@ import H2 from "./h1";
 export default function PopularGoods() {
   return (
     <section className="container pb-[70px] pt-[100px]">
-      <div className="flex justify-between">
-        <H2 text="Popular goods" className="mb-[50px]" />
-        <Link href="/catalog" className="flex h-[50px] items-center">
-          <div className='dark-green mr-4'>All goods</div>
+      <div className="flex justify-between ">
+        <H2 text="Popular goods" className="mb-[50px] w-[140px] sm:w-auto" />
+        <Link href="/catalog" className="ml-[10px] flex h-[50px] items-center">
+          <div className="dark-green mr-2 sm:mr-4 leading-[20px]">All goods</div>
           <Image
             src="/arrow-right-green.svg"
             alt="arrow-right-green"
@@ -19,7 +19,7 @@ export default function PopularGoods() {
           />
         </Link>
       </div>
-      <GoodsList category='popular' />
+      <GoodsList category="popular" />
     </section>
   );
 }

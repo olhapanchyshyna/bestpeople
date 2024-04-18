@@ -85,7 +85,22 @@
   color: #B3DB11;
 }
 
+.dark-green-bg {
+  /* Darkgreen b&p */
+  background-color: #6e860b;
+} 
+
 .green-bg {
   /* Green b&p */
   background-color: #B3DB11;
+}
+
+.light-bg{
+  background-color: #F2F2F2
+}
+.light-bg:hover{
+  background-color:  #B3DB11
+}
+.light-bg:focus{
+  background-color:  #B3DB11
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Button from "./button";
+
+import ButtonCustom from "./button";
 import TextWithIcon from "./text-with-icon";
 
 const benefitsItems = [
@@ -40,7 +41,11 @@ export default function Benefits() {
               iconSrc="/checkmark-circle-green.svg"
             />
 
-            <Button text="More" href="/" className="mt-[20px] lg:mt-[55px]" />
+            <ButtonCustom
+              text="More"
+              href="/"
+              className="mt-[20px] lg:mt-[55px]"
+            />
           </div>
           <div>
             <Image

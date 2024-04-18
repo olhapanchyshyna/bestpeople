@@ -1,5 +1,6 @@
-import { cn } from "@/lib/utils"
-import Link from 'next/link'
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 type ButtonProps = {
   text: string;
@@ -7,15 +8,12 @@ type ButtonProps = {
   href: string;
 };
 
-export default function Button({ text, className, href }: ButtonProps) {
+export default function ButtonCustom({ text, className, href }: ButtonProps) {
   return (
-    <button
-      className={cn(
-        `green-bg rounded-[43px] px-[40px] py-[16px] text-white`,
-        className,
-      )}
+    <Button
+      className={cn(`green-bg px-[40px] py-[16px] text-white`, className)}
     >
       <Link href={href}>{text}</Link>
-    </button>
+    </Button>
   );
 }

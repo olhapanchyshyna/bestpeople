@@ -1,4 +1,4 @@
-import Button from "@/components/button";
+import ButtonCustom from "@/components/button";
 import H2 from "@/components/h1";
 
 export default function notFound() {
@@ -25,7 +25,8 @@ export default function notFound() {
           It may have been moved, or you simply entered the page address
           incorrectly.
         </div>
-        <Button text="Home Page" href="/" className="m-auto mt-[45px]" />
+
+        <ButtonCustom text="Home Page" href="/" className="m-auto mt-[45px]" />
       </div>
     </section>
   );
