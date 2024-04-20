@@ -11,18 +11,19 @@ import ButtonCustom from "./button";
 import SliderDistance from "./slider-distance";
 
 const allCategory = [
-  { name: "Detox", option: "option-one" },
-  { name: "Anti-aging", option: "option-two" },
-  { name: "Weight normalization", option: "option-tree" },
-  { name: "Healthy heart", option: "option-four" },
-  { name: "Relax", option: "option-five" },
-  { name: "Immunity", option: "option-six" },
-  { name: "Beauty", option: "option-seven" },
+  { name: "All goods", option: "option-one" },
+  { name: "Detox", option: "option-two" },
+  { name: "Anti-aging", option: "option-tree" },
+  { name: "Weight normalization", option: "option-four" },
+  { name: "Healthy heart", option: "option-five" },
+  { name: "Relax", option: "option-six" },
+  { name: "Immunity", option: "option-seven" },
+  { name: "Beauty", option: "option-eight" },
 ];
 
 export default function Aside() {
   return (
-    <aside className="sticky top-2 flex w-[240px] flex-col px-[10px]">
+    <aside className="sticky top-2 flex w-[100%] md:w-[240px] flex-col px-[10px] bg-[#f7fbe7] md:bg-transparent">
       <Accordion type="multiple">
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-[20px] no-underline">

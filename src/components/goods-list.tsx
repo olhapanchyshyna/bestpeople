@@ -22,7 +22,7 @@ export default async function GoodsList({category}:GoodsListProps) {
           key={good.id}
           style={{ boxShadow: "-1px 4px 40px -8px rgba(0 0 0 / 21%)" }}
         >
-          <Image src={good.img} alt="" width={135} height={130} className='w-[110px] sm:w-[125px] max-h-[170px] mb-[10px] sm:mb-0' />
+          <Image src={good.img} alt="" width={135} height={130} className='w-[110px] sm:w-[125px] max-h-[100px] mb-[10px] sm:mb-0' />
           <CardFooter className='items-end p-0'>
             <div>
               <CardTitle className="text-[14px] font-normal mb-[10px] text-gray-700">
