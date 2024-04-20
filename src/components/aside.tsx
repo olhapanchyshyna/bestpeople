@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import ButtonCustom from "./button";
-import SliderRange from "./slider-range";
+import SliderDistance from "./slider-distance";
 
 const allCategory = [
   { name: "Detox", option: "option-one" },
@@ -49,12 +49,18 @@ export default function Aside() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem value="item-2">
+        <AccordionItem
+          value="item-2"
+          // className="[&>div]:!overflow-x-visible"
+        >
           <AccordionTrigger className="text-[20px] no-underline">
             Prise
           </AccordionTrigger>
-          <AccordionContent className="h-auto">
-            <SliderRange />
+          <AccordionContent className="">
+           
+              <SliderDistance />
+           
+            
           </AccordionContent>
         </AccordionItem>
 
