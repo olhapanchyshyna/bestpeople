@@ -49,18 +49,12 @@ export default function Aside() {
           </AccordionContent>
         </AccordionItem>
 
-        <AccordionItem
-          value="item-2"
-          // className="[&>div]:!overflow-x-visible"
-        >
+        <AccordionItem value="item-2">
           <AccordionTrigger className="text-[20px] no-underline">
             Prise
           </AccordionTrigger>
           <AccordionContent className="">
-           
-              <SliderDistance />
-           
-            
+            <SliderDistance />
           </AccordionContent>
         </AccordionItem>
 
