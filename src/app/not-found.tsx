@@ -1,7 +1,9 @@
 import ButtonCustom from "@/components/button";
 import H2 from "@/components/h1";
+import { revalidatePath } from 'next/cache'
 
 export default function notFound() {
+ 
   return (
     <section className="container py-[44px]">
       <H2 text="Page not found" />

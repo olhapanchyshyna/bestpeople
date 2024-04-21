@@ -7,7 +7,7 @@ export default function Header() {
 	return (
 		<header className='flex justify-between items-center container h-[75px]'>
 			<Link href='/' className='order-2 md:order-none'>
-				<Image src='logo-color.svg' alt='logo' width={100} height={100} />
+				<Image src='/logo-color.svg' alt='logo' width={100} height={100} />
 			</Link>
 
 			<NavigationMenuItems />

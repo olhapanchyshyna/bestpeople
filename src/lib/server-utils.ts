@@ -1,6 +1,8 @@
+import { unstable_cache } from 'next/cache'
 import prisma from "./db";
+import notFound from '@/app/not-found'
 
-export async function getGoods(category: string, page = 1) {
+export const getGoods = unstable_cache(async (category: string, page = 1) =>{
   const goods = await prisma.goods.findMany({
     where: {
       category: category === "all" ? undefined : category,
@@ -21,4 +23,14 @@ export async function getGoods(category: string, page = 1) {
 	}
 
   return { goods, totalCount };
-}
+});
+
+export const getGood = unstable_cache(async (slug: string) => {
+	const good = await prisma.goods.findUnique({
+		where: {
+			slug: slug,
+		},
+	})
+
+	return good
+})

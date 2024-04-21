@@ -8,10 +8,10 @@ export default function PageIcons() {
 			<Phone type='header' width={28} height={28} className='hidden md:flex'/>
 			<div className='flex items-center justify-between w-16'>
 				<Link href='/login'>
-					<Image src='profile.svg' alt='profile' width={30} height={30} />
+					<Image src='/profile.svg' alt='profile' width={30} height={30} />
 				</Link>
 				<Link href='/basket'>
-					<Image src='basket.svg' alt='basket' width={17} height={25} />
+					<Image src='/basket.svg' alt='basket' width={17} height={25} />
 				</Link>
 			</div>
 		</div>

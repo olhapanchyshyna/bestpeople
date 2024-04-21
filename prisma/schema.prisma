@@ -6,7 +6,7 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
+ 
 model Goods {
   id Int @id @default(autoincrement())
   slug String @unique
@@ -15,4 +15,10 @@ model Goods {
   title String
   price String
   category String
+  descr String
+  vendorCode String
+  brend String
+  application String
+  howWork String
+  foolDescr String
 }

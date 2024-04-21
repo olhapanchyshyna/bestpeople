@@ -11,6 +11,23 @@ const goods = [
     title: "Protein cocktail with pistachio flavor",
     price: "44$",
     category: "popular",
+    vendorCode: "1234567890",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 2,
@@ -20,6 +37,23 @@ const goods = [
     title: "Protein cocktail  with banana flavor",
     price: "46$",
     category: "popular",
+    vendorCode: "323456789",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 3,
@@ -29,6 +63,23 @@ const goods = [
     title: "Protein cocktail  with salted caramel flavor",
     price: "48$",
     category: "popular",
+    vendorCode: "99865432123",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 4,
@@ -38,6 +89,23 @@ const goods = [
     title: "Protein cocktail  with strawberry flavor",
     price: "42$",
     category: "popular",
+    vendorCode: "1245899",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 5,
@@ -47,6 +115,23 @@ const goods = [
     title: "Protein cocktail  with strawberry flavor",
     price: "42$",
     category: "detox",
+    vendorCode: "324790763",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 6,
@@ -56,6 +141,23 @@ const goods = [
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "92$",
     category: "detox",
+    vendorCode: "358900972",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 7,
@@ -65,6 +167,23 @@ const goods = [
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "64$",
     category: "detox",
+    vendorCode: "7790022",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 8,
@@ -74,6 +193,23 @@ const goods = [
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "52$",
     category: "popular",
+    vendorCode: "0097532",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
   {
     id: 9,
@@ -83,6 +219,23 @@ const goods = [
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "52$",
     category: "popular",
+    vendorCode: "789976433",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr: JSON.stringify({
+      1: "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+
+      2: "Soy protein is a hypoallergenic protein, unlike cow's milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases. ",
+
+      3: "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+
+      4: "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+    }),
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
   },
 ];
 
@@ -91,16 +244,9 @@ async function main() {
 
   for (const good of goods) {
     const result = await prisma.goods.upsert({
-      where: { slug: good.slug }, // Используйте slug вместо id, поскольку это уникальное поле
-      update: {}, // Укажите, что нужно обновить, если найдена существующая запись
-      create: {
-        slug: good.slug,
-        img: good.img,
-        mobileImg: good.mobileImg,
-        title: good.title,
-        price: good.price,
-        category: good.category,
-      },
+      where: { id: good.id },
+      update: {},
+      create: good,
     });
     console.log(`Created event with id: ${result.id}`);
   }

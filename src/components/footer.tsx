@@ -10,7 +10,7 @@ export default function Footer() {
           {/* 1 */}
           <div className="mb-[40px] flex flex-col justify-between md:mb-0 md:h-[150px]">
             <Link href="/">
-              <Image src="logo-white.svg" alt="logo" width={100} height={100} />
+              <Image src="/logo-white.svg" alt="logo" width={100} height={100} />
             </Link>
             <p className="mt-[10px] text-base text-[#E1E1E1] md:mt-0">
               Smart products for your health
@@ -52,7 +52,7 @@ export default function Footer() {
               </li>
               <li className="flex">
                 <Image
-                  src="email-green.svg"
+                  src="/email-green.svg"
                   alt="email"
                   width={15}
                   height={15}
@@ -62,7 +62,7 @@ export default function Footer() {
               </li>
               <li className="flex">
                 <Image
-                  src="watch-green.svg"
+                  src="/watch-green.svg"
                   alt="watch"
                   width={15}
                   height={15}
