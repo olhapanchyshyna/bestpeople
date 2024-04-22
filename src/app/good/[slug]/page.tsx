@@ -2,11 +2,13 @@ import notFound from "@/app/not-found";
 import ButtonWithIcon from "@/components/button-with-icon";
 import Count from "@/components/count";
 import H2 from "@/components/h1";
+import { PreviewSliderProduct } from '@/components/preview-slider-product'
+
 import Services from "@/components/services";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getGood } from "@/lib/server-utils";
-import Image from "next/image";
+
 
 type GoodPageProps = {
   params: {
@@ -59,8 +61,8 @@ export default async function GoodPage({ params }: GoodPageProps) {
   return (
     <section className="container my-[50px] flex flex-col">
       <div className="flex flex-row items-center justify-between">
-        <div>
-          <Image src={good.img} alt={good.title} width={300} height={300} />
+        <div className='flex justify-between min-w-[400px] items-center'>
+					<PreviewSliderProduct/>
         </div>
         <div className="max-w-[500px]">
           <H2 text={good.title} className="leading-[45px]" />
