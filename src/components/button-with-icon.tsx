@@ -22,7 +22,7 @@ export default function ButtonWithIcon({
         className={cn(`green-bg px-[40px] py-[16px] text-white flex justify-between rounded-[43px]`, className)}
       >
         {text}
-        <Image src={icon} alt={text} width={20} height={20} className='ml-[20px]'/>
+        <Image src={icon} alt={text} width={20} height={20} className='ml-[10px] lg:ml-[20px]'/>
       </button>
     </Link>
   );

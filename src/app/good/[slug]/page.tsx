@@ -2,13 +2,12 @@ import notFound from "@/app/not-found";
 import ButtonWithIcon from "@/components/button-with-icon";
 import Count from "@/components/count";
 import H2 from "@/components/h1";
-import { PreviewSliderProduct } from '@/components/preview-slider-product'
+import { PreviewSliderProduct } from "@/components/preview-slider-product";
 
 import Services from "@/components/services";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getGood } from "@/lib/server-utils";
-
 
 type GoodPageProps = {
   params: {
@@ -16,29 +15,18 @@ type GoodPageProps = {
   };
 };
 
-function renderDescription(foolDescrObject: Record<string, unknown>) {
+function renderDescription(foolDescrArray: string[]) {
   // Убедитесь, что foolDescrObject не равен null или undefined
-  if (!foolDescrObject) {
-    return null; // Возвращаем null, если нет данных для обработки
-  }
-
-  // Продолжаем обработку, если все в порядке
-  return Object.entries(foolDescrObject).map(([key, value]) => {
-    // Приведение типа value к string, если вы уверены, что это строка
-    const text = value as string;
-
-    // Проверка типа
-    if (typeof text === "string") {
-      return (
-        <p key={key} className="mb-[20px] flex flex-col">
-          {text}
-        </p>
-      );
-    }
-
-    // Возвращаем null, если value не является строкой (это предохранитель)
+  if (!Array.isArray(foolDescrArray)) {
+    console.error("foolDescrArray не является массивом");
     return null;
-  });
+  }
+  // Продолжаем обработку, если все в порядке
+  return foolDescrArray.map((text, index) => (
+    <p key={index} className="mb-[20px] flex flex-col">
+      {text}
+    </p>
+  ));
 }
 
 export default async function GoodPage({ params }: GoodPageProps) {
@@ -46,52 +34,57 @@ export default async function GoodPage({ params }: GoodPageProps) {
   const good = await getGood(slug);
 
   if (!good) return notFound();
-  let foolDescrObject = null;
 
-  if (good.foolDescr) {
-    try {
-      foolDescrObject = JSON.parse(good.foolDescr);
-    } catch (error) {
-      console.error("Failed to parse JSON:", error);
-      // Обработка ошибки (например, установка foolDescrObject в значение по умолчанию)
-      foolDescrObject = {};
-    }
+  let foolDescrArray;
+
+  try {
+    foolDescrArray = JSON.parse(good.foolDescr);
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
+    // Обработка ошибки (например, установка foolDescrObject в значение по умолчанию)
+    foolDescrArray = [];
   }
 
   return (
-    <section className="container my-[50px] flex flex-col">
-      <div className="flex flex-row items-center justify-between">
-        <div className='flex justify-between min-w-[400px] items-center'>
-					<PreviewSliderProduct/>
+    <section className="container my-[30px] md:my-[50px] flex flex-col">
+      <div className="flex flex-col md:items-center justify-between md:flex-row">
+        <H2 text={good.title} className="leading-[35px] md:hidden mb-[10px]" />
+        <div className="mb-[15px] md:hidden items-center text-[14px] font-bold text-[#666666] flex">
+          <span className="mr-[5px] text-[16px] text-[#333333]">SKU:</span>{" "}
+          {good.vendorCode}
         </div>
-        <div className="max-w-[500px]">
-          <H2 text={good.title} className="leading-[45px]" />
-          <div className="mt-[15px] text-[14px] font-bold text-[#666666]">
-            <span className="text-[16px] text-[#333333] ">SKU:</span>{" "}
+        <div className="md:mr-[30px] flex min-w-[320px] flex-col items-center justify-between md:flex-row lg:mr-0 lg:min-w-[400px]">
+          <PreviewSliderProduct />
+        </div>
+        <div className="mr-[30px] flex md:max-w-[500px] flex-col lg:mr-0">
+          <H2 text={good.title} className="hidden leading-[35px] lg:leading-[45px] md:flex" />
+          <div className="mt-[15px] hidden items-center text-[14px] font-bold text-[#666666] md:flex">
+            <span className="mr-[5px] text-[16px] text-[#333333]">SKU:</span>{" "}
             {good.vendorCode}
           </div>
           <div className="dark-green mt-[15px] text-[32px]">{good.price}</div>
           <Separator className="my-[20px] bg-[#d1d4d6]" />
 
-          <div className="text-[14px] ">
-            <span className="text-[16px] font-bold">Brend: </span> {good.brend}
+          <div className="hidden items-center text-[14px] md:flex">
+            <span className="mr-[5px] text-[16px] font-bold">Brend: </span>{" "}
+            {good.brend}
           </div>
-          <div className="mt-[20px] text-[16px] text-[#808080]">
+          <div className="order-3 mt-[20px] text-[16px] text-[#808080] md:order-none ">
             {good.descr}
           </div>
-          <Separator className="my-[20px] bg-[#d1d4d6]" />
-          <div className="flex">
+          <Separator className="order-2 my-[20px] bg-[#d1d4d6] md:order-none" />
+          <div className="order-1 flex md:order-none ">
             <Count />
             <ButtonWithIcon
               text="Add to Basket"
               icon="/white-bag.svg"
               href=""
-              className="ml-[20px] px-[75px]"
+              className="ml-[12px] md:ml-[5px] px-[25px] lg:ml-[20px] lg:px-[75px]"
             />
           </div>
-          <Separator className="my-[20px] bg-[#d1d4d6]" />
-          <div>
-            <span className="text-[16px] font-bold">Category: </span>{" "}
+          <Separator className="my-[20px] hidden bg-[#d1d4d6] md:flex" />
+          <div className="hidden items-center md:flex">
+            <span className="mr-[5px] text-[16px] font-bold">Category: </span>{" "}
             {good.category}
           </div>
         </div>
@@ -119,7 +112,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
           <Separator className="my-[20px] bg-[#d1d4d6]" />
 
           <TabsContent value="description">
-            {renderDescription(foolDescrObject)}
+            {renderDescription(foolDescrArray)}
           </TabsContent>
           <TabsContent value="application">{good.application}</TabsContent>
           <TabsContent value="howWorks">{good.howWork}</TabsContent>

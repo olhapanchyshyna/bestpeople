@@ -15,7 +15,7 @@ export function PreviewSliderProduct() {
         alt={currentImg}
         width={200}
         height={200}
-        className={cn(" h-[200px] ", {
+        className={cn("h-[200px] md:order-none order-1 mb-[30px] md:mb-0", {
           ["animate-spin duration-2000"]: !currentImg,
         })}
       />
