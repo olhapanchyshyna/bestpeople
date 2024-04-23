@@ -1,16 +1,25 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const b = ["The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.", "Soy protein is a hypoallergenic protein, unlike cows milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases.", "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.", "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training."];
-
-const foolDescr = JSON.stringify(b)
+const b = [
+  "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
+  "Soy protein is a hypoallergenic protein, unlike cows milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases.",
+  "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
+  "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
+];
+const foolDescr = JSON.stringify(b);
 
 const goods = [
   {
     id: 1,
     slug: "cocktail-pistachio",
-    img: "['/coktail-pistachio.png', '/coktail-banana.png', '/coktail-salt-caramel.png', '/coktail-strawberry.png']",
+    img: JSON.stringify([
+      "/coktail-pistachio.png",
+      "/coktail-banana.png",
+      "/coktail-salt-caramel.png",
+      "/coktail-strawberry.png",
+    ]),
     mobileImg: "/coktail-pistachio.png",
     title: "Protein cocktail with pistachio flavor",
     price: "44$",
@@ -28,7 +37,12 @@ const goods = [
   {
     id: 2,
     slug: "cocktail-banana",
-    img: "['/coktail-banana.png', '/coktail-pistachio.png', '/coktail-salt-caramel.png', '/coktail-strawberry.png']",
+    img: JSON.stringify([
+      "/coktail-banana.png",
+      "/coktail-pistachio.png",
+      "/coktail-salt-caramel.png",
+      "/coktail-strawberry.png",
+    ]),
     mobileImg: "/coktail-banana.png",
     title: "Protein cocktail  with banana flavor",
     price: "46$",
@@ -37,7 +51,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -46,7 +60,12 @@ const goods = [
   {
     id: 3,
     slug: "cocktail-salt-caramel",
-    img: "['/coktail-salt-caramel.png', '/coktail-banana.png', '/coktail-pistachio.png', '/coktail-strawberry.png']",
+    img: JSON.stringify([
+      "/coktail-salt-caramel.png",
+      "/coktail-banana.png",
+      "/coktail-pistachio.png",
+      "/coktail-strawberry.png",
+    ]),
     mobileImg: "/coktail-salt-caramel.png",
     title: "Protein cocktail  with salted caramel flavor",
     price: "48$",
@@ -55,7 +74,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -64,7 +83,12 @@ const goods = [
   {
     id: 4,
     slug: "cocktail-strawberry",
-    img: "['/coktail-strawberry.png', '/coktail-salt-caramel.png', '/coktail-banana.png', '/coktail-pistachio.png',]",
+    img: JSON.stringify([
+      "/coktail-strawberry.png",
+      "/coktail-salt-caramel.png",
+      "/coktail-banana.png",
+      "/coktail-pistachio.png",
+    ]),
     mobileImg: "/coktail-strawberry.png",
     title: "Protein cocktail  with strawberry flavor",
     price: "42$",
@@ -73,7 +97,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -82,7 +106,12 @@ const goods = [
   {
     id: 5,
     slug: "cocktail",
-    img: "['/coktail-strawberry.png', '/coktail-salt-caramel.png', '/coktail-banana.png', '/coktail-pistachio.png',]",
+    img: JSON.stringify([
+      "/coktail-strawberry.png",
+      "/coktail-salt-caramel.png",
+      "/coktail-banana.png",
+      "/coktail-pistachio.png",
+    ]),
     mobileImg: "/coktail-strawberry.png",
     title: "Protein cocktail  with strawberry flavor",
     price: "42$",
@@ -91,7 +120,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -100,7 +129,12 @@ const goods = [
   {
     id: 6,
     slug: "detox-bottle",
-    img: "['detox-bottle.png', '/detox-box.png', '/detox-long-box.png', '/detox-bottle-with-box.png']",
+    img: JSON.stringify([
+      "/detox-bottle.png",
+      "/detox-box.png",
+      "/detox-long-box.png",
+      "/detox-bottle-with-box.png",
+    ]),
     mobileImg: "/detox-bottle-mobile.png",
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "92$",
@@ -109,7 +143,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -118,7 +152,12 @@ const goods = [
   {
     id: 7,
     slug: "detox-box",
-    img: "[ '/detox-box.png', 'detox-bottle.png', '/detox-long-box.png', '/detox-bottle-with-box.png']",
+    img: JSON.stringify([
+      "/detox-box.png",
+      "/detox-long-box.png",
+      "/detox-bottle.png",
+      "/detox-bottle-with-box.png",
+    ]),
     mobileImg: "/detox-box-mobile.png",
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "64$",
@@ -127,7 +166,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -136,7 +175,12 @@ const goods = [
   {
     id: 8,
     slug: "detox-long-bottle",
-    img: "[ '/detox-long-box.png', '/detox-box.png', 'detox-bottle.png', '/detox-bottle-with-box.png']",
+    img: JSON.stringify([
+      "/detox-long-box.png",
+      "/detox-bottle.png",
+      "/detox-box.png",
+      "/detox-bottle-with-box.png",
+    ]),
     mobileImg: "/detox-long-box.png",
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "52$",
@@ -145,7 +189,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -154,7 +198,12 @@ const goods = [
   {
     id: 9,
     slug: "detox-bottle-with-box",
-    img: "['/detox-bottle-with-box.png', '/detox-long-box.png', '/detox-box.png', 'detox-bottle.png']",
+    img: JSON.stringify([
+      "/detox-bottle-with-box.png",
+      "/detox-long-box.png",
+      "/detox-box.png",
+      "/detox-bottle.png",
+    ]),
     mobileImg: "/detox-bottle-with-box.png",
     title: "Wellab Colostrum detox bottle 550 ml",
     price: "52$",
@@ -163,7 +212,7 @@ const goods = [
     brend: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-     foolDescr,
+    foolDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:

@@ -15,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { tabClasses } from '@mui/material'
 
 type GoodPageProps = {
   params: {
@@ -40,16 +41,21 @@ export default async function GoodPage({ params }: GoodPageProps) {
   const slug = params.slug;
   const good = await getGood(slug);
 
+  console.log(good);
+  
   if (!good) return notFound();
 
   let foolDescrArray;
+  let imgArray 
 
   try {
     foolDescrArray = JSON.parse(good.foolDescr);
+    imgArray = JSON.parse(good.img);
   } catch (error) {
     console.error("Failed to parse JSON:", error);
     // Обработка ошибки (например, установка foolDescrObject в значение по умолчанию)
     foolDescrArray = [];
+    imgArray = []
   }
 
   return (
@@ -61,7 +67,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
           {good.vendorCode}
         </div>
         <div className="flex min-w-[320px] flex-col items-center justify-between md:mr-[30px] md:flex-row lg:mr-0 lg:min-w-[400px]">
-          <PreviewSliderProduct />
+          <PreviewSliderProduct imgArray={imgArray} />
         </div>
         <div className="md:mr-[30px] flex flex-col md:max-w-[500px] lg:mr-0">
           <H2

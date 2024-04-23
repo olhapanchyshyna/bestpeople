@@ -9,6 +9,7 @@ export const getGoods = unstable_cache(async (category: string, page = 1) => {
     take: 9,
     skip: (page - 1) * 9,
   });
+  
 
   let totalCount;
   if (category === "all") {
