@@ -30,10 +30,13 @@ const advantagesItems = [
   },
 ];
 
-export default function Services() {
+export default function Services({ className }: { className?: string }) {
   return (
     <div
-      className="container my-[40px] rounded-[10px] px-[20px] md:my-[60px] md:py-[40px] lg:px-[15px] "
+      className={cn(
+        `container my-[40px] rounded-[10px] px-[20px] md:my-[60px] md:py-[40px] lg:px-[15px] `,
+        className,
+      )}
       style={{ boxShadow: "0px 8px 40px rgba(0, 38, 3, 0.08)" }}
     >
       <div className="flex flex-col flex-wrap items-center justify-center py-[20px] md:flex-row lg:justify-between lg:py-0 ">

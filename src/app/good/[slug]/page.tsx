@@ -9,6 +9,13 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getGood } from "@/lib/server-utils";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 type GoodPageProps = {
   params: {
     slug: string;
@@ -46,18 +53,21 @@ export default async function GoodPage({ params }: GoodPageProps) {
   }
 
   return (
-    <section className="container my-[30px] md:my-[50px] flex flex-col">
-      <div className="flex flex-col md:items-center justify-between md:flex-row">
-        <H2 text={good.title} className="leading-[35px] md:hidden mb-[10px]" />
-        <div className="mb-[15px] md:hidden items-center text-[14px] font-bold text-[#666666] flex">
+    <section className="container my-[30px] flex flex-col md:my-[50px] px-[15px] md:px-[25px]">
+      <div className="flex flex-col justify-between md:flex-row md:items-center">
+        <H2 text={good.title} className="mb-[10px] leading-[35px] md:hidden" />
+        <div className="mb-[15px] flex items-center text-[14px] font-bold text-[#666666] md:hidden">
           <span className="mr-[5px] text-[16px] text-[#333333]">SKU:</span>{" "}
           {good.vendorCode}
         </div>
-        <div className="md:mr-[30px] flex min-w-[320px] flex-col items-center justify-between md:flex-row lg:mr-0 lg:min-w-[400px]">
+        <div className="flex min-w-[320px] flex-col items-center justify-between md:mr-[30px] md:flex-row lg:mr-0 lg:min-w-[400px]">
           <PreviewSliderProduct />
         </div>
-        <div className="mr-[30px] flex md:max-w-[500px] flex-col lg:mr-0">
-          <H2 text={good.title} className="hidden leading-[35px] lg:leading-[45px] md:flex" />
+        <div className="md:mr-[30px] flex flex-col md:max-w-[500px] lg:mr-0">
+          <H2
+            text={good.title}
+            className="hidden leading-[35px] md:flex lg:leading-[45px]"
+          />
           <div className="mt-[15px] hidden items-center text-[14px] font-bold text-[#666666] md:flex">
             <span className="mr-[5px] text-[16px] text-[#333333]">SKU:</span>{" "}
             {good.vendorCode}
@@ -79,7 +89,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
               text="Add to Basket"
               icon="/white-bag.svg"
               href=""
-              className="ml-[12px] md:ml-[5px] px-[25px] lg:ml-[20px] lg:px-[75px]"
+              className="ml-[12px] px-[25px] md:ml-[5px] lg:ml-[20px] lg:px-[75px]"
             />
           </div>
           <Separator className="my-[20px] hidden bg-[#d1d4d6] md:flex" />
@@ -90,8 +100,8 @@ export default async function GoodPage({ params }: GoodPageProps) {
         </div>
       </div>
 
-      <div className="mt-[50px]">
-        <Tabs defaultValue="description" className="">
+      <div className="mt-[30px] md:mt-[50px]">
+        <Tabs defaultValue="description" className="hidden md:block">
           <TabsList className="bg-transparent">
             <TabsTrigger
               value="description"
@@ -111,14 +121,46 @@ export default async function GoodPage({ params }: GoodPageProps) {
           </TabsList>
           <Separator className="my-[20px] bg-[#d1d4d6]" />
 
-          <TabsContent value="description">
+          <TabsContent value="description" className="text-gray-700">
             {renderDescription(foolDescrArray)}
           </TabsContent>
-          <TabsContent value="application">{good.application}</TabsContent>
-          <TabsContent value="howWorks">{good.howWork}</TabsContent>
+          <TabsContent value="application" className="text-gray-700">
+            {good.application}
+          </TabsContent>
+          <TabsContent value="howWorks" className="text-gray-700">
+            {good.howWork}
+          </TabsContent>
         </Tabs>
+
+        <Accordion type="single" collapsible className="md:hidden">
+          <AccordionItem value="item-1" className="border-b-0">
+            <AccordionTrigger className=" mb-[15px] border-2 border-[#B3DB11] px-[16px] ">
+              Description
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-500">
+              {renderDescription(foolDescrArray)}
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2" className="border-b-0">
+            <AccordionTrigger className=" mb-[15px] border-2 border-[#B3DB11] px-[16px] ">
+              Application
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-500">
+              {good.application}
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3" className="border-b-0">
+            <AccordionTrigger className=" mb-[15px] border-2 border-[#B3DB11] px-[16px] ">
+              How does it work
+            </AccordionTrigger>
+            <AccordionContent className="text-gray-500">
+              {good.howWork}
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
-      <Services />
+
+      <Services className='my-[10px]'/>
     </section>
   );
 }
