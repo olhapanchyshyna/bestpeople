@@ -27,7 +27,7 @@ export default function GoodsList({
   const [goods, setGoods] = useState<Goods[]>([]);
 
   useEffect(() => {
-    getGoods(category, page)
+    getGoods(category, +page)
       .then(({ goods, totalCount }) => {
         setIsPending(false);
         setGoods(goods);

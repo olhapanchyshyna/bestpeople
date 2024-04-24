@@ -9,8 +9,15 @@ import {
 } from "@/components/ui/accordion";
 import { getGoods } from "@/lib/server-utils";
 
-export default async function Page() {
+type PageProps = {
+  searchParams: {
+		page: string
+	};
+};
+
+export default async function Page({ searchParams }: PageProps) {
   const { totalCount } = await getGoods("all");
+  const page = searchParams.page || "1";
 
   return (
     <div className="container">
@@ -39,7 +46,7 @@ export default async function Page() {
           <Aside />
         </div>
 
-        <CatalogListWrapper />
+        <CatalogListWrapper page={+page} />
       </div>
     </div>
   );
