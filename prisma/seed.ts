@@ -159,7 +159,7 @@ const goods = [
       "/detox-bottle-with-box.png",
     ]),
     mobileImg: "/detox-box-mobile.png",
-    title: "Wellab Colostrum detox bottle 550 ml",
+    title: "Wellab Colostrum detox with box 550 ml",
     price: "64$",
     category: "detox",
     vendorCode: "7790022",
@@ -182,7 +182,7 @@ const goods = [
       "/detox-bottle-with-box.png",
     ]),
     mobileImg: "/detox-long-box.png",
-    title: "Wellab Colostrum detox bottle 550 ml",
+    title: "Wellab Colostrum detox in pils 550 ml",
     price: "52$",
     category: "popular",
     vendorCode: "0097532",
@@ -205,7 +205,99 @@ const goods = [
       "/detox-bottle.png",
     ]),
     mobileImg: "/detox-bottle-with-box.png",
-    title: "Wellab Colostrum detox bottle 550 ml",
+    title: "Wellab Colostrum detox bottle with box 550 ml",
+    price: "52$",
+    category: "popular",
+    vendorCode: "789976433",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr,
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+  },
+  {
+    id: 10,
+    slug: "detox-bottle-with-box-1",
+    img: JSON.stringify([
+      "/detox-bottle-with-box.png",
+      "/detox-long-box.png",
+      "/detox-box.png",
+      "/detox-bottle.png",
+    ]),
+    mobileImg: "/detox-bottle-with-box.png",
+    title: "Wellab Colostrum detox bottle with box 550 ml",
+    price: "52$",
+    category: "detox",
+    vendorCode: "789976433",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr,
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+  },
+  {
+    id: 11,
+    slug: "detox-bottle-with-box-2",
+    img: JSON.stringify([
+      "/detox-bottle-with-box.png",
+      "/detox-long-box.png",
+      "/detox-box.png",
+      "/detox-bottle.png",
+    ]),
+    mobileImg: "/detox-bottle-with-box.png",
+    title: "Wellab Colostrum detox bottle with box 550 ml",
+    price: "52$",
+    category: "popular",
+    vendorCode: "789976433",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr,
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+  },
+  {
+    id: 12,
+    slug: "detox-bottle-with-box-3",
+    img: JSON.stringify([
+      "/detox-bottle-with-box.png",
+      "/detox-long-box.png",
+      "/detox-box.png",
+      "/detox-bottle.png",
+    ]),
+    mobileImg: "/detox-bottle-with-box.png",
+    title: "Wellab Colostrum detox bottle with box 550 ml",
+    price: "52$",
+    category: "detox",
+    vendorCode: "789976433",
+    brend: "Wellab",
+    descr:
+      "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
+    foolDescr,
+    application:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+    howWork:
+      "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+  },
+  {
+    id: 13,
+    slug: "detox-bottle-with-box-4",
+    img: JSON.stringify([
+      "/detox-bottle-with-box.png",
+      "/detox-long-box.png",
+      "/detox-box.png",
+      "/detox-bottle.png",
+    ]),
+    mobileImg: "/detox-bottle-with-box.png",
+    title: "Wellab Colostrum detox bottle with box 550 ml",
     price: "52$",
     category: "popular",
     vendorCode: "789976433",

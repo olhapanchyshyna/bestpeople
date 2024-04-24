@@ -1,5 +1,5 @@
 import Aside from "@/components/aside";
-import GoodsList from "@/components/goods-list";
+import CatalogListWrapper from "@/components/catalog-list-wrapper";
 import H2 from "@/components/h1";
 import {
   Accordion,
@@ -11,6 +11,7 @@ import { getGoods } from "@/lib/server-utils";
 
 export default async function Page() {
   const { totalCount } = await getGoods("all");
+
   return (
     <div className="container">
       <H2 text="Catalog" className="mb-[30px] mt-[20px] md:mt-[50px]" />
@@ -38,9 +39,7 @@ export default async function Page() {
           <Aside />
         </div>
 
-        <div className="mb-[60px] md:w-[800px]">
-          <GoodsList category="all" />
-        </div>
+        <CatalogListWrapper />
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { tabClasses } from '@mui/material'
 
 type GoodPageProps = {
   params: {
@@ -41,12 +40,10 @@ export default async function GoodPage({ params }: GoodPageProps) {
   const slug = params.slug;
   const good = await getGood(slug);
 
-  console.log(good);
-  
   if (!good) return notFound();
 
   let foolDescrArray;
-  let imgArray 
+  let imgArray;
 
   try {
     foolDescrArray = JSON.parse(good.foolDescr);
@@ -55,11 +52,11 @@ export default async function GoodPage({ params }: GoodPageProps) {
     console.error("Failed to parse JSON:", error);
     // Обработка ошибки (например, установка foolDescrObject в значение по умолчанию)
     foolDescrArray = [];
-    imgArray = []
+    imgArray = [];
   }
 
   return (
-    <section className="container my-[30px] flex flex-col md:my-[50px] px-[15px] md:px-[25px]">
+    <section className="container my-[30px] flex flex-col px-[15px] md:my-[50px] md:px-[25px]">
       <div className="flex flex-col justify-between md:flex-row md:items-center">
         <H2 text={good.title} className="mb-[10px] leading-[35px] md:hidden" />
         <div className="mb-[15px] flex items-center text-[14px] font-bold text-[#666666] md:hidden">
@@ -69,7 +66,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
         <div className="flex min-w-[320px] flex-col items-center justify-between md:mr-[30px] md:flex-row lg:mr-0 lg:min-w-[400px]">
           <PreviewSliderProduct imgArray={imgArray} />
         </div>
-        <div className="md:mr-[30px] flex flex-col md:max-w-[500px] lg:mr-0">
+        <div className="flex flex-col md:mr-[30px] md:max-w-[500px] lg:mr-0">
           <H2
             text={good.title}
             className="hidden leading-[35px] md:flex lg:leading-[45px]"
@@ -166,7 +163,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
         </Accordion>
       </div>
 
-      <Services className='my-[10px]'/>
+      <Services className="my-[10px]" />
     </section>
   );
 }

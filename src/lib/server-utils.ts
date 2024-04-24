@@ -1,15 +1,15 @@
-import { unstable_cache } from "next/cache";
+"use server"
+
 import prisma from "./db";
 
-export const getGoods = unstable_cache(async (category: string, page = 1) => {
+export const getGoods = async (category: string, page = 1) => {
   const goods = await prisma.goods.findMany({
     where: {
       category: category === "all" ? undefined : category,
     },
-    take: 9,
-    skip: (page - 1) * 9,
+    take: 3,
+    skip: (page - 1) * 3,
   });
-  
 
   let totalCount;
   if (category === "all") {
@@ -23,9 +23,9 @@ export const getGoods = unstable_cache(async (category: string, page = 1) => {
   }
 
   return { goods, totalCount };
-});
+};
 
-export const getGood = unstable_cache(async (slug: string) => {
+export const getGood = async (slug: string) => {
   const good = await prisma.goods.findUnique({
     where: {
       slug: slug,
@@ -33,4 +33,4 @@ export const getGood = unstable_cache(async (slug: string) => {
   });
 
   return good;
-});
+};

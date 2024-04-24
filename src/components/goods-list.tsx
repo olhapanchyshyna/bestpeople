@@ -1,3 +1,4 @@
+"use client"
 import {
   Card,
   CardDescription,
@@ -5,23 +6,33 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getGoods } from "@/lib/server-utils";
+import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type GoodsListProps = {
   category: string;
+  page?: number;
 };
 
-export default async function GoodsList({ category }: GoodsListProps) {
-  const { goods } = await getGoods(category);
+export default function GoodsList({ category, page = 1 }: GoodsListProps) {
+  const [isPending, setIsPending] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [goods, setGoods] = useState<Goods[]>([]);
 
-
-  // goods.forEach((good) => {
-  //   if (typeof good.img === "string") {
-  //     const imgArray = JSON.parse(good.img);
-  //     console.log(imgArray); // Вывод массива изображений
-  //   }
-  // });
+  useEffect(() => {
+    getGoods(category, page)
+      .then(({ goods }) => {
+        setIsPending(false);
+        setGoods(goods);
+      })
+      .catch((error) => {
+        console.error("Ошибка загрузки данных", error);
+        setIsPending(false);
+        setIsError(true);
+      });
+  },[category, page]);
 
   function isValidImageUrl(url: string) {
     // Проверяем, начинается ли URL с "/" (относительный путь) или "http://" или "https://"
@@ -35,7 +46,9 @@ export default async function GoodsList({ category }: GoodsListProps) {
 
   return (
     <section className="container flex flex-wrap justify-center p-0 sm:justify-between">
-      {goods.map((good) => {
+      {isPending && <p>Загрузка...</p>}
+      {isError && <p>Произошла ошибка</p>}
+      {!isPending && !isError && goods.map((good) => {
         // Парсинг good.img в массив изображений
         const imgArray = JSON.parse(good.img);
 
