@@ -10,11 +10,12 @@ import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Loading from './loading'
 
 type GoodsListProps = {
   category: string;
   page?: number;
-  setTotalCount: React.Dispatch<React.SetStateAction<number>>;
+  setTotalCount?: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function GoodsList({
@@ -31,6 +32,7 @@ export default function GoodsList({
       .then(({ goods, totalCount }) => {
         setIsPending(false);
         setGoods(goods);
+        if(!setTotalCount) return;
         setTotalCount(totalCount);
       })
       .catch((error) => {
@@ -52,7 +54,7 @@ export default function GoodsList({
 
   return (
     <section className="container flex flex-wrap justify-center p-0 sm:justify-between">
-      {isPending && <p>Загрузка...</p>}
+      {isPending && <Loading className='m-auto h-[300px] w-[300px]'/>}
       {isError && <p>Произошла ошибка</p>}
       {!isPending &&
         !isError &&
