@@ -10,7 +10,7 @@ import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Loading from './loading'
+import Loading from "./loading";
 
 type GoodsListProps = {
   category: string;
@@ -18,11 +18,7 @@ type GoodsListProps = {
   setTotalCount?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export default function GoodsList({
-  category,
-  page = 1,
-  setTotalCount,
-}: GoodsListProps) {
+export default function GoodsList({ category, page = 1, setTotalCount, }: GoodsListProps) {
   const [isPending, setIsPending] = useState(true);
   const [isError, setIsError] = useState(false);
   const [goods, setGoods] = useState<Goods[]>([]);
@@ -32,8 +28,7 @@ export default function GoodsList({
       .then(({ goods, totalCount }) => {
         setIsPending(false);
         setGoods(goods);
-        if(!setTotalCount) return;
-        setTotalCount(totalCount);
+        setTotalCount && setTotalCount(totalCount);
       })
       .catch((error) => {
         console.error("Ошибка загрузки данных", error);
@@ -54,7 +49,7 @@ export default function GoodsList({
 
   return (
     <section className="container flex flex-wrap justify-center p-0 sm:justify-between">
-      {isPending && <Loading className='m-auto h-[300px] w-[300px]'/>}
+      {isPending && <Loading className="m-auto h-[300px] w-[300px]" />}
       {isError && <p>Произошла ошибка</p>}
       {!isPending &&
         !isError &&
