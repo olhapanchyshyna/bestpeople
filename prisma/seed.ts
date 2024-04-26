@@ -184,7 +184,7 @@ const goods = [
     mobileImg: "/detox-long-box.png",
     title: "Wellab Colostrum detox in pils 550 ml",
     price: "52$",
-    category: "popular",
+    category: "anti-aging",
     vendorCode: "0097532",
     brend: "Wellab",
     descr:
@@ -207,7 +207,7 @@ const goods = [
     mobileImg: "/detox-bottle-with-box.png",
     title: "Wellab Colostrum detox bottle with box 550 ml",
     price: "52$",
-    category: "popular",
+    category: "anti-aging",
     vendorCode: "789976433",
     brend: "Wellab",
     descr:
@@ -230,7 +230,7 @@ const goods = [
     mobileImg: "/detox-bottle-with-box.png",
     title: "Wellab Colostrum detox bottle with box 550 ml",
     price: "52$",
-    category: "detox",
+    category: "weight-normalization",
     vendorCode: "789976433",
     brend: "Wellab",
     descr:
@@ -253,7 +253,7 @@ const goods = [
     mobileImg: "/detox-bottle-with-box.png",
     title: "Wellab Colostrum detox bottle with box 550 ml",
     price: "52$",
-    category: "popular",
+    category: "weight-normalization",
     vendorCode: "789976433",
     brend: "Wellab",
     descr:
@@ -276,7 +276,7 @@ const goods = [
     mobileImg: "/detox-bottle-with-box.png",
     title: "Wellab Colostrum detox bottle with box 550 ml",
     price: "52$",
-    category: "detox",
+    category: "healthy-heart",
     vendorCode: "789976433",
     brend: "Wellab",
     descr:
@@ -299,7 +299,7 @@ const goods = [
     mobileImg: "/detox-bottle-with-box.png",
     title: "Wellab Colostrum detox bottle with box 550 ml",
     price: "52$",
-    category: "popular",
+    category: "relax",
     vendorCode: "789976433",
     brend: "Wellab",
     descr:
@@ -322,7 +322,7 @@ const goods = [
     mobileImg: "/coktail-pistachio.png",
     title: "Protein cocktail with pistachio flavor",
     price: "44$",
-    category: "popular",
+    category: "relax",
     vendorCode: "99865432123",
     brend: "Wellab",
     descr:
@@ -345,7 +345,7 @@ const goods = [
     mobileImg: "/coktail-banana.png",
     title: "Protein cocktail  with banana flavor",
     price: "46$",
-    category: "popular",
+    category: "relax",
     vendorCode: "99865432123",
     brend: "Wellab",
     descr:
@@ -368,7 +368,7 @@ const goods = [
     mobileImg: "/coktail-salt-caramel.png",
     title: "Protein cocktail  with salted caramel flavor",
     price: "48$",
-    category: "popular",
+    category: "immunity",
     vendorCode: "99865432123",
     brend: "Wellab",
     descr:
@@ -391,7 +391,7 @@ const goods = [
     mobileImg: "/coktail-strawberry.png",
     title: "Protein cocktail  with strawberry flavor",
     price: "42$",
-    category: "popular",
+    category: "immunity",
     vendorCode: "1245899",
     brend: "Wellab",
     descr:
@@ -414,7 +414,7 @@ const goods = [
     mobileImg: "/coktail-pistachio.png",
     title: "Protein cocktail with pistachio flavor",
     price: "44$",
-    category: "popular",
+    category: "immunity",
     vendorCode: "99865432123",
     brend: "Wellab",
     descr:
@@ -437,7 +437,7 @@ const goods = [
     mobileImg: "/coktail-banana.png",
     title: "Protein cocktail  with banana flavor",
     price: "46$",
-    category: "popular",
+    category: "immunity",
     vendorCode: "99865432123",
     brend: "Wellab",
     descr:
@@ -460,7 +460,7 @@ const goods = [
     mobileImg: "/coktail-salt-caramel.png",
     title: "Protein cocktail  with salted caramel flavor",
     price: "48$",
-    category: "popular",
+    category: "immunity",
     vendorCode: "99865432123",
     brend: "Wellab",
     descr:
@@ -483,7 +483,7 @@ const goods = [
     mobileImg: "/coktail-strawberry.png",
     title: "Protein cocktail  with strawberry flavor",
     price: "42$",
-    category: "popular",
+    category: "immunity",
     vendorCode: "1245899",
     brend: "Wellab",
     descr:

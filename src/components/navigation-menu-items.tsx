@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
-import Phone from "./phone";
 import { Button } from "./ui/button";
 
 type MenuItem = {
@@ -19,6 +18,7 @@ type MenuItem = {
 };
 
 const catalogItems: MenuItem[] = [
+  { name: "All goods", src: "/catalog" },
   { name: "Detox", src: "/catalog" },
   { name: "Anti-aging", src: "/catalog" },
   { name: "Weight normalization", src: "/catalog" },
@@ -31,7 +31,6 @@ const catalogItems: MenuItem[] = [
 const navItems: MenuItem[] = [
   { name: "Catalog", src: "/catalog" },
   { name: "About company", src: "/about-company" },
-  // { name: "Contacts", src: "/contacts" },
 ];
 
 export default function NavigationMenuItems() {

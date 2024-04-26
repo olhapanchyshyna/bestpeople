@@ -22,9 +22,6 @@ export default async function Page({ searchParams }: PageProps) {
   return (
     <div className="container">
       <H2 text="Catalog" className="mb-[30px] mt-[20px] md:mt-[50px]" />
-      <div className="mr-[20px] hidden items-end justify-end md:flex">
-        <span className="mr-[5px] font-bold">{totalCount}</span> goods
-      </div>
       <Accordion
         type="multiple"
         className="mr-[20px]  block w-[100%] items-center md:hidden"

@@ -22,6 +22,10 @@ export const getGoods = async (category: string, page = 1) => {
     });
   }
 
+  // if(goods.length === 0) {
+  //   console.log("No goods found");
+  // }
+  
   return { goods, totalCount };
 };
 

@@ -18,6 +18,7 @@ type PaginationControlProps = {
   totalCount: number;
   prevPath: string;
   nextPath: string;
+  search: string;
 };
 
 export default function PaginationControl({
@@ -26,6 +27,7 @@ export default function PaginationControl({
   currentPage,
   setCurrentPage,
   totalCount,
+  search
 }: PaginationControlProps) {
   const totalPages = Math.ceil(totalCount / 3);
 
@@ -81,26 +83,6 @@ export default function PaginationControl({
               })}
             />
           </PaginationItem>
-          {/* 
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem> */}
-
-          {/* {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <PaginationItem key={page}>
-              <PaginationLink
-                href={`/catalog?page=${page}`}
-                isActive={currentPage === page}
-                className={cn(
-                  "rounded-[50%] p-[7px] text-[#666666]",
-                  currentPage === page &&
-                    "green-bg rounded-[50%] p-[7px] text-white",
-                )}
-              >
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          ))} */}
 
           {/* Рендеринг номеров страниц */}
           {renderPageNumbers().map((item, index) => {
@@ -114,7 +96,7 @@ export default function PaginationControl({
               return (
                 <PaginationItem key={item}>
                   <PaginationLink
-                    href={`/catalog?page=${item}`}
+                    href={`/catalog?category=${search}&page=${item}`}
                     isActive={currentPage === item}
                     className={cn(
                       "rounded-[50%] p-[7px] text-[#666666]",
