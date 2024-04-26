@@ -27,7 +27,7 @@ export default function PaginationControl({
   currentPage,
   setCurrentPage,
   totalCount,
-  search
+  search,
 }: PaginationControlProps) {
   const totalPages = Math.ceil(totalCount / 3);
 
@@ -68,68 +68,68 @@ export default function PaginationControl({
 
   return (
     <section className="m-auto mb-[50px] flex w-[300px] justify-between">
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              href={currentPage > 1 ? prevPath : undefined}
-              onClick={() => {
-                if (currentPage > 1) {
-                  setCurrentPage((prev) => prev - 1);
-                }
-              }}
-              className={cn(buttonClass, {
-                "bg-[#F2F2F2] opacity-50": currentPage === 1,
-              })}
-            />
-          </PaginationItem>
+      {totalCount === 0 ? (
+        <div className='h-[40px]'></div>
+      ) : (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href={currentPage > 1 ? prevPath : undefined}
+                onClick={() => {
+                  if (currentPage > 1) {
+                    setCurrentPage((prev) => prev - 1);
+                  }
+                }}
+                className={cn(buttonClass, {
+                  "bg-[#F2F2F2] opacity-50": currentPage === 1,
+                })}
+              />
+            </PaginationItem>
 
-          {/* Рендеринг номеров страниц */}
-          {renderPageNumbers().map((item, index) => {
-            if (item === "ellipsis") {
-              return (
-                <PaginationItem key={index}>
-                  <PaginationEllipsis />
-                </PaginationItem>
-              );
-            } else {
-              return (
-                <PaginationItem key={item}>
-                  <PaginationLink
-                    href={`/catalog?category=${search}&page=${item}`}
-                    isActive={currentPage === item}
-                    className={cn(
-                      "rounded-[50%] p-[7px] text-[#666666]",
-                      currentPage === item &&
-                        "green-bg rounded-[50%] p-[7px] text-white",
-                    )}
-                  >
-                    {item}
-                  </PaginationLink>
-                </PaginationItem>
-              );
-            }
-          })}
+            {/* Рендеринг номеров страниц */}
+            {renderPageNumbers().map((item, index) => {
+              if (item === "ellipsis") {
+                return (
+                  <PaginationItem key={index}>
+                    <PaginationEllipsis />
+                  </PaginationItem>
+                );
+              } else {
+                return (
+                  <PaginationItem key={item}>
+                    <PaginationLink
+                      href={`/catalog?category=${search}&page=${item}`}
+                      isActive={currentPage === item}
+                      className={cn(
+                        "rounded-[50%] p-[7px] text-[#666666]",
+                        currentPage === item &&
+                          "green-bg rounded-[50%] p-[7px] text-white",
+                      )}
+                    >
+                      {item}
+                    </PaginationLink>
+                  </PaginationItem>
+                );
+              }
+            })}
 
-          {/* <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem> */}
-
-          <PaginationItem>
-            <PaginationNext
-              href={currentPage < totalPages ? nextPath : undefined}
-              onClick={() => {
-                if (currentPage < totalPages) {
-                  setCurrentPage((prev) => prev + 1);
-                }
-              }}
-              className={cn(buttonClass, {
-                "bg-[#F2F2F2] opacity-50": currentPage === totalPages,
-              })}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+            <PaginationItem>
+              <PaginationNext
+                href={currentPage < totalPages ? nextPath : undefined}
+                onClick={() => {
+                  if (currentPage < totalPages) {
+                    setCurrentPage((prev) => prev + 1);
+                  }
+                }}
+                className={cn(buttonClass, {
+                  "bg-[#F2F2F2] opacity-50": currentPage === totalPages,
+                })}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </section>
   );
 }
