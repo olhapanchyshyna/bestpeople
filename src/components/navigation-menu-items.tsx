@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 import { Button } from "./ui/button";
 
 type MenuItem = {
@@ -17,15 +19,23 @@ type MenuItem = {
   src: string;
 };
 
-const catalogItems: MenuItem[] = [
-  { name: "All goods", src: "/catalog" },
-  { name: "Detox", src: "/catalog" },
-  { name: "Anti-aging", src: "/catalog" },
-  { name: "Weight normalization", src: "/catalog" },
-  { name: "Healthy heart", src: "/catalog" },
-  { name: "Relax", src: "/catalog" },
-  { name: "Immunity", src: "/catalog" },
-  { name: "Beauty", src: "/catalog" },
+type CatalogMenuItems = MenuItem & {
+  option: string;
+};
+
+const catalogItems: CatalogMenuItems[] = [
+  { name: "All goods", src: "/catalog", option: "all" },
+  { name: "Detox", src: "/catalog", option: "detox" },
+  { name: "Anti-aging", src: "/catalog", option: "anti-aging" },
+  {
+    name: "Weight normalization",
+    src: "/catalog",
+    option: "weight-normalization",
+  },
+  { name: "Healthy heart", src: "/catalog", option: "healthy-heart" },
+  { name: "Relax", src: "/catalog", option: "relax" },
+  { name: "Immunity", src: "/catalog", option: "immunity" },
+  { name: "Beauty", src: "/catalog", option: "beauty" },
 ];
 
 const navItems: MenuItem[] = [
@@ -34,6 +44,10 @@ const navItems: MenuItem[] = [
 ];
 
 export default function NavigationMenuItems() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const renderMenuItems = (items: MenuItem[]) => {
     return items.map((item) => (
       <NavigationMenuItem key={item.name} className="my-[5px]">
@@ -41,6 +55,22 @@ export default function NavigationMenuItems() {
       </NavigationMenuItem>
     ));
   };
+
+  const handleClick = useCallback(
+    (itemOption: string) => {
+      // Создаем новый экземпляр URLSearchParams и устанавливаем параметры category и page
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("category", itemOption);
+      params.set("page", "1");
+
+      // Преобразуем параметры в строку запроса и используем router.push один раз
+      const queryString = params.toString();
+      router.push(`${pathname}?${queryString}`);
+
+      // Устанавливаем новое значение activeOption
+    },
+    [pathname, searchParams, router],
+  );
 
   return (
     <>
@@ -52,7 +82,13 @@ export default function NavigationMenuItems() {
               Catalog
             </NavigationMenuTrigger>
             <NavigationMenuContent className="flex !w-[200px] list-none flex-col py-[20px] text-center">
-              {renderMenuItems(catalogItems)}
+              {catalogItems.map((item) => (
+                <NavigationMenuItem key={item.name} className="my-[5px]">
+                  <NavigationMenuLink href={`/catalog?category=${item.option}`}>
+                    {item.name}
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              ))}
             </NavigationMenuContent>
           </NavigationMenuItem>
           {/* About company */}
@@ -83,7 +119,15 @@ export default function NavigationMenuItems() {
                     Catalog
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="m-auto flex !w-[200px] list-none flex-col py-[20px] text-center">
-                    {renderMenuItems(catalogItems)}
+                    {catalogItems.map((item) => (
+                      <NavigationMenuItem key={item.name} className="my-[5px]">
+                        <NavigationMenuLink
+                          href={`/catalog?category=${item.option}`}
+                        >
+                          {item.name}
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    ))}
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
