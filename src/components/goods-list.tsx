@@ -9,33 +9,40 @@ import { getGoods } from "@/lib/server-utils";
 import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import Loading from "./loading";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { SkeletonCard } from "./skeleton-card";
 
 type GoodsListProps = {
   category: string;
   page?: number;
-  setTotalCount?: React.Dispatch<React.SetStateAction<number>>;
+  isPending?: boolean;
+  setTotalCount?: Dispatch<SetStateAction<number>>;
+  setIsPending?: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function GoodsList({ category, page = 1, setTotalCount, }: GoodsListProps) {
-  const [isPending, setIsPending] = useState(true);
+export default function GoodsList({
+  category,
+  page = 1,
+  isPending,
+  setTotalCount,
+  setIsPending,
+}: GoodsListProps) {
   const [isError, setIsError] = useState(false);
   const [goods, setGoods] = useState<Goods[]>([]);
 
   useEffect(() => {
     getGoods(category, +page)
       .then(({ goods, totalCount }) => {
-        setIsPending(false);
+        setIsPending && setIsPending(false);
         setGoods(goods);
         setTotalCount && setTotalCount(totalCount);
       })
       .catch((error) => {
         console.error("Ошибка загрузки данных", error);
-        setIsPending(false);
+        setIsPending && setIsPending(false);
         setIsError(true);
       });
-  }, [category, page, setTotalCount]);
+  }, [category, page, setTotalCount, setIsPending]);
 
   function isValidImageUrl(url: string) {
     // Проверяем, начинается ли URL с "/" (относительный путь) или "http://" или "https://"
@@ -49,7 +56,7 @@ export default function GoodsList({ category, page = 1, setTotalCount, }: GoodsL
 
   return (
     <section className="container flex flex-wrap justify-center p-0 sm:justify-between">
-      {isPending && <Loading className="m-auto h-[300px] w-[300px]" />}
+      {isPending && <SkeletonCard />}
       {isError && <p>Произошла ошибка</p>}
       {!isPending &&
         !isError &&
