@@ -35,7 +35,6 @@ export default function GoodsList({
       .then(({ goods, totalCount }) => {
         setIsPending && setIsPending(false);
         setGoods(goods);
-        console.log("goods", goods.length);
         setTotalCount && setTotalCount(totalCount);
       })
       .catch((error) => {

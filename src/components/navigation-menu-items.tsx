@@ -10,8 +10,6 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
 import { Button } from "./ui/button";
 
 type MenuItem = {
@@ -44,10 +42,6 @@ const navItems: MenuItem[] = [
 ];
 
 export default function NavigationMenuItems() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   const renderMenuItems = (items: MenuItem[]) => {
     return items.map((item) => (
       <NavigationMenuItem key={item.name} className="my-[5px]">
@@ -55,22 +49,6 @@ export default function NavigationMenuItems() {
       </NavigationMenuItem>
     ));
   };
-
-  const handleClick = useCallback(
-    (itemOption: string) => {
-      // Создаем новый экземпляр URLSearchParams и устанавливаем параметры category и page
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("category", itemOption);
-      params.set("page", "1");
-
-      // Преобразуем параметры в строку запроса и используем router.push один раз
-      const queryString = params.toString();
-      router.push(`${pathname}?${queryString}`);
-
-      // Устанавливаем новое значение activeOption
-    },
-    [pathname, searchParams, router],
-  );
 
   return (
     <>

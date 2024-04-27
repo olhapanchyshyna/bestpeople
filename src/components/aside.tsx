@@ -8,9 +8,10 @@ import {
 } from "@/components/ui/accordion";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useCustomHook } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ButtonCustom from "./button";
 import SliderDistance from "./slider-distance";
 
@@ -34,40 +35,15 @@ const popularCategory = [
 
 export default function Aside() {
   const [activeOption, setActiveOption] = useState<string | null>(null);
-  const router = useRouter();
-  const pathname = usePathname();
+  const [activeButton, setActiveButton] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
-  // const createQueryString = useCallback(
-  //   (name: string, value: string) => {
-  //     const params = new URLSearchParams(searchParams.toString());
-  //     params.set(name, value);
-
-  //     return params.toString();
-  //   },
-  //   [searchParams],
-  // );
-
-  const handleClick = useCallback(
-    (itemOption: string) => {
-      // Создаем новый экземпляр URLSearchParams и устанавливаем параметры category и page
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("category", itemOption);
-      params.set("page", "1");
-
-      // Преобразуем параметры в строку запроса и используем router.push один раз
-      const queryString = params.toString();
-      router.push(`${pathname}?${queryString}`);
-
-      // Устанавливаем новое значение activeOption
-      setActiveOption(itemOption);
-    },
-    [pathname, searchParams, setActiveOption, router],
-  );
+  const handleClick = useCustomHook();
 
   useEffect(() => {
     const category = searchParams.get("category");
     setActiveOption(category);
+    setActiveButton(category);
   }, [searchParams]);
 
   return (
@@ -121,10 +97,19 @@ export default function Aside() {
           <AccordionContent>
             {popularCategory.map((item) => (
               <ButtonCustom
+                onClick={() => {
+                  handleClick(item.option);
+                  setActiveButton(item.option);
+                }}
                 key={item.name}
                 text={item.name}
                 href=""
-                className="light-bg m-[5px] px-[16px] py-[6px] text-[#1A1A1A] hover:bg-[#B3DB11] hover:text-white"
+                className={cn(
+                  "light-bg m-[5px] px-[16px] py-[6px] text-[#1A1A1A] hover:bg-[#B3DB11] hover:text-white",
+                  activeButton === item.option
+                    ? "!bg-[#B3DB11] text-white"
+                    : "",
+                )}
               />
             ))}
           </AccordionContent>
