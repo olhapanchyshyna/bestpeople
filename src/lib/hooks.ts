@@ -9,7 +9,7 @@ export function useCustomHook() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const handleClick = useCallback(
+    const handleTakeCategory = useCallback(
         (itemOption: string) => {
             const params = new URLSearchParams(searchParams.toString());
             params.set("category", itemOption);
@@ -21,5 +21,18 @@ export function useCustomHook() {
         [pathname, searchParams, router],
     );
 
-    return handleClick;
+    const handleTakePrise = useCallback(
+        (min: string, max: string ) => {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("min", min);
+            params.set("max", max);
+            params.set("page", "1");
+
+            const queryString = params.toString();
+            router.push(`${pathname}?${queryString}`);
+        },
+        [pathname, searchParams, router],
+    );
+
+    return {handleTakeCategory, handleTakePrise};
 }

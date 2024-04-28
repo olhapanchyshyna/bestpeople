@@ -38,7 +38,7 @@ export default function Aside() {
   const [activeButton, setActiveButton] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
-  const handleClick = useCustomHook();
+  const {handleTakeCategory} = useCustomHook();
 
   useEffect(() => {
     const category = searchParams.get("category");
@@ -59,7 +59,7 @@ export default function Aside() {
                 <div key={item.name} className="flex items-center space-x-2">
                   <RadioGroupItem
                     checked={activeOption === item.option}
-                    onClick={() => handleClick(item.option)}
+                    onClick={() => handleTakeCategory(item.option)}
                     value={item.option}
                     id={item.option}
                     className={cn(
@@ -98,14 +98,14 @@ export default function Aside() {
             {popularCategory.map((item) => (
               <ButtonCustom
                 onClick={() => {
-                  handleClick(item.option);
+                  handleTakeCategory(item.option);
                   setActiveButton(item.option);
                 }}
                 key={item.name}
                 text={item.name}
                 href=""
                 className={cn(
-                  "light-bg m-[5px] px-[16px] py-[6px] text-[#1A1A1A] hover:bg-[#B3DB11] hover:text-white",
+                  "light-bg m-[5px] px-[16px] py-[6px] text-[#1A1A1A] ",
                   activeButton === item.option
                     ? "!bg-[#B3DB11] text-white"
                     : "",

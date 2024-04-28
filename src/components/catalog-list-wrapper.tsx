@@ -14,6 +14,8 @@ type CatalogListWrapperProps = {
 export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
   const searchParams = useSearchParams();
   const search = searchParams.get("category") || "all";
+  const minPrice = searchParams.get("min") || "";
+  const maxPrice = searchParams.get("max") || "";
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState(0);
@@ -30,6 +32,8 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
 
       <div className="mb-[60px] md:w-[800px]">
         <GoodsList
+          minPrice={minPrice}
+          maxPrice={maxPrice}
           category={search}
           page={page}
           setTotalCount={setTotalCount}

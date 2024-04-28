@@ -18,6 +18,8 @@ type GoodsListProps = {
   isPending?: boolean;
   setTotalCount?: Dispatch<SetStateAction<number>>;
   setIsPending?: Dispatch<SetStateAction<boolean>>;
+  minPrice?: string;
+  maxPrice?: string;
 };
 
 export default function GoodsList({
@@ -26,12 +28,15 @@ export default function GoodsList({
   isPending,
   setTotalCount,
   setIsPending,
+  minPrice = "",
+  maxPrice = "",
 }: GoodsListProps) {
+  console.log('minPrice', minPrice)
   const [isError, setIsError] = useState(false);
   const [goods, setGoods] = useState<Goods[]>([]);
 
   useEffect(() => {
-    getGoods(category, +page)
+    getGoods(category, +page, minPrice, maxPrice)
       .then(({ goods, totalCount }) => {
         setIsPending && setIsPending(false);
         setGoods(goods);
@@ -42,7 +47,7 @@ export default function GoodsList({
         setIsPending && setIsPending(false);
         setIsError(true);
       });
-  }, [category, page, setTotalCount, setIsPending]);
+  }, [category, page, setTotalCount, setIsPending, minPrice, maxPrice]);
 
   function isValidImageUrl(url: string) {
     // Проверяем, начинается ли URL с "/" (относительный путь) или "http://" или "https://"

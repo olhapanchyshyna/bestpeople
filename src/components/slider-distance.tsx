@@ -1,8 +1,10 @@
 "use client";
 
+import { useCustomHook } from "@/lib/hooks";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
 import React from "react";
+import ButtonCustom from "./button";
 
 const StyledSlider = styled(Slider)(({ theme }) => ({
   width: "90%",
@@ -37,6 +39,7 @@ const minDistance = 10;
 
 export default function SliderDistance() {
   const [value1, setValue1] = React.useState<number[]>([25, 100]);
+  const { handleTakePrise } = useCustomHook();
 
   const handleChange1 = (
     event: Event,
@@ -71,7 +74,7 @@ export default function SliderDistance() {
   return (
     <>
       <StyledSlider
-        min={0} 
+        min={0}
         max={140}
         getAriaLabel={() => "Minimum distance"}
         value={value1}
@@ -79,9 +82,18 @@ export default function SliderDistance() {
         valueLabelDisplay="off"
         getAriaValueText={valuetext}
         disableSwap
-        className=""
       />
-      <div>{formatValues(value1)}</div>
+      <div className="mt-[10px] flex items-center justify-between">
+        <div>{formatValues(value1)}</div>
+        <ButtonCustom
+          onClick={() => {
+            handleTakePrise(String(value1[0]), String(value1[1]));
+          }}
+          text="Ok"
+          href=""
+          className="h-[30px] px-[10px] py-[5px]"
+        />
+      </div>
     </>
   );
 }
