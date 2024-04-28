@@ -22,9 +22,13 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
   const [isPending, setIsPending] = useState(true);
 
   const prevPath =
-    page > 1 ? `/catalog?category=${search}&page=${page - 1}` : "";
+    page > 1
+      ? `/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&page=${page - 1}`
+      : "";
   const nextPath =
-    totalCount > 3 * page ? `/catalog?category=${search}&page=${page + 1}` : "";
+    totalCount > 3 * page
+      ? `/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&page=${page + 1}`
+      : "";
 
   return (
     <div>
@@ -46,6 +50,8 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
         <SkeletonPagination />
       ) : (
         <PaginationControl
+          minPrice={minPrice}
+          maxPrice={maxPrice}
           prevPath={prevPath}
           nextPath={nextPath}
           currentPage={page}

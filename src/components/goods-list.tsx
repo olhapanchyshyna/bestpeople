@@ -31,7 +31,6 @@ export default function GoodsList({
   minPrice = "",
   maxPrice = "",
 }: GoodsListProps) {
-  console.log('minPrice', minPrice)
   const [isError, setIsError] = useState(false);
   const [goods, setGoods] = useState<Goods[]>([]);
 
@@ -62,13 +61,13 @@ export default function GoodsList({
   return (
     <section className="container flex flex-wrap justify-center p-0 sm:justify-between">
       {isPending && <SkeletonCard />}
-      {isError && <p>Произошла ошибка</p>}
+      {isError && <p>Error</p>}
       {goods.length === 0 && !isPending && !isError && (
         <div className="m-[5px] flex flex-col h-[350px] !w-[800px] px-[10px] pb-[20px] text-center justify-evenly pt-[10px] border-none text-[22px]">
           <Image src='/product-not-found.png' alt='product-not-found' width={150} height={150} className=' my-0 m-auto'/>
-          <div>Products not found, 
+          <div>Products not found.
           <br/>
-          please select another category</div>
+          Please select another filter</div>
           
         </div>
       )}

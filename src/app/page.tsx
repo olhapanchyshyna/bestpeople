@@ -24,7 +24,7 @@ export default function page() {
         </picture>
       </section>
       <CategorySlider />
-      {/* <PopularGoods /> */}
+      <PopularGoods />
       <Advantages />
       <Benefits />
     </main>

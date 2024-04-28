@@ -3,7 +3,8 @@
 import { useCustomHook } from "@/lib/hooks";
 import Slider from "@mui/material/Slider";
 import { styled } from "@mui/material/styles";
-import React from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect } from "react";
 import ButtonCustom from "./button";
 
 const StyledSlider = styled(Slider)(({ theme }) => ({
@@ -38,8 +39,17 @@ function valuetext(value: number) {
 const minDistance = 10;
 
 export default function SliderDistance() {
-  const [value1, setValue1] = React.useState<number[]>([25, 100]);
+
+  const searchParams = useSearchParams();
+  const [value1, setValue1] = React.useState<number[]>([4, 140]);
   const { handleTakePrise } = useCustomHook();
+
+  useEffect(() => {
+    setValue1([
+      searchParams.get("min") ? Number(searchParams.get("min")) : 4,
+      searchParams.get("max") ? Number(searchParams.get("max")) : 140,
+    ]);
+  }, [searchParams]);
 
   const handleChange1 = (
     event: Event,

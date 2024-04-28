@@ -52,17 +52,33 @@ export const getGoods = async (
   }
 
   let totalCount;
-  if (category === "all") {
+  if (category === "all" && minPrice === "" && maxPrice === "") {
     totalCount = await prisma.goods.count();
-  } else {
+  } else if (minPrice === "" && maxPrice === "") {
     totalCount = await prisma.goods.count({
       where: {
         category: category,
       },
     });
+  } else if (category === "all") {
+    totalCount = await prisma.goods.count({
+      where: {
+        id: {
+          in: numericIds,
+        },
+      },
+    });
+  } else {
+    totalCount = await prisma.goods.count({
+      where: {
+        category: category,
+        id: {
+          in: numericIds,
+        },
+      },
+    });
   }
 
-  console.log("Returned goods:", goods);
   return { goods, totalCount };
 };
 

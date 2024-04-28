@@ -19,6 +19,8 @@ type PaginationControlProps = {
   prevPath: string;
   nextPath: string;
   search: string;
+  minPrice: string;
+  maxPrice: string;
 };
 
 export default function PaginationControl({
@@ -28,6 +30,8 @@ export default function PaginationControl({
   setCurrentPage,
   totalCount,
   search,
+  minPrice,
+  maxPrice,
 }: PaginationControlProps) {
   const totalPages = Math.ceil(totalCount / 3);
 
@@ -99,7 +103,7 @@ export default function PaginationControl({
                 return (
                   <PaginationItem key={item}>
                     <PaginationLink
-                      href={`/catalog?category=${search}&page=${item}`}
+                      href={`/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&page=${item}`}
                       isActive={currentPage === item}
                       className={cn(
                         "rounded-[50%] p-[7px] text-[#666666]",
