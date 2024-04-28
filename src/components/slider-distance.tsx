@@ -39,7 +39,6 @@ function valuetext(value: number) {
 const minDistance = 10;
 
 export default function SliderDistance() {
-
   const searchParams = useSearchParams();
   const [value1, setValue1] = React.useState<number[]>([4, 140]);
   const { handleTakePrise } = useCustomHook();

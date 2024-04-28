@@ -5,7 +5,10 @@ import { useState } from "react";
 import GoodsList from "./goods-list";
 import PaginationControl from "./pagination-control";
 import SkeletonPagination from "./skeleton-pagination";
+
 import TotalCountProducts from "./total-count-products";
+import SortCombobox from './sort-combobox'
+
 
 type CatalogListWrapperProps = {
   page: number;
@@ -32,7 +35,10 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
 
   return (
     <div>
-      <TotalCountProducts totalCount={totalCount} />
+      <div className="mx-[20px] flex justify-between mb-[20px]">
+        <SortCombobox />
+        <TotalCountProducts totalCount={totalCount} />
+      </div>
 
       <div className="mb-[60px] md:w-[800px]">
         <GoodsList
