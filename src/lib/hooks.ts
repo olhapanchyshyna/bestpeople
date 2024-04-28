@@ -1,6 +1,5 @@
 "use client"
 
-// useCustomHook.js
 import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -34,5 +33,18 @@ export function useCustomHook() {
         [pathname, searchParams, router],
     );
 
-    return {handleTakeCategory, handleTakePrise};
+    const handleTakeSort = useCallback(
+        (itemOption: string ) => {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("sort", itemOption);
+            params.set("page", "1");
+
+            const queryString = params.toString();
+            router.push(`${pathname}?${queryString}`);
+        },
+        [pathname, searchParams, router],
+    );
+
+    return {handleTakeCategory, handleTakePrise, handleTakeSort};
 }
+

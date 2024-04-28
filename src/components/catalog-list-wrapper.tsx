@@ -5,10 +5,8 @@ import { useState } from "react";
 import GoodsList from "./goods-list";
 import PaginationControl from "./pagination-control";
 import SkeletonPagination from "./skeleton-pagination";
-
+import SortCombobox from "./sort-combobox";
 import TotalCountProducts from "./total-count-products";
-import SortCombobox from './sort-combobox'
-
 
 type CatalogListWrapperProps = {
   page: number;
@@ -19,6 +17,7 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
   const search = searchParams.get("category") || "all";
   const minPrice = searchParams.get("min") || "";
   const maxPrice = searchParams.get("max") || "";
+  const sort = searchParams.get("sort") || "fromcheap";
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState(0);
@@ -26,22 +25,23 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
 
   const prevPath =
     page > 1
-      ? `/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&page=${page - 1}`
+      ? `/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&sort=${sort}&page=${page - 1}`
       : "";
   const nextPath =
     totalCount > 3 * page
-      ? `/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&page=${page + 1}`
+      ? `/catalog?category=${search}&min=${minPrice}&max=${maxPrice}&sort=${sort}&page=${page + 1}`
       : "";
 
   return (
     <div>
-      <div className="mx-[20px] flex justify-between mb-[20px]">
+      <div className="mx-[20px] mb-[20px] flex justify-between">
         <SortCombobox />
         <TotalCountProducts totalCount={totalCount} />
       </div>
 
       <div className="mb-[60px] md:w-[800px]">
         <GoodsList
+          sort={sort}
           minPrice={minPrice}
           maxPrice={maxPrice}
           category={search}
@@ -56,6 +56,7 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
         <SkeletonPagination />
       ) : (
         <PaginationControl
+          sort={sort}
           minPrice={minPrice}
           maxPrice={maxPrice}
           prevPath={prevPath}

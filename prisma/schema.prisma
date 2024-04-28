@@ -13,7 +13,7 @@ model Goods {
   img String
   mobileImg String
   title String
-  price String
+  price Int
   category String
   descr String
   vendorCode String

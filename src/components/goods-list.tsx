@@ -20,6 +20,7 @@ type GoodsListProps = {
   setIsPending?: Dispatch<SetStateAction<boolean>>;
   minPrice?: string;
   maxPrice?: string;
+  sort?: string;
 };
 
 export default function GoodsList({
@@ -30,12 +31,13 @@ export default function GoodsList({
   setIsPending,
   minPrice = "",
   maxPrice = "",
+  sort = "fromcheap",
 }: GoodsListProps) {
   const [isError, setIsError] = useState(false);
   const [goods, setGoods] = useState<Goods[]>([]);
 
   useEffect(() => {
-    getGoods(category, +page, minPrice, maxPrice)
+    getGoods(category, +page, minPrice, maxPrice, sort)
       .then(({ goods, totalCount }) => {
         setIsPending && setIsPending(false);
         setGoods(goods);
@@ -46,7 +48,7 @@ export default function GoodsList({
         setIsPending && setIsPending(false);
         setIsError(true);
       });
-  }, [category, page, setTotalCount, setIsPending, minPrice, maxPrice]);
+  }, [category, page, setTotalCount, setIsPending, minPrice, maxPrice, sort]);
 
   function isValidImageUrl(url: string) {
     // Проверяем, начинается ли URL с "/" (относительный путь) или "http://" или "https://"
@@ -111,7 +113,7 @@ export default function GoodsList({
                       {good.title}
                     </CardTitle>
                     <CardDescription className="dark-green text-[16px] font-bold">
-                      {good.price}
+                      {good.price}$
                     </CardDescription>
                   </div>
                   <button className="btn btn-green">

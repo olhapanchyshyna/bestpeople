@@ -14,6 +14,8 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ButtonCustom from "./button";
 import SliderDistance from "./slider-distance";
+import { Button } from './ui/button'
+import Link from 'next/link'
 
 const allCategory = [
   { name: "All goods", option: "all" },
@@ -48,6 +50,7 @@ export default function Aside() {
 
   return (
     <aside className="sticky top-2 mb-[40px] flex w-[100%] flex-col bg-[#f7fbe7] px-[10px] md:w-[240px] md:bg-transparent">
+      <Button className='bg-[#FCA600] hover:bg-[#d95145] w-[60%]'> <Link href='/catalog?category=all'>Reset Filters</Link></Button>
       <Accordion type="multiple" defaultValue={["item-1"]}>
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-[20px] no-underline">

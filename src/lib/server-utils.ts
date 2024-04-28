@@ -2,82 +2,52 @@
 
 import prisma from "./db";
 
+type GoodsWhere = {
+  category?: string;
+  price?: {
+    gte?: number;
+    lte?: number;
+  };
+};
+
 export const getGoods = async (
   category: string,
   page = 1,
   minPrice = "",
   maxPrice = "",
+  sort = "cheap"
 ) => {
-  function isNumberInRange(number: number, min: number, max: number) {
-    return number >= min && number <= max;
+  // Преобразуем минимальную и максимальную цену в числа
+  const minPriceNumber = minPrice ? parseFloat(minPrice) : undefined;
+  const maxPriceNumber = maxPrice ? parseFloat(maxPrice) : undefined;
+
+  // Создаем объект where для запроса
+  const where: GoodsWhere = {
+    category: category === "all" ? undefined : category,
+    price: {
+      ...(minPriceNumber !== undefined ? { gte: minPriceNumber } : {}),
+      ...(maxPriceNumber !== undefined ? { lte: maxPriceNumber } : {}),
+    },
+  };
+
+  // Если нет ограничений по цене, удаляем условие по цене
+  if (Object.keys(where.price ?? {}).length === 0) {
+    delete where.price;
   }
 
-  const categoryGoods = await prisma.goods.findMany({
-    where: {
-      category: category === "all" ? undefined : category,
+  // Выполняем запрос с сортировкой по цене
+  const goods = await prisma.goods.findMany({
+    where,
+    orderBy: {
+      price: sort === "expensive" ? "desc" : "asc"
+    
     },
+    take: 3,
+    skip: (page - 1) * 3,
   });
 
-  const numericIds: number[] = [];
-  for (const item of categoryGoods) {
-    const price = parseFloat(item.price.replace("$", ""));
-    const result = isNumberInRange(
-      price,
-      parseFloat(minPrice),
-      parseFloat(maxPrice),
-    );
-    result && numericIds.push(item.id);
-  }
-
-  let goods;
-
-  if (minPrice === "" && maxPrice === "") {
-    goods = await prisma.goods.findMany({
-      where: {
-        category: category === "all" ? undefined : category,
-      },
-      take: 3,
-      skip: (page - 1) * 3,
-    });
-  } else {
-    goods = await prisma.goods.findMany({
-      where: {
-        id: {
-          in: numericIds,
-        },
-      },
-      take: 3,
-      skip: (page - 1) * 3,
-    });
-  }
-
-  let totalCount;
-  if (category === "all" && minPrice === "" && maxPrice === "") {
-    totalCount = await prisma.goods.count();
-  } else if (minPrice === "" && maxPrice === "") {
-    totalCount = await prisma.goods.count({
-      where: {
-        category: category,
-      },
-    });
-  } else if (category === "all") {
-    totalCount = await prisma.goods.count({
-      where: {
-        id: {
-          in: numericIds,
-        },
-      },
-    });
-  } else {
-    totalCount = await prisma.goods.count({
-      where: {
-        category: category,
-        id: {
-          in: numericIds,
-        },
-      },
-    });
-  }
+  // Подсчитываем общее количество товаров, удовлетворяющих условиям
+  const totalCount = await prisma.goods.count({ where });
 
   return { goods, totalCount };
 };
@@ -85,7 +55,7 @@ export const getGoods = async (
 export const getGood = async (slug: string) => {
   const good = await prisma.goods.findUnique({
     where: {
-      slug: slug,
+      slug,
     },
   });
 
