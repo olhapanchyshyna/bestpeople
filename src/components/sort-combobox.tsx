@@ -42,10 +42,10 @@ export default function SortCombobox() {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center justify-between">
       <div className="mr-[10px] text-[14px] text-[#808080]">Sort By</div>
       <Select onValueChange={handleValueChange}>
-        <SelectTrigger className="w-[210px]">
+        <SelectTrigger className="w-[190px] sm:w-[210px]">
           <SelectValue placeholder={sort} className="text-left" />
         </SelectTrigger>
         <SelectContent>

@@ -75,7 +75,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
             <span className="mr-[5px] text-[16px] text-[#333333]">SKU:</span>{" "}
             {good.vendorCode}
           </div>
-          <div className="dark-green mt-[15px] text-[32px]">{good.price}</div>
+          <div className="dark-green mt-[15px] text-[32px]">{good.price}$</div>
           <Separator className="my-[20px] bg-[#d1d4d6]" />
 
           <div className="hidden items-center text-[14px] md:flex">

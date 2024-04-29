@@ -12,15 +12,6 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-// const img = [
-//   { id: 0, img: "/coktail-banana.png" },
-//   { id: 1, img: "/coktail-pistachio.png" },
-//   { id: 2, img: "/coktail-salt-caramel.png" },
-//   { id: 3, img: "/coktail-strawberry.png" },
-//   { id: 4, img: "/coktail-banana.png" },
-//   { id: 5, img: "/coktail-banana.png" },
-//   { id: 6, img: "/coktail-banana.png" },
-// ];
 
 type VerticalProductSliderProps = {
   setCurrentImg: (img: string) => void;

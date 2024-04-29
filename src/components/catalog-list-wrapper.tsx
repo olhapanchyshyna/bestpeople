@@ -34,12 +34,12 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
 
   return (
     <div>
-      <div className="mx-[20px] mb-[20px] flex justify-between">
+      <div className="mx-[20px] mb-[20px] hidden items-center justify-between md:flex">
         <SortCombobox />
         <TotalCountProducts totalCount={totalCount} />
       </div>
 
-      <div className="mb-[60px] md:w-[800px]">
+      <div className="mb-[60px] md:max-w-[750px]">
         <GoodsList
           sort={sort}
           minPrice={minPrice}

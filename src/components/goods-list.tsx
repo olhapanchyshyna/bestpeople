@@ -61,16 +61,23 @@ export default function GoodsList({
   }
 
   return (
-    <section className="container flex flex-wrap justify-center p-0 sm:justify-between">
+    <section className="container flex flex-col sm:flex-row flex-wrap justify-center p-0 sm:justify-between">
       {isPending && <SkeletonCard />}
       {isError && <p>Error</p>}
       {goods.length === 0 && !isPending && !isError && (
-        <div className="m-[5px] flex flex-col h-[350px] !w-[800px] px-[10px] pb-[20px] text-center justify-evenly pt-[10px] border-none text-[22px]">
-          <Image src='/product-not-found.png' alt='product-not-found' width={150} height={150} className=' my-0 m-auto'/>
-          <div>Products not found.
-          <br/>
-          Please select another filter</div>
-          
+        <div className="m-[5px] flex h-[350px] !w-[800px] flex-col justify-evenly border-none px-[10px] pb-[20px] pt-[10px] text-center text-[22px]">
+          <Image
+            src="/product-not-found.png"
+            alt="product-not-found"
+            width={150}
+            height={150}
+            className=" m-auto my-0"
+          />
+          <div>
+            Products not found.
+            <br />
+            Please select another filter
+          </div>
         </div>
       )}
       {!isPending &&
@@ -87,7 +94,7 @@ export default function GoodsList({
           return (
             <Link href={`/good/${good.slug}`} key={good.id}>
               <Card
-                className="m-[5px] flex h-[220px] w-[320px] flex-col items-center justify-between rounded-[8px] px-[10px] pb-[20px] pt-[20px] hover:border-[#6e860b] sm:h-[350px] sm:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px]"
+                className="m-[5px] flex h-[220px] w-[100%] max-w-[320px] flex-col items-center justify-between rounded-[8px] px-[10px] pb-[20px] pt-[20px] hover:border-[#6e860b] sm:h-[350px] sm:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px]"
                 style={{ boxShadow: "-1px 4px 40px -8px rgba(0 0 0 / 21%)" }}
               >
                 {/* Проверяем, валиден ли URL изображения */}

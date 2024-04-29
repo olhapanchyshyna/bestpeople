@@ -7,16 +7,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getGoods } from "@/lib/server-utils";
 
 type PageProps = {
   searchParams: {
-		page: string
-	};
+    page: string;
+  };
 };
 
 export default async function Page({ searchParams }: PageProps) {
-  const { totalCount } = await getGoods("all");
   const page = searchParams.page || "1";
 
   return (
