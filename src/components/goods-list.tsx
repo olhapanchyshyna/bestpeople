@@ -92,7 +92,7 @@ export default function GoodsList({
             return null;
           }
           return (
-            <Link href={`/good/${good.slug}`} key={good.id}>
+            <Link href={`/catalog/${good.slug}`} key={good.id}>
               <Card
                 className="m-[5px] flex h-[220px] w-[100%] max-w-[320px] flex-col items-center justify-between rounded-[8px] px-[10px] pb-[20px] pt-[20px] hover:border-[#6e860b] sm:h-[350px] sm:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px]"
                 style={{ boxShadow: "-1px 4px 40px -8px rgba(0 0 0 / 21%)" }}
