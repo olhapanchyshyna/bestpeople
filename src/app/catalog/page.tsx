@@ -1,6 +1,6 @@
 import Aside from "@/components/aside";
 import CatalogListWrapper from "@/components/catalog-list-wrapper";
-import H2 from "@/components/h1";
+import H2 from "@/components/h2";
 import {
   Accordion,
   AccordionContent,

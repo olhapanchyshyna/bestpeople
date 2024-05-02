@@ -43,7 +43,7 @@ export default function Benefits() {
 
             <ButtonCustom
               text="More"
-              href="/"
+              href="/about-company"
               className="mt-[20px] lg:mt-[55px]"
             />
           </div>

@@ -1,7 +1,7 @@
 import notFound from "@/app/not-found";
 import ButtonWithIcon from "@/components/button-with-icon";
 import Count from "@/components/count";
-import H2 from "@/components/h1";
+import H2 from "@/components/h2";
 import { PreviewSliderProduct } from "@/components/preview-slider-product";
 
 import Services from "@/components/services";
@@ -89,6 +89,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
           <div className="order-1 flex md:order-none ">
             <Count />
             <ButtonWithIcon
+              id={good.id || 0}
               text="Add to Basket"
               icon="/white-bag.svg"
               href=""

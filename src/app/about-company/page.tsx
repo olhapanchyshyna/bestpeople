@@ -1,4 +1,4 @@
-import H2 from "@/components/h1";
+import H2 from "@/components/h2";
 import TextWithIcon from "@/components/text-with-icon";
 import Image from "next/image";
 
@@ -92,7 +92,7 @@ export default function Page() {
         {items.map((item, index) => (
           <div
             key={index}
-            className="mb-[50px] md:mb-[80px] flex w-[100%] max-w-[300px] flex-col items-start lg:max-w-[480px] lg:flex-row lg:items-center lg:justify-end"
+            className="mb-[50px] flex w-[100%] max-w-[300px] flex-col items-start md:mb-[80px] lg:max-w-[480px] lg:flex-row lg:items-center lg:justify-end"
           >
             <Image
               src={item.icon}
@@ -113,7 +113,7 @@ export default function Page() {
 
       {/* 3 */}
       <div>
-        <div className="flex flex-col items-center justify-between mt-[50px] md:flex-row">
+        <div className="mt-[50px] flex flex-col items-center justify-between md:flex-row">
           <Image
             src="/logo-with-leaves.png"
             alt="About Company"
