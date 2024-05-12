@@ -5,12 +5,13 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import { getGoods } from "@/lib/server-utils";
+
 import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SkeletonCard } from "./skeleton-card";
+import { getGoods } from '@/lib/actions/get/get-goods'
 
 type GoodsListProps = {
   category: string;

@@ -12,6 +12,7 @@ export function PreviewSliderProduct({ imgArray }: { imgArray: [] }) {
   return (
     <>
       <VerticalProductSlider
+        currentImg={currentImg}
         setCurrentImg={setCurrentImg}
         imgArray={imgArray}
       />

@@ -42,24 +42,24 @@ export default function Breadcrumbs() {
 
             <BreadcrumbSeparator />
             {pathElements.map((element, index) => (
-              <>
-                <BreadcrumbItem key={index}>
-                  <BreadcrumbLink
-                    href={`/${element}${element === "catalog" ? "?category=all" : ""}`}
-                  >
-                    {index === pathElements.length - 1 ? (
-                      <BreadcrumbPage>{element}</BreadcrumbPage>
-                    ) : (
-                      <BreadcrumbLink>{element}</BreadcrumbLink>
-                    )}
-                  </BreadcrumbLink>
+              <div key={element} className="flex items-center justify-between">
+                <BreadcrumbItem className="mr-[5px]">
+                  {index === pathElements.length - 1 ? (
+                    <BreadcrumbPage>{element}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink
+                      href={`/${element}${element === "catalog" ? "?category=all" : ""}`}
+                    >
+                      {element}
+                    </BreadcrumbLink>
+                  )}
                 </BreadcrumbItem>
                 {index === pathElements.length - 1 ? (
                   ""
                 ) : (
                   <BreadcrumbSeparator />
                 )}
-              </>
+              </div>
             ))}
           </BreadcrumbList>
         </Breadcrumb>

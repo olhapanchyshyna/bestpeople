@@ -1,6 +1,16 @@
 import { PrismaClient } from "@prisma/client";
+const prismaClientSingleton = () => {
+  return new PrismaClient();
+};
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>;
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClientSingleton | undefined;
+};
+const prisma = globalForPrisma.prisma ?? prismaClientSingleton();
+export default prisma;
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
-const prisma = new PrismaClient();
+
 
 const b = [
   "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
@@ -8,7 +18,7 @@ const b = [
   "Sea buckthorn juice is rich in antioxidants (including the anti-cancer lycopene), which bind free radicals into a stable form and remove toxins from the body, slowing down the aging process and reducing the risk of malignant tumors. Recommended for the prevention and optimization of treatment of atherosclerosis and vascular disorders associated with the deposition of cholesterol plaques and insulin resistance. Also recommended for low acidity of gastric juice and atonic constipation, it strengthens the immune system and has a stimulating effect on the entire body. The results of the study proved the cardioprotective properties of sea buckthorn in obesity.",
   "Guarana extract improves memory, stimulates brain function, and also prevents the development of atherosclerosis. Indispensable in the fight against chronic fatigue and apathy. Guarana improves metabolism in the body, removes toxins and excess fluid, and also reduces hunger, has a strong stimulating effect, almost 5 times greater than the effect of natural coffee. But at the same time there is no overexcitation and rapid heartbeat! Due to its unique properties, guarana is widely used in the field of sports nutrition. It increases endurance, gives a lot of energy, due to this it becomes possible to increase the load and duration of training.",
 ];
-const foolDescr = JSON.stringify(b);
+const fullDescr = JSON.stringify(b);
 
 const goods = [
   {
@@ -25,10 +35,10 @@ const goods = [
     price: 120,
     category: "popular",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -48,10 +58,10 @@ const goods = [
     price: 20,
     category: "popular",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -71,10 +81,10 @@ const goods = [
     price: 48,
     category: "popular",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -94,10 +104,10 @@ const goods = [
     price: 42,
     category: "popular",
     vendorCode: "1245899",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -117,10 +127,10 @@ const goods = [
     price: 42,
     category: "detox",
     vendorCode: "324790763",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -140,10 +150,10 @@ const goods = [
     price: 92,
     category: "detox",
     vendorCode: "358900972",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -163,10 +173,10 @@ const goods = [
     price: 64,
     category: "detox",
     vendorCode: "7790022",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -186,10 +196,10 @@ const goods = [
     price: 52,
     category: "anti-aging",
     vendorCode: "0097532",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -209,10 +219,10 @@ const goods = [
     price: 52,
     category: "anti-aging",
     vendorCode: "789976433",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -232,10 +242,10 @@ const goods = [
     price: 52,
     category: "weight-normalization",
     vendorCode: "789976433",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -255,10 +265,10 @@ const goods = [
     price: 52,
     category: "weight-normalization",
     vendorCode: "789976433",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -278,10 +288,10 @@ const goods = [
     price: 52,
     category: "healthy-heart",
     vendorCode: "789976433",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -301,10 +311,10 @@ const goods = [
     price: 52,
     category: "relax",
     vendorCode: "789976433",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -324,10 +334,10 @@ const goods = [
     price: 4,
     category: "relax",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -347,10 +357,10 @@ const goods = [
     price: 46,
     category: "relax",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -370,10 +380,10 @@ const goods = [
     price: 48,
     category: "immunity",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -393,10 +403,10 @@ const goods = [
     price: 104,
     category: "immunity",
     vendorCode: "1245899",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -416,10 +426,10 @@ const goods = [
     price: 140,
     category: "immunity",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -439,10 +449,10 @@ const goods = [
     price: 46,
     category: "immunity",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -462,10 +472,10 @@ const goods = [
     price: 48,
     category: "immunity",
     vendorCode: "99865432123",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:
@@ -485,10 +495,10 @@ const goods = [
     price: 42,
     category: "immunity",
     vendorCode: "1245899",
-    brend: "Wellab",
+    brand: "Wellab",
     descr:
       "dietary balanced nutrition, additional source of protein, vitamins, minerals, reduction of hunger, for people with lactose and/or gluten intolerance",
-    foolDescr,
+    fullDescr,
     application:
       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
     howWork:

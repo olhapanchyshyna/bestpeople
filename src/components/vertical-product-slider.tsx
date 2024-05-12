@@ -12,20 +12,20 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-
 type VerticalProductSliderProps = {
   setCurrentImg: (img: string) => void;
   imgArray: [];
+  currentImg: string;
 };
 
 export default function VerticalProductSlider({
+  currentImg,
   setCurrentImg,
   imgArray,
 }: VerticalProductSliderProps) {
   const [embla, setEmbla] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [isVertical, setIsVertical] = useState<boolean>();
-
 
   useEffect(() => {
     if (embla) {
@@ -45,7 +45,7 @@ export default function VerticalProductSlider({
 
   useEffect(() => {
     setCurrentImg(imgArray[currentSlide]);
-  }, [currentSlide, setCurrentImg,imgArray]);
+  }, [currentSlide, setCurrentImg, imgArray]);
 
   // Функция для определения ориентации карусели в зависимости от ширины экрана
   function setOrientation() {
@@ -64,7 +64,7 @@ export default function VerticalProductSlider({
         axis: isVertical ? "y" : "x",
       });
     }
-  }, [embla ,isVertical]);
+  }, [embla, isVertical]);
 
   useEffect(() => {
     // Добавить слушатель для изменения ширины экрана
@@ -75,6 +75,8 @@ export default function VerticalProductSlider({
       window.removeEventListener("resize", setOrientation);
     };
   }, []);
+
+  if (!currentImg) return null;
 
   return (
     <Carousel
@@ -90,7 +92,7 @@ export default function VerticalProductSlider({
         {imgArray.map((img, index) => (
           <CarouselItem
             key={index}
-            className="basis-1/3 cursor-pointer items-center h-[120px]"
+            className="h-[120px] basis-1/3 cursor-pointer items-center"
             onClick={() => {
               setCurrentImg(img);
               setCurrentSlide(index);
@@ -103,8 +105,14 @@ export default function VerticalProductSlider({
                   "border-2",
                 )}
               >
-                <CardContent className="flex items-center justify-center p-4 h-[110px]">
-                  <Image src={img} alt="cocktail" width={90} height={70} className='max-h-[100px]' />
+                <CardContent className="flex h-[110px] items-center justify-center p-4">
+                  <Image
+                    src={img}
+                    alt="cocktail"
+                    width={90}
+                    height={70}
+                    className="max-h-[100px]"
+                  />
                 </CardContent>
               </Card>
             </div>

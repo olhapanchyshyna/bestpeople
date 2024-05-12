@@ -60,13 +60,17 @@ export default function NavigationMenuItems() {
               Catalog
             </NavigationMenuTrigger>
             <NavigationMenuContent className="flex !w-[200px] list-none flex-col py-[20px] text-center">
-              {catalogItems.map((item) => (
-                <NavigationMenuItem key={item.name} className="my-[5px]">
-                  <NavigationMenuLink href={`/catalog?category=${item.option}`}>
-                    {item.name}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
+              <ul>
+                {catalogItems.map((item) => (
+                  <NavigationMenuItem key={item.name} className="my-[5px]">
+                    <NavigationMenuLink
+                      href={`/catalog?category=${item.option}`}
+                    >
+                      {item.name}
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
+              </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           {/* About company */}
@@ -90,6 +94,7 @@ export default function NavigationMenuItems() {
             <NavigationMenu className="m-auto mt-[50px] justify-between">
               <NavigationMenuList className="flex w-[120px] flex-col !justify-between text-base md:w-[350px]">
                 {/* About company & Contacts */}
+
                 {renderMenuItems(navItems.slice(1))}
                 {/* Catalog */}
                 <NavigationMenuItem>
@@ -97,15 +102,20 @@ export default function NavigationMenuItems() {
                     Catalog
                   </NavigationMenuTrigger>
                   <NavigationMenuContent className="m-auto flex !w-[200px] list-none flex-col py-[20px] text-center">
-                    {catalogItems.map((item) => (
-                      <NavigationMenuItem key={item.name} className="my-[5px]">
-                        <NavigationMenuLink
-                          href={`/catalog?category=${item.option}`}
+                    <ul>
+                      {catalogItems.map((item) => (
+                        <NavigationMenuItem
+                          key={item.name}
+                          className="my-[5px]"
                         >
-                          {item.name}
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    ))}
+                          <NavigationMenuLink
+                            href={`/catalog?category=${item.option}`}
+                          >
+                            {item.name}
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      ))}
+                    </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>

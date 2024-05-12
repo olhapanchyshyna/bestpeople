@@ -6,19 +6,30 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
- 
+
+
 model Goods {
-  id Int @id @default(autoincrement())
-  slug String @unique
-  img String
-  mobileImg String
-  title String
-  price Int
-  category String
-  descr String
-  vendorCode String
-  brend String
+  id          Int    @id @default(autoincrement())
+  // user        User   @relation(fields: [userId], references: [id])
+  // userId      Int // Изменено на Int для соответствия с типом id в модели User
+  slug        String @unique
+  img         String
+  mobileImg   String
+  title       String
+  price       Int
+  category    String
+  descr       String
+  vendorCode  String
+  brand       String 
   application String
-  howWork String
-  foolDescr String
+  howWork     String
+  fullDescr   String
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  name     String
+  // goods    Goods[]
 }

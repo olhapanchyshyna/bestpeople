@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "./db";
+import prisma from "@/lib/db";
 
 type GoodsWhere = {
   category?: string;
@@ -15,7 +15,7 @@ export const getGoods = async (
   page = 1,
   minPrice = "",
   maxPrice = "",
-  sort = "cheap"
+  sort = "cheap",
 ) => {
   // Преобразуем минимальную и максимальную цену в числа
   const minPriceNumber = minPrice ? parseFloat(minPrice) : undefined;
@@ -39,8 +39,7 @@ export const getGoods = async (
   const goods = await prisma.goods.findMany({
     where,
     orderBy: {
-      price: sort === "expensive" ? "desc" : "asc"
-    
+      price: sort === "expensive" ? "desc" : "asc",
     },
     take: 3,
     skip: (page - 1) * 3,
@@ -50,14 +49,4 @@ export const getGoods = async (
   const totalCount = await prisma.goods.count({ where });
 
   return { goods, totalCount };
-};
-
-export const getGood = async (slug: string) => {
-  const good = await prisma.goods.findUnique({
-    where: {
-      slug,
-    },
-  });
-
-  return good;
 };

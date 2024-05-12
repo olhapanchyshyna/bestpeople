@@ -1,21 +1,19 @@
 import notFound from "@/app/not-found";
-import ButtonWithIcon from "@/components/button-with-icon";
-import Count from "@/components/count";
+import AddInBasketWrapper from "@/components/add-in-basket-wrapper";
+import Breadcrumbs from "@/components/breadcrumbs";
 import H2 from "@/components/h2";
 import { PreviewSliderProduct } from "@/components/preview-slider-product";
-
 import Services from "@/components/services";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getGood } from "@/lib/server-utils";
-
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import Breadcrumbs from '@/components/breadcrumbs'
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getGood } from "@/lib/actions/get/get-good";
+import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 
 type GoodPageProps = {
   params: {
@@ -38,8 +36,18 @@ function renderDescription(foolDescrArray: string[]) {
 }
 
 export default async function GoodPage({ params }: GoodPageProps) {
+  const cookieGoodsArrays = await getServerSideArrayCookie("basket");
+
+  console.log("cookieGoodsArrays", cookieGoodsArrays);
+
   const slug = params.slug;
   const good = await getGood(slug);
+
+  console.log("good", good?.id);
+  const isCurrentGood = cookieGoodsArrays?.find(
+    (item) => item.id === good?.id.toString(),
+  );
+  console.log("isCurrentGood", isCurrentGood);
 
   if (!good) return notFound();
 
@@ -47,11 +55,10 @@ export default async function GoodPage({ params }: GoodPageProps) {
   let imgArray;
 
   try {
-    foolDescrArray = JSON.parse(good.foolDescr);
+    foolDescrArray = JSON.parse(good.fullDescr);
     imgArray = JSON.parse(good.img);
   } catch (error) {
     console.error("Failed to parse JSON:", error);
-    // Обработка ошибки (например, установка foolDescrObject в значение по умолчанию)
     foolDescrArray = [];
     imgArray = [];
   }
@@ -88,22 +95,16 @@ export default async function GoodPage({ params }: GoodPageProps) {
 
             <div className="hidden items-center text-[14px] md:flex">
               <span className="mr-[5px] text-[16px] font-bold">Brend: </span>{" "}
-              {good.brend}
+              {good.brand}
             </div>
             <div className="order-3 mt-[20px] text-[16px] text-[#808080] md:order-none ">
               {good.descr}
             </div>
+            
             <Separator className="order-2 my-[20px] bg-[#d1d4d6] md:order-none" />
-            <div className="order-1 flex md:order-none ">
-              <Count />
-              <ButtonWithIcon
-                id={good.id || 0}
-                text="Add to Basket"
-                icon="/white-bag.svg"
-                href=""
-                className="ml-[12px] px-[25px] md:ml-[5px] lg:ml-[20px] lg:px-[75px]"
-              />
-            </div>
+
+            <AddInBasketWrapper currentGood={isCurrentGood} id={good.id} />
+
             <Separator className="my-[20px] hidden bg-[#d1d4d6] md:flex" />
             <div className="hidden items-center md:flex">
               <span className="mr-[5px] text-[16px] font-bold">Category: </span>{" "}

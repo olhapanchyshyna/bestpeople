@@ -97,7 +97,7 @@ export default function PaginationControl({
             {renderPageNumbers().map((item, index) => {
               if (item === "ellipsis") {
                 return (
-                  <PaginationItem key={index}>
+                  <PaginationItem key={item}>
                     <PaginationEllipsis />
                   </PaginationItem>
                 );

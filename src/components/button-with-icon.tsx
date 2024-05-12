@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { cn } from "@/lib/utils";
 
@@ -18,7 +18,7 @@ export default function ButtonWithIcon({
   href,
   className,
   icon,
-  id
+  id,
 }: ButtonProps) {
   return (
     <Link href={href} className="flex ">
