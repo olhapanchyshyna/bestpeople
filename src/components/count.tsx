@@ -13,16 +13,22 @@ type CountProps = {
   countInPage?: number;
 };
 
-export default function Count({ currentGood, typeAction, setCountInPage, countInPage }: CountProps) {
+export default function Count({
+  currentGood,
+  typeAction,
+  setCountInPage,
+  countInPage,
+}: CountProps) {
+  const [count, setCount] = useState(
+    typeAction === "inBasket" ? currentGood?.quantity || 1 : 1,
+  );
 
-  const [count, setCount] = useState(typeAction === 'inBasket' ? currentGood?.quantity || 1 : 1);
-
-  const setQuentity = (count: number) => {
+  const setQuantityAndRedirect = (newCount: number) => {
     const currentCookie = getClientSideArrayCookie("basket");
     const updatedCookie = currentCookie
       ? currentCookie.map((item: GoodCoookieType) => {
           if (item.id === currentGood?.id.toString()) {
-            item.quantity = count;
+            item.quantity = newCount;
           }
           return item;
         })
@@ -32,39 +38,48 @@ export default function Count({ currentGood, typeAction, setCountInPage, countIn
     rPath("/basket");
   };
 
+  const handleDecrease = () => {
+    if (count <= 1) {
+      return;
+    }
+
+    const newCount = count - 1;
+    setCount(newCount);
+
+    if (typeAction === "inGoodPage") {
+      setCountInPage && setCountInPage(newCount);
+    }
+
+    if (typeAction === "inBasket") {
+      setQuantityAndRedirect(newCount);
+    }
+  };
+
+  const handleIncrease = () => {
+    const newCount = count + 1;
+    setCount(newCount);
+
+    if (typeAction === "inGoodPage") {
+      setCountInPage && setCountInPage(newCount);
+    }
+
+    if (typeAction === "inBasket") {
+      setQuantityAndRedirect(newCount);
+    }
+  };
+
   return (
     <div className="flex w-[130px] items-center justify-between rounded-[43px] border-2 border-[#E6E6E6] p-[8px]">
       <button
         className="flex h-[30px] w-[30px] items-center justify-center rounded-[50%] bg-[#F2F2F2]"
-        onClick={() => {
-          if (count <= 1) {
-            return;
-          } else if (count >= 2) {
-            if(typeAction === "inGoodPage") {
-              setCountInPage && setCountInPage(count - 1);
-            }
-            if (typeAction === "inBasket") {
-              setCount(count - 1);
-              setQuentity(count - 1);
-              
-            }
-          }
-        }}
+        onClick={handleDecrease}
       >
         <MinusIcon />
       </button>
-      <div>{ typeAction === "inBasket" ? count : countInPage}</div>
+      <div>{typeAction === "inBasket" ? count : countInPage}</div>
       <button
         className="flex h-[30px] w-[30px] items-center justify-center rounded-[50%] bg-[#F2F2F2]"
-        onClick={() => {
-          setCount(count + 1);
-          if(typeAction === "inGoodPage") {
-            setCountInPage && setCountInPage(count + 1)
-          }
-          if (typeAction === "inBasket") {
-            setQuentity(count + 1);
-          }
-        }}
+        onClick={handleIncrease}
       >
         <PlusIcon />
       </button>

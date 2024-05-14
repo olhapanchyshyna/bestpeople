@@ -38,16 +38,12 @@ function renderDescription(foolDescrArray: string[]) {
 export default async function GoodPage({ params }: GoodPageProps) {
   const cookieGoodsArrays = await getServerSideArrayCookie("basket");
 
-  console.log("cookieGoodsArrays", cookieGoodsArrays);
-
   const slug = params.slug;
   const good = await getGood(slug);
 
-  console.log("good", good?.id);
   const isCurrentGood = cookieGoodsArrays?.find(
     (item) => item.id === good?.id.toString(),
   );
-  console.log("isCurrentGood", isCurrentGood);
 
   if (!good) return notFound();
 

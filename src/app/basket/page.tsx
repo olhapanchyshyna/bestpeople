@@ -15,11 +15,14 @@ import {
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Page() {
   const cookieGoodsArrays = await getServerSideArrayCookie("basket");
   const a = cookieGoodsArrays?.map((item) => +item.id);
   const goods = await getGoodsById(a);
+  let deliveryCost = "free";
+  let priseAllGoods = 0;
 
   return (
     <>
@@ -47,7 +50,7 @@ export default async function Page() {
               </Table>
             ) : (
               <Table className="hidden w-[100%] md:table lg:w-[710px]">
-                <TableHeader>
+                <TableHeader className="hidden md:table-header-group">
                   <TableRow className="text-[#808080]">
                     <TableHead className="md:w-[310px] lg:w-[290px]">
                       Product
@@ -63,30 +66,44 @@ export default async function Page() {
                     const currentGood = cookieGoodsArrays?.find(
                       (item) => item.id === invoice.id.toString(),
                     );
+                    if (currentGood && currentGood.quantity) {
+                      priseAllGoods += currentGood.quantity * invoice.price;
+                    }
                     return (
                       <TableRow key={invoice.title}>
-                        <TableCell className="flex p-[20px]">
-                          <Image
-                            src={imgArray[0]}
-                            width={50}
-                            height={50}
-                            alt="inv001"
-                            className="mr-[30px]"
-                          />
-                          <div className="max-w-[150px] text-[#1A1A1A]">
-                            {" "}
-                            {invoice.title}
-                          </div>
+                        <TableCell>
+                          <Link
+                            href={`/catalog/${invoice.slug}`}
+                            className="flex p-[20px]"
+                          >
+                            <Image
+                              src={imgArray[0]}
+                              width={50}
+                              height={50}
+                              alt="inv001"
+                              className="mr-[30px]"
+                            />
+                            <div className="max-w-[150px] text-[#1A1A1A]">
+                              {" "}
+                              {invoice.title}
+                            </div>
+                          </Link>
                         </TableCell>
-                        <TableCell className="dark-green ">
+                        <TableCell className="dark-green hidden md:table-cell">
                           {invoice.price}$
                         </TableCell>
 
                         <TableCell>
-                          <Count currentGood={currentGood} typeAction='inBasket'/>
+                          <Count
+                            currentGood={currentGood}
+                            typeAction="inBasket"
+                          />
                         </TableCell>
                         <TableCell className="dark-green">
-                          {currentGood ? currentGood?.quantity  * invoice.price : invoice.price}$
+                          {currentGood
+                            ? currentGood?.quantity * invoice.price
+                            : invoice.price}
+                          $
                         </TableCell>
 
                         <TableCell className="p-0 pr-[10px] text-right ">
@@ -127,7 +144,10 @@ export default async function Page() {
                     return (
                       <TableRow key={invoice.title}>
                         <TableCell className="flex justify-between px-[20px] pb-[10px] pt-[20px]">
-                          <div className="flex">
+                          <Link
+                            className="flex"
+                            href={`/catalog/${invoice.slug}`}
+                          >
                             <Image
                               src={imgArray[0]}
                               width={50}
@@ -139,15 +159,21 @@ export default async function Page() {
                               {" "}
                               {invoice.title}
                             </div>
-                          </div>
+                          </Link>
 
                           <DeleteGoodButton id={invoice.id} />
                         </TableCell>
 
                         <TableCell className="flex items-center justify-between pt-[10px]">
-                          <Count currentGood={currentGood} typeAction='inBasket'/>
+                          <Count
+                            currentGood={currentGood}
+                            typeAction="inBasket"
+                          />
                           <div className="dark-green text-[20px]">
-                            {invoice.price}
+                            {currentGood
+                              ? currentGood?.quantity * invoice.price
+                              : invoice.price}
+                            $
                           </div>
                         </TableCell>
                       </TableRow>
@@ -168,7 +194,7 @@ export default async function Page() {
                     Price
                   </TableCell>
                   <TableCell className="dark-green px-0 py-3 text-right text-[16px]">
-                    46$
+                    {priseAllGoods}$
                   </TableCell>
                 </TableRow>
                 <TableRow className="text-[#808080]">
@@ -184,7 +210,10 @@ export default async function Page() {
                     Total
                   </TableCell>
                   <TableCell className="dark-green px-0 py-3 text-right text-[16px]">
-                    $2,500.00
+                    {deliveryCost === "free"
+                      ? priseAllGoods
+                      : priseAllGoods + deliveryCost}
+                    $
                   </TableCell>
                 </TableRow>
               </TableFooter>
