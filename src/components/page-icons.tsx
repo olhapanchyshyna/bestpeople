@@ -1,10 +1,15 @@
+import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
+import { auth } from "@/lib/auth";
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import Phone from "./phone";
 
 export default async function PageIcons() {
-  const cookieGoodsArrays = await getServerSideArrayCookie("basket");
+  const session = await auth();
+  const cookieGoodsArrays = session
+    ? await getGoodsBasketByUserId(session?.user?.id)
+    : await getServerSideArrayCookie("basket");
 
   const totalQuantity = cookieGoodsArrays?.reduce((total, currentItem) => {
     return total + currentItem.quantity;
@@ -18,8 +23,8 @@ export default async function PageIcons() {
           <Image src="/profile.svg" alt="profile" width={30} height={30} />
         </Link>
         <Link href="/basket" className="relative">
-          <Image src="/basket.svg" alt="basket" width={17} height={25} />
-          <div className="absolute right-[-8px] top-[-8px] rounded-full bg-[#fca600] px-[3px] py-[1px] text-[8px] text-white">
+          <Image src="/basket.svg" alt="basket" width={17} height={30} />
+          <div className="absolute justify-center right-[-8px] top-[-8px] flex h-[15px] items-center rounded-full bg-[#fca600] w-[15px] py-[1px] text-[8px] leading-[3px] text-white">
             {totalQuantity}
           </div>
         </Link>

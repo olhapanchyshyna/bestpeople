@@ -23,6 +23,7 @@ export default function Count({
   setCountInPage,
   countInPage,
 }: CountProps) {
+  
   const { data } = useSession();
   const user = data?.user;
   const [count, setCount] = useState(

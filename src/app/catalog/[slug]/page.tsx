@@ -13,6 +13,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getGood } from "@/lib/actions/get/get-good";
+import { getGoodsBasketByUserId } from '@/lib/actions/get/get-goods-basket-by-user-id'
+import { auth } from '@/lib/auth'
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 
 type GoodPageProps = {
@@ -36,7 +38,11 @@ function renderDescription(foolDescrArray: string[]) {
 }
 
 export default async function GoodPage({ params }: GoodPageProps) {
-  const cookieGoodsArrays = await getServerSideArrayCookie("basket");
+  const session = await auth();
+
+  const cookieGoodsArrays = session
+    ? await getGoodsBasketByUserId(session?.user?.id)
+    : await getServerSideArrayCookie("basket");
 
   const slug = params.slug;
   const good = await getGood(slug);
@@ -96,10 +102,10 @@ export default async function GoodPage({ params }: GoodPageProps) {
             <div className="order-3 mt-[20px] text-[16px] text-[#808080] md:order-none ">
               {good.descr}
             </div>
-            
+
             <Separator className="order-2 my-[20px] bg-[#d1d4d6] md:order-none" />
 
-            <AddInBasketWrapper currentGood={isCurrentGood} id={good.id} />
+            <AddInBasketWrapper currentGood={isCurrentGood} id={good.id} cookieGoodsArrays={cookieGoodsArrays}/>
 
             <Separator className="my-[20px] hidden bg-[#d1d4d6] md:flex" />
             <div className="hidden items-center md:flex">

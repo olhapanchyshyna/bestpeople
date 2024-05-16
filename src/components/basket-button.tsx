@@ -9,8 +9,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { rPath } from "@/lib/actions/revalidate-path";
+import { setGoodsBasketByUserId } from "@/lib/actions/set/set-goods-basket-by-user-id";
 import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { setClientSideArrayCookie } from "@/lib/cookies/client/set-client-side-array-cookie";
+import { GoodCoookieType } from "@/types/types";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { startTransition, useState } from "react";
@@ -19,20 +22,35 @@ import { Button } from "./ui/button";
 type BasketButtonProps = {
   id: number;
   countInPage: number;
+  cookieGoodsArrays: GoodCoookieType[] | null | undefined;
 };
 
-export default function BasketButton({ id, countInPage }: BasketButtonProps) {
+export default function BasketButton({
+  id,
+  countInPage,
+  cookieGoodsArrays,
+}: BasketButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 
+  const { data } = useSession();
+  const user = data?.user;
+
   const setGoodInBasket = (id: number) => {
-    const currentCookie = getClientSideArrayCookie("basket");
+    
+    const currentCookie = user
+      ? cookieGoodsArrays
+      : getClientSideArrayCookie("basket");
 
     if (currentCookie?.length === 0) {
-      setClientSideArrayCookie(
-        "basket",
-        [{ id: id.toString(), quantity: countInPage }],
-        30,
-      );
+      user
+        ? setGoodsBasketByUserId(user?.id, [
+            { id: id.toString(), quantity: countInPage },
+          ])
+        : setClientSideArrayCookie(
+            "basket",
+            [{ id: id.toString(), quantity: countInPage }],
+            30,
+          );
       setIsLoading(false);
       return;
     }
@@ -56,7 +74,9 @@ export default function BasketButton({ id, countInPage }: BasketButtonProps) {
         ]) ||
         [];
 
-    setClientSideArrayCookie("basket", [...updatedCookie], 30);
+    user
+      ? setGoodsBasketByUserId(user?.id, updatedCookie)
+      : setClientSideArrayCookie("basket", [...updatedCookie], 30);
     setIsLoading(false);
     rPath("/basket");
   };
@@ -65,7 +85,7 @@ export default function BasketButton({ id, countInPage }: BasketButtonProps) {
     <Dialog>
       <DialogTrigger
         disabled={isLoading}
-        className="green-bg ml-[12px] w-[180px] lg:w-[290px] flex justify-between rounded-[43px] px-[25px] py-[16px] text-white md:ml-[5px] lg:ml-[20px] lg:px-[75px]"
+        className="green-bg ml-[12px] flex w-[180px] justify-between rounded-[43px] px-[25px] py-[16px] text-white md:ml-[5px] lg:ml-[20px] lg:w-[290px] lg:px-[75px]"
         onClick={() => {
           startTransition(() => {
             setIsLoading(true);
