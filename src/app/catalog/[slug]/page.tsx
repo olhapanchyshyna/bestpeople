@@ -13,8 +13,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getGood } from "@/lib/actions/get/get-good";
-import { getGoodsBasketByUserId } from '@/lib/actions/get/get-goods-basket-by-user-id'
-import { auth } from '@/lib/auth'
+import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
+import { auth } from "@/lib/auth";
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 
 type GoodPageProps = {
@@ -105,7 +105,11 @@ export default async function GoodPage({ params }: GoodPageProps) {
 
             <Separator className="order-2 my-[20px] bg-[#d1d4d6] md:order-none" />
 
-            <AddInBasketWrapper currentGood={isCurrentGood} id={good.id} cookieGoodsArrays={cookieGoodsArrays}/>
+            <AddInBasketWrapper
+              currentGood={isCurrentGood}
+              id={good.id}
+              cookieGoodsArrays={cookieGoodsArrays}
+            />
 
             <Separator className="my-[20px] hidden bg-[#d1d4d6] md:flex" />
             <div className="hidden items-center md:flex">

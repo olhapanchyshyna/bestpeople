@@ -8,10 +8,12 @@ export function useCustomHook() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const handleTakeCategory = useCallback(
-        (itemOption: string) => {
+    const updateSearchParams = useCallback(
+        (paramsToUpdate: Record<string, string>) => {
             const params = new URLSearchParams(searchParams.toString());
-            params.set("category", itemOption);
+            Object.entries(paramsToUpdate).forEach(([key, value]) => {
+                params.set(key, value);
+            });
             params.set("page", "1");
 
             const queryString = params.toString();
@@ -20,31 +22,26 @@ export function useCustomHook() {
         [pathname, searchParams, router],
     );
 
-    const handleTakePrise = useCallback(
-        (min: string, max: string ) => {
-            const params = new URLSearchParams(searchParams.toString());
-            params.set("min", min);
-            params.set("max", max);
-            params.set("page", "1");
-
-            const queryString = params.toString();
-            router.push(`${pathname}?${queryString}`);
+    const handleTakeCategory = useCallback(
+        (itemOption: string) => {
+            updateSearchParams({ category: itemOption });
         },
-        [pathname, searchParams, router],
+        [updateSearchParams],
+    );
+
+    const handleTakePrice = useCallback(
+        (min: string, max: string) => {
+            updateSearchParams({ min, max });
+        },
+        [updateSearchParams],
     );
 
     const handleTakeSort = useCallback(
-        (itemOption: string ) => {
-            const params = new URLSearchParams(searchParams.toString());
-            params.set("sort", itemOption);
-            params.set("page", "1");
-
-            const queryString = params.toString();
-            router.push(`${pathname}?${queryString}`);
+        (itemOption: string) => {
+            updateSearchParams({ sort: itemOption });
         },
-        [pathname, searchParams, router],
+        [updateSearchParams],
     );
 
-    return {handleTakeCategory, handleTakePrise, handleTakeSort};
+    return { handleTakeCategory, handleTakePrice, handleTakeSort };
 }
-

@@ -41,7 +41,7 @@ const minDistance = 10;
 export default function SliderDistance() {
   const searchParams = useSearchParams();
   const [value1, setValue1] = React.useState<number[]>([4, 140]);
-  const { handleTakePrise } = useCustomHook();
+  const { handleTakePrice } = useCustomHook();
 
   useEffect(() => {
     setValue1([
@@ -96,7 +96,7 @@ export default function SliderDistance() {
         <div>{formatValues(value1)}</div>
         <ButtonCustom
           onClick={() => {
-            handleTakePrise(String(value1[0]), String(value1[1]));
+            handleTakePrice(String(value1[0]), String(value1[1]));
           }}
           text="Ok"
           href=""
