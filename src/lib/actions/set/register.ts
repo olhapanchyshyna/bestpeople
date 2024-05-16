@@ -5,6 +5,7 @@ import { RegisterShema } from "@/lib/validations";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { getUserByEmail } from "../get/get-user-by-email";
+import { getErrorMessage } from '@/lib/utils'
 
 export const register = async (values: z.infer<typeof RegisterShema>) => {
   const validatedFields = RegisterShema.safeParse(values);
@@ -34,6 +35,6 @@ export const register = async (values: z.infer<typeof RegisterShema>) => {
 
     return { success: "success" };
   } catch (e) {
-    return { error: "error" };
+    return { error: getErrorMessage(e) };
   }
 };

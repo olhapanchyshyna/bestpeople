@@ -1,12 +1,15 @@
 "use client";
 import { rPath } from "@/lib/actions/revalidate-path";
+import { setGoodsBasketByUserId } from "@/lib/actions/set/set-goods-basket-by-user-id";
 import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { setClientSideArrayCookie } from "@/lib/cookies/client/set-client-side-array-cookie";
 import { GoodCoookieType } from "@/types/types";
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 type CountProps = {
+  cookieGoodsArrays?: GoodCoookieType[] | null | undefined;
   currentGood: GoodCoookieType | undefined;
   typeAction: "inBasket" | "inGoodPage";
   setCountInPage?: (count: number) => void;
@@ -14,17 +17,24 @@ type CountProps = {
 };
 
 export default function Count({
+  cookieGoodsArrays,
   currentGood,
   typeAction,
   setCountInPage,
   countInPage,
 }: CountProps) {
+  const { data } = useSession();
+
+  const user = data?.user;
   const [count, setCount] = useState(
     typeAction === "inBasket" ? currentGood?.quantity || 1 : 1,
   );
 
   const setQuantityAndRedirect = (newCount: number) => {
-    const currentCookie = getClientSideArrayCookie("basket");
+    const currentCookie = user
+      ? cookieGoodsArrays
+      : getClientSideArrayCookie("basket");
+
     const updatedCookie = currentCookie
       ? currentCookie.map((item: GoodCoookieType) => {
           if (item.id === currentGood?.id.toString()) {
@@ -34,7 +44,10 @@ export default function Count({
         })
       : [];
 
-    setClientSideArrayCookie("basket", [...updatedCookie], 30);
+    user
+      ? setGoodsBasketByUserId(user?.id, updatedCookie)
+      : setClientSideArrayCookie("basket", [...updatedCookie], 30);
+      
     rPath("/basket");
   };
 

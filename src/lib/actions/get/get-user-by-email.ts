@@ -1,5 +1,6 @@
 "use server";
 
+import { getErrorMessage } from '@/lib/utils'
 import prisma from "../../db";
 
 export const getUserByEmail = async (email: string) => {
@@ -11,6 +12,7 @@ export const getUserByEmail = async (email: string) => {
     });
     return user;
   } catch (e) {
-    return null;
+    console.error("Failed to get goods basket:", getErrorMessage(e));
+		return null;
   }
 };

@@ -12,16 +12,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
+import { auth } from "@/lib/auth";
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Page() {
-  const cookieGoodsArrays = await getServerSideArrayCookie("basket");
+  const session = await auth();
+
+  const cookieGoodsArrays = session
+    ? await getGoodsBasketByUserId(session?.user?.id)
+    : await getServerSideArrayCookie("basket");
+
   const a = cookieGoodsArrays?.map((item) => +item.id);
   const goods = await getGoodsById(a);
-  let deliveryCost = "free";
+  let deliveryCost = 0;
   let priseAllGoods = 0;
 
   return (
@@ -66,6 +73,7 @@ export default async function Page() {
                     const currentGood = cookieGoodsArrays?.find(
                       (item) => item.id === invoice.id.toString(),
                     );
+
                     if (currentGood && currentGood.quantity) {
                       priseAllGoods += currentGood.quantity * invoice.price;
                     }
@@ -95,6 +103,8 @@ export default async function Page() {
 
                         <TableCell>
                           <Count
+                            // goodBasket={invoice}
+                            cookieGoodsArrays={cookieGoodsArrays}
                             currentGood={currentGood}
                             typeAction="inBasket"
                           />
@@ -166,6 +176,7 @@ export default async function Page() {
 
                         <TableCell className="flex items-center justify-between pt-[10px]">
                           <Count
+                            cookieGoodsArrays={cookieGoodsArrays}
                             currentGood={currentGood}
                             typeAction="inBasket"
                           />
@@ -210,7 +221,7 @@ export default async function Page() {
                     Total
                   </TableCell>
                   <TableCell className="dark-green px-0 py-3 text-right text-[16px]">
-                    {deliveryCost === "free"
+                    {deliveryCost === 0
                       ? priseAllGoods
                       : priseAllGoods + deliveryCost}
                     $
