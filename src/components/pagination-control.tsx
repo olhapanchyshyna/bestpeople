@@ -75,7 +75,7 @@ export default function PaginationControl({
   return (
     <section className="m-auto mb-[50px] flex w-[300px] justify-between">
       {totalCount === 0 ? (
-        <div className='h-[40px]'></div>
+        <div className='md:h-[40px]'></div>
       ) : (
         <Pagination>
           <PaginationContent>

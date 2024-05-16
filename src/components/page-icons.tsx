@@ -6,11 +6,13 @@ import Link from "next/link";
 import Phone from "./phone";
 
 export default async function PageIcons() {
+
   const session = await auth();
   const cookieGoodsArrays = session
     ? await getGoodsBasketByUserId(session?.user?.id)
     : await getServerSideArrayCookie("basket");
 
+    
   const totalQuantity = cookieGoodsArrays?.reduce((total, currentItem) => {
     return total + currentItem.quantity;
   }, 0);

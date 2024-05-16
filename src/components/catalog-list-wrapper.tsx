@@ -33,13 +33,13 @@ export default function CatalogListWrapper({ page }: CatalogListWrapperProps) {
       : "";
 
   return (
-    <div>
+    <div className='max-w-[750px] w-[100%]'>
       <div className="mx-[20px] mb-[20px] hidden items-center justify-between md:flex">
         <SortCombobox />
         <TotalCountProducts totalCount={totalCount} />
       </div>
 
-      <div className="mb-[60px] md:max-w-[750px]">
+      <div className="mb-[40px] md:mb-[60px] md:max-w-[750px] w-[100%]">
         <GoodsList
           sort={sort}
           minPrice={minPrice}

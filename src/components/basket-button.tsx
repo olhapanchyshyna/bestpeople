@@ -106,25 +106,25 @@ export default function BasketButton({
         />
       </DialogTrigger>
       {!isLoading && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>
+        <DialogContent className='w-[300px] md:w-[500px] '>
+          <DialogHeader className='w-[250px] md:w-[450px]'>
+            <DialogTitle className='text-[16px] md:text-[18px] text-center'>
               Your item has been successfully added to cart
             </DialogTitle>
-            <DialogDescription className="!my-[10px]">
+            <DialogDescription className="!my-[10px] text-[12px] md:text-[14px] text-center">
               View product?
             </DialogDescription>
-            <div className="!mt-[40px] flex items-center  justify-between ">
+            <div className="md:!mt-[40px] flex items-center  justify-between ">
               <DialogClose
                 asChild
                 className="dark-green-bg w-[200px] text-white"
               >
-                <Button type="button" variant="secondary">
+                <Button type="button" variant="secondary" className='w-[100px] md:w-[200px]'>
                   Close
                 </Button>
               </DialogClose>
-              <Button className="m-auto w-[200px] rounded-[43px]  text-white ">
-                <Link href="/basket" className="w-[100%] text-[16px]">
+              <Button className="w-[100px] md:w-[200px] rounded-[43px] text-white ">
+                <Link href="/basket" className="w-[100%] md:text-[16px]">
                   Go to cart
                 </Link>
               </Button>

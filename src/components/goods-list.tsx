@@ -6,12 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { getGoods } from "@/lib/actions/get/get-goods";
 import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { SkeletonCard } from "./skeleton-card";
-import { getGoods } from '@/lib/actions/get/get-goods'
 
 type GoodsListProps = {
   category: string;
@@ -62,11 +62,11 @@ export default function GoodsList({
   }
 
   return (
-    <section className="container flex flex-col sm:flex-row flex-wrap justify-center p-0 sm:justify-between">
+    <section className="container flex flex-col flex-wrap justify-center p-0 sm:flex-row sm:justify-between">
       {isPending && <SkeletonCard />}
       {isError && <p>Error</p>}
       {goods.length === 0 && !isPending && !isError && (
-        <div className="m-[5px] flex h-[350px] !w-[800px] flex-col justify-evenly border-none px-[10px] pb-[20px] pt-[10px] text-center text-[22px]">
+        <div className="flex md:h-[350px] max-w-[800px] m-auto flex-col justify-evenly items-center border-none px-[10px] pb-[20px] pt-[10px] text-center text-[22px]">
           <Image
             src="/product-not-found.png"
             alt="product-not-found"
@@ -93,9 +93,13 @@ export default function GoodsList({
             return null;
           }
           return (
-            <Link href={`/catalog/${good.slug}`} key={good.id}>
+            <Link
+              href={`/catalog/${good.slug}`}
+              key={good.id}
+              className="m-auto max-w-[300px] md:m-0"
+            >
               <Card
-                className="m-[5px] flex h-[220px] w-[100%] max-w-[320px] flex-col items-center justify-between rounded-[8px] px-[10px] pb-[20px] pt-[20px] hover:border-[#6e860b] sm:h-[350px] sm:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px]"
+                className="my-[5px] flex h-[220px] w-[300px] flex-col  items-center justify-between rounded-[8px] px-[10px] pb-[20px] pt-[20px] hover:border-[#6e860b] sm:h-[350px] sm:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px] md:m-[5px] md:w-[240px]"
                 style={{ boxShadow: "-1px 4px 40px -8px rgba(0 0 0 / 21%)" }}
               >
                 {/* Проверяем, валиден ли URL изображения */}
