@@ -103,7 +103,6 @@ export default async function Page() {
 
                         <TableCell>
                           <Count
-                            // goodBasket={invoice}
                             cookieGoodsArrays={cookieGoodsArrays}
                             currentGood={currentGood}
                             typeAction="inBasket"
@@ -117,7 +116,10 @@ export default async function Page() {
                         </TableCell>
 
                         <TableCell className="p-0 pr-[10px] text-right ">
-                          <DeleteGoodButton id={invoice.id} />
+                          <DeleteGoodButton
+                            id={invoice.id}
+                            cookieGoodsArrays={cookieGoodsArrays}
+                          />
                         </TableCell>
                       </TableRow>
                     );
@@ -171,7 +173,10 @@ export default async function Page() {
                             </div>
                           </Link>
 
-                          <DeleteGoodButton id={invoice.id} />
+                          <DeleteGoodButton
+                            id={invoice.id}
+                            cookieGoodsArrays={cookieGoodsArrays}
+                          />
                         </TableCell>
 
                         <TableCell className="flex items-center justify-between pt-[10px]">

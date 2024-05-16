@@ -24,7 +24,6 @@ export default function Count({
   countInPage,
 }: CountProps) {
   const { data } = useSession();
-
   const user = data?.user;
   const [count, setCount] = useState(
     typeAction === "inBasket" ? currentGood?.quantity || 1 : 1,
@@ -47,7 +46,7 @@ export default function Count({
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie)
       : setClientSideArrayCookie("basket", [...updatedCookie], 30);
-      
+
     rPath("/basket");
   };
 
