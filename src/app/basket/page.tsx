@@ -1,10 +1,8 @@
-
 import Breadcrumbs from "@/components/breadcrumbs";
-import ByButton from '@/components/by-button'
+import ByButton from "@/components/by-button";
 import Count from "@/components/count";
 import DeleteGoodButton from "@/components/delete-good-button";
 import H2 from "@/components/h2";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -33,11 +31,13 @@ export default async function Page() {
   let deliveryCost = 0;
   let priseAllGoods = 0;
 
-  const goodsWithQuantity = goods.map(good => {
-    const currentGood = cookieGoodsArrays?.find(item => item.id === good.id.toString());
+  const goodsWithQuantity = goods.map((good) => {
+    const currentGood = cookieGoodsArrays?.find(
+      (item) => item.id === good.id.toString(),
+    );
     return {
       ...good,
-      quantity: currentGood?.quantity || 1
+      quantity: currentGood?.quantity || 1,
     };
   });
 
@@ -244,8 +244,8 @@ export default async function Page() {
                 </TableRow>
               </TableFooter>
             </Table>
-           
-            <ByButton goods={goodsWithQuantity}/>
+
+            <ByButton goods={goodsWithQuantity} />
           </div>
         </div>
       </section>

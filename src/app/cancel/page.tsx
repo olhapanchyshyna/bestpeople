@@ -1,7 +1,21 @@
-import React from 'react'
+import ButtonCustom from "@/components/button";
+import H2 from "@/components/h2";
+import Image from "next/image";
 
 export default function Page() {
-	return (
-		<div>Cansel</div>
-	)
+  return (
+    <section className="container m-auto  mb-[50px] mt-[20px] flex flex-col md:my-[50px]">
+      <H2 text="Payment failed" className="" />
+      <Image
+        src="/error-payment-2.png"
+        width={200}
+        height={100}
+        alt="404"
+        className="m-auto w-[150px] md:w-[200px]"
+      />
+
+      <h4 className="text-center">Please, try again later</h4>
+      <ButtonCustom text="Home Page" href="/" className="m-auto mt-[45px]" />
+    </section>
+  );
 }
