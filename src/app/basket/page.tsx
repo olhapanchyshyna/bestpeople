@@ -1,8 +1,10 @@
+
 import Breadcrumbs from "@/components/breadcrumbs";
-import ButtonCustom from "@/components/button";
+import ByButton from '@/components/by-button'
 import Count from "@/components/count";
 import DeleteGoodButton from "@/components/delete-good-button";
 import H2 from "@/components/h2";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -30,6 +32,14 @@ export default async function Page() {
   const goods = await getGoodsById(a);
   let deliveryCost = 0;
   let priseAllGoods = 0;
+
+  const goodsWithQuantity = goods.map(good => {
+    const currentGood = cookieGoodsArrays?.find(item => item.id === good.id.toString());
+    return {
+      ...good,
+      quantity: currentGood?.quantity || 1
+    };
+  });
 
   return (
     <>
@@ -234,11 +244,8 @@ export default async function Page() {
                 </TableRow>
               </TableFooter>
             </Table>
-            <ButtonCustom
-              text="Continue"
-              href="/"
-              className="mt-[30px] w-[100%]"
-            />
+           
+            <ByButton goods={goodsWithQuantity}/>
           </div>
         </div>
       </section>
