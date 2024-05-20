@@ -1,14 +1,16 @@
 import prisma from "@/lib/db";
 import { getErrorMessage } from "@/lib/utils";
+import { OrderType } from "@/types/types"; // Предположим, что у вас есть тип OrderType
 
-export const getOrdersByUserId = async (
+export const getLatestOrderByUserId = async (
   userId: number | string | undefined,
 ) => {
   if (!userId) {
     return null;
   }
+
   try {
-    const orders = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         id: +userId,
       },
@@ -16,9 +18,21 @@ export const getOrdersByUserId = async (
         orders: true,
       },
     });
-    return orders?.orders ? JSON.parse(orders.orders) : null;
+
+    if (!user || !user.orders) {
+      return null;
+    }
+
+    const orders: OrderType[] = JSON.parse(user.orders);
+
+    const latestOrder = orders.reduce(
+      (prevOrder: OrderType, currentOrder: OrderType) =>
+        prevOrder.date > currentOrder.date ? prevOrder : currentOrder
+    );
+
+    return latestOrder;
   } catch (error) {
-    console.error("Failed to get orders:", getErrorMessage(error));
+    console.error("Failed to get latest order:", getErrorMessage(error));
     return null;
   }
 };

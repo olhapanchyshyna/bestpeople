@@ -10,10 +10,9 @@ import {
 } from "@/components/ui/table";
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
 import { getItemsFromOrders } from "@/lib/actions/get/get-items-from-orders";
-import { getOrdersByUserId } from "@/lib/actions/get/get-orders-by-user-id";
+import { getLatestOrderByUserId } from "@/lib/actions/get/get-orders-by-user-id";
 import { updateOrdersAfterPayment } from "@/lib/actions/set/update-orders-after-payment";
 import { auth } from "@/lib/auth";
-import { GoodCoookieType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -22,17 +21,12 @@ type TSearchParams = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-type OrderCoookieType = {
-  date: string;
-  items: GoodCoookieType[]; // Предполагается, что GoodCoookieType содержит items с такой же структурой как OrderItemType
-};
-
 export default async function Page({ searchParams }: TSearchParams) {
   const session = await auth();
   const userId = session?.user?.id;
 
-  const cookieGoodsArrays: OrderCoookieType[] | null = session
-    ? await getOrdersByUserId(userId)
+  const cookieGoodsArrays = session
+    ? await getLatestOrderByUserId(userId)
     : null;
 
   const items = getItemsFromOrders(cookieGoodsArrays);

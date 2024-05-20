@@ -1,21 +1,9 @@
-import { GoodCoookieType, OrderItemType } from "@/types/types";
+import { OrderType } from "@/types/types";
 
-type OrderType = {
-  date: string;
-  items: GoodCoookieType[];
-};
-
-export const getItemsFromOrders = (
-  orders: OrderType[] | null,
-): GoodCoookieType[] | null => {
-  let items: GoodCoookieType[] = [];
-
-  if (!orders) {
+export const getItemsFromOrders = (orders: OrderType | null) => {
+  if (!orders || !orders.items) {
     return null;
   }
 
-  orders.forEach((order) => {
-    items = [...items, ...order.items];
-  });
-  return items;
+  return orders.items;
 };
