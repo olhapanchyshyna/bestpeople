@@ -7,7 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Goods {
   id          Int    @id @default(autoincrement())
   slug        String @unique
@@ -18,16 +17,17 @@ model Goods {
   category    String
   descr       String
   vendorCode  String
-  brand       String 
+  brand       String
   application String
   howWork     String
   fullDescr   String
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  name     String
-  goodsBasket String?  
+  id          Int     @id @default(autoincrement())
+  email       String  @unique
+  password    String
+  name        String
+  goodsBasket String?
+  orders      String?
 }
