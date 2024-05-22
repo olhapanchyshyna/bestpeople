@@ -19,12 +19,11 @@ export default async function Page({ searchParams }: TSearchParams) {
           alt="404"
           className="m-auto w-[150px] md:w-[200px]"
         />
-        <h4 className="text-center">Please, try again later</h4>
+        <h4 className="text-center">Please, try again </h4>
         <ButtonCustom text="Home Page" href="/" className="m-auto mt-[45px]" />
       </section>
     );
   } else {
-    // Если параметра cancelled нет, перенаправляем на страницу 404
     redirect("/");
     return null; // Возвращаем null, чтобы ничего не рендерилось до редиректа
   }
