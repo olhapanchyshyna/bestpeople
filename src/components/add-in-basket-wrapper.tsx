@@ -16,6 +16,7 @@ export default function AddInBasketWrapper({
   cookieGoodsArrays,
 }: AddInBasketWrapperProps) {
   const [countInPage, setCountInPage] = useState(1);
+  
   console.log("AddInBasketWrapper", cookieGoodsArrays);
   return (
     <div className="order-1 flex items-center md:order-none ">

@@ -30,6 +30,7 @@ export default async function Page({ searchParams }: TSearchParams) {
   if (searchParams.success && userId) {
     await updateOrdersAfterPayment(userId);
     revalidatePath("/success?success=true");
+    revalidatePath("/basket");
   }
 
   // Получаем последние данные о заказах после обновления

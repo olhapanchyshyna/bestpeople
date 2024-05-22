@@ -15,6 +15,7 @@ export default async function PageIcons() {
     return total + currentItem.quantity;
   }, 0);
 
+  
   return (
     <div className="order-3 flex justify-between md:order-none md:w-64">
       <Phone type="header" width={28} height={28} className="hidden md:flex" />

@@ -35,17 +35,14 @@ export default function BasketButton({
   const { data } = useSession();
   const user = data?.user;
 
- 
-
   const setGoodInBasket = (id: number) => {
-    
     const currentCookie = user
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
 
-   
+    console.log("111111", currentCookie?.length);
 
-    if (currentCookie?.length === 0) {
+    if (currentCookie?.length === 0 || !currentCookie) {
       user
         ? setGoodsBasketByUserId(user?.id, [
             { id: id.toString(), quantity: countInPage },
@@ -109,30 +106,44 @@ export default function BasketButton({
         />
       </DialogTrigger>
       {!isLoading && (
-        <DialogContent className='w-[300px] md:w-[500px] '>
-          <DialogHeader className='w-[250px] md:w-[450px]'>
-            <DialogTitle className='text-[16px] md:text-[18px] text-center'>
+        <DialogContent className="w-[300px] md:w-[500px] ">
+          <DialogHeader className="w-[250px] md:w-[450px]">
+            <DialogTitle className="text-center text-[16px] md:text-[18px]">
               Your item has been successfully added to cart
             </DialogTitle>
-            <DialogDescription className="!my-[10px] text-[12px] md:text-[14px] text-center">
+            <DialogDescription className="!my-[10px] text-center text-[12px] md:text-[14px]">
               View product?
             </DialogDescription>
-            <div className="md:!mt-[40px] flex items-center  justify-between ">
+            <div className="flex items-center justify-between  md:!mt-[40px] ">
               <DialogClose
                 asChild
                 className="dark-green-bg w-[200px] text-white"
               >
-                <Button type="button" variant="secondary" className='w-[100px] md:w-[200px]'>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="w-[100px] md:w-[200px]"
+                  onClick={() => {
+                    rPath("/basket");
+                  }}
+                >
                   Close
                 </Button>
               </DialogClose>
-              <Button className="w-[100px] md:w-[200px] rounded-[43px] text-white " onClick={() => {
-                rPath("/basket");
-              }}>
-                <Link href="/basket" className="w-[100%] md:text-[16px]">
+
+              <Link
+                href="/basket"
+                className="w-[100px] rounded-[43px] text-white md:w-[200px] md:text-[16px]"
+              >
+                <Button
+                  className="w-[100px] md:w-[200px]"
+                  onClick={() => {
+                    rPath("/basket");
+                  }}
+                >
                   Go to cart
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </div>
           </DialogHeader>
         </DialogContent>
