@@ -23,11 +23,10 @@ export default function Count({
   setCountInPage,
   countInPage,
 }: CountProps) {
-  
   const { data } = useSession();
   const user = data?.user;
   const [count, setCount] = useState(
-    typeAction === "inBasket" ? currentGood?.quantity || 1 : 2,
+    typeAction === "inBasket" ? currentGood?.quantity || 1 : 1,
   );
 
   const setQuantityAndRedirect = (newCount: number) => {

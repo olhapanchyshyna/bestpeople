@@ -15,9 +15,10 @@ export default function AddInBasketWrapper({
   id,
   cookieGoodsArrays,
 }: AddInBasketWrapperProps) {
+
   const [countInPage, setCountInPage] = useState(1);
-  
-  console.log("AddInBasketWrapper", cookieGoodsArrays);
+  console.log("countInPage", countInPage);
+
   return (
     <div className="order-1 flex items-center md:order-none ">
       <Count
@@ -28,7 +29,11 @@ export default function AddInBasketWrapper({
         countInPage={countInPage}
       />
 
-      <BasketButton id={id} countInPage={countInPage} cookieGoodsArrays={cookieGoodsArrays}/>
+      <BasketButton
+        id={id}
+        countInPage={countInPage}
+        cookieGoodsArrays={cookieGoodsArrays}
+      />
     </div>
   );
 }
