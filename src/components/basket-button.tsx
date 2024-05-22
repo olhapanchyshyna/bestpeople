@@ -35,11 +35,15 @@ export default function BasketButton({
   const { data } = useSession();
   const user = data?.user;
 
+ 
+
   const setGoodInBasket = (id: number) => {
     
     const currentCookie = user
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
+
+   
 
     if (currentCookie?.length === 0) {
       user
@@ -78,6 +82,7 @@ export default function BasketButton({
       ? setGoodsBasketByUserId(user?.id, updatedCookie)
       : setClientSideArrayCookie("basket", [...updatedCookie], 30);
     setIsLoading(false);
+
     rPath("/basket");
   };
 
@@ -89,9 +94,7 @@ export default function BasketButton({
         onClick={() => {
           startTransition(() => {
             setIsLoading(true);
-            setTimeout(() => {
-              setGoodInBasket(id);
-            }, 1000);
+            setGoodInBasket(id);
           });
         }}
       >
@@ -123,7 +126,9 @@ export default function BasketButton({
                   Close
                 </Button>
               </DialogClose>
-              <Button className="w-[100px] md:w-[200px] rounded-[43px] text-white ">
+              <Button className="w-[100px] md:w-[200px] rounded-[43px] text-white " onClick={() => {
+                rPath("/basket");
+              }}>
                 <Link href="/basket" className="w-[100%] md:text-[16px]">
                   Go to cart
                 </Link>

@@ -1,3 +1,4 @@
+"use server"
 import prisma from "@/lib/db"; // Убедитесь, что путь к вашему файлу Prisma правильный
 
 export const updateOrdersAfterPayment = async (userId: string | undefined) => {

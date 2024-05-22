@@ -13,6 +13,7 @@ import { getItemsFromOrders } from "@/lib/actions/get/get-items-from-orders";
 import { getLatestOrderByUserId } from "@/lib/actions/get/get-orders-by-user-id";
 import { updateOrdersAfterPayment } from "@/lib/actions/set/update-orders-after-payment";
 import { auth } from "@/lib/auth";
+import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -25,6 +26,13 @@ export default async function Page({ searchParams }: TSearchParams) {
   const session = await auth();
   const userId = session?.user?.id;
 
+  // Обновляем заказы до того, как получим последние данные о заказах
+  if (searchParams.success && userId) {
+    await updateOrdersAfterPayment(userId);
+    revalidatePath("/success?success=true");
+  }
+
+  // Получаем последние данные о заказах после обновления
   const cookieGoodsArrays = session
     ? await getLatestOrderByUserId(userId)
     : null;
@@ -43,7 +51,6 @@ export default async function Page({ searchParams }: TSearchParams) {
   });
 
   if (searchParams.success) {
-    await updateOrdersAfterPayment(userId);
     return (
       <section className="container m-auto mb-[50px] mt-[20px] flex flex-col md:my-[50px]">
         <H2 text="Payment was successful" className="" />

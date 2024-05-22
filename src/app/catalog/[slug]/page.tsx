@@ -44,6 +44,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
     ? await getGoodsBasketByUserId(session?.user?.id)
     : await getServerSideArrayCookie("basket");
 
+  console.log("cookieGoodsArrays", cookieGoodsArrays);
   const slug = params.slug;
   const good = await getGood(slug);
 
