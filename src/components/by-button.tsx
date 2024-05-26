@@ -50,8 +50,8 @@ export default function ByButton({ goods }: ByButtonProps) {
   if (!user) {
     return (
       <Dialog>
-        <DialogTrigger className="green-bg mt-[30px] w-[100%] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white">
-          Continue
+        <DialogTrigger className="green-bg mt-[30px] w-[200px]  rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white">
+          Order
         </DialogTrigger>
 
         <DialogContent>
@@ -87,11 +87,11 @@ export default function ByButton({ goods }: ByButtonProps) {
 
   return (
     <button
-      className="green-bg mt-[30px] w-[100%] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white"
+      className="green-bg mt-[30px] w-[200px] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white"
       onClick={checkout}
       disabled={isLoading}
     >
-      {isLoading ? "Processing..." : "Continue"}
+      {isLoading ? "Processing..." : "Order"}
     </button>
   );
 }

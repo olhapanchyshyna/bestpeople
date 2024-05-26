@@ -2,6 +2,6 @@
 
 export const authRoutes = ["/auth/login", "/auth/register"];
 
-export const apiRoutes = ["/api/stripe", "/api/auth"];
+export const apiRoutes = ["/api/stripe", "/api/auth", "/api/novaposhta"];
 
 export const DEFAULT_LOGIN_REDIRECT = "/account";

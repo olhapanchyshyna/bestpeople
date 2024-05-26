@@ -66,7 +66,7 @@ export default function GoodsList({
       {isPending && <SkeletonCard />}
       {isError && <p>Error</p>}
       {goods.length === 0 && !isPending && !isError && (
-        <div className="flex md:h-[350px] max-w-[800px] m-auto flex-col justify-evenly items-center border-none px-[10px] pb-[20px] pt-[10px] text-center text-[22px]">
+        <div className="m-auto flex max-w-[800px] flex-col items-center justify-evenly border-none px-[10px] pb-[20px] pt-[10px] text-center text-[22px] md:h-[350px]">
           <Image
             src="/product-not-found.png"
             alt="product-not-found"
@@ -128,15 +128,6 @@ export default function GoodsList({
                       {good.price}$
                     </CardDescription>
                   </div>
-                  <button className="btn btn-green">
-                    <Image
-                      src="/basket-green.svg"
-                      alt="basket-green"
-                      width={17}
-                      height={22}
-                      className="w-[17px] max-w-[17px]"
-                    />
-                  </button>
                 </CardFooter>
               </Card>
             </Link>

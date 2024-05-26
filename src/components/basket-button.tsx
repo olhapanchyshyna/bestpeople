@@ -117,12 +117,11 @@ export default function BasketButton({
             <div className="flex items-center justify-between  md:!mt-[40px] ">
               <DialogClose
                 asChild
-                className="dark-green-bg w-[200px] text-white"
+                className="hover:dark-green-bg dark-green-bg w-[200px] text-white"
               >
                 <Button
                   type="button"
-                  variant="secondary"
-                  className="w-[100px] md:w-[200px]"
+                  className="w-[100px] md:w-[200px] !hover:dark-green-bg"
                   onClick={() => {
                     rPath("/basket");
                   }}

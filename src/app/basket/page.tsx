@@ -1,5 +1,5 @@
 import Breadcrumbs from "@/components/breadcrumbs";
-import ByButton from "@/components/by-button";
+import ButtonCustom from "@/components/button";
 import Count from "@/components/count";
 import DeleteGoodButton from "@/components/delete-good-button";
 import H2 from "@/components/h2";
@@ -28,18 +28,9 @@ export default async function Page() {
 
   const a = cookieGoodsArrays?.map((item) => +item.id);
   const goods = await getGoodsById(a);
+  
   let deliveryCost = 0;
   let priseAllGoods = 0;
-
-  const goodsWithQuantity = goods.map((good) => {
-    const currentGood = cookieGoodsArrays?.find(
-      (item) => item.id === good.id.toString(),
-    );
-    return {
-      ...good,
-      quantity: currentGood?.quantity || 1,
-    };
-  });
 
   return (
     <>
@@ -245,7 +236,11 @@ export default async function Page() {
               </TableFooter>
             </Table>
 
-            <ByButton goods={goodsWithQuantity} />
+            <ButtonCustom
+              text="Continue"
+              href="/plase-in-order"
+              className="green-bg mt-[30px] w-[100%] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white"
+            />
           </div>
         </div>
       </section>

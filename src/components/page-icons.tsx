@@ -1,19 +1,40 @@
+"use client";
+
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
-import { auth } from "@/lib/auth";
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
+import { GoodCoookieType } from "@/types/types";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import Phone from "./phone";
 
-export default async function PageIcons() {
-  const session = await auth();
-  const cookieGoodsArrays = session
-    ? await getGoodsBasketByUserId(session?.user?.id)
-    : await getServerSideArrayCookie("basket");
+export default function PageIcons() {
+  const { data: session } = useSession();
+  const [cookieGoodsArrays, setCookieGoodsArrays] = useState<
+    GoodCoookieType[] | undefined
+  >(undefined);
 
-  const totalQuantity = cookieGoodsArrays?.reduce((total, currentItem) => {
-    return total + currentItem.quantity;
-  }, 0);
+  const [totalQuantity, setTotalQuantity] = useState<number | undefined>(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let goods;
+      if (session) {
+        goods = await getGoodsBasketByUserId(session?.user?.id);
+      } else {
+        goods = await getServerSideArrayCookie("basket");
+      }
+      setCookieGoodsArrays(goods);
+
+      const total = goods?.reduce((total, currentItem) => {
+        return total + currentItem.quantity;
+      }, 0);
+      setTotalQuantity(total);
+    };
+
+    fetchData();
+  }, [session]);
 
   return (
     <div className="order-3 flex justify-between md:order-none md:w-64">

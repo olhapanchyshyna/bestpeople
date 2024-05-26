@@ -1,3 +1,4 @@
+
 import ButtonCustom from "@/components/button";
 import H2 from "@/components/h2";
 import Image from "next/image";
@@ -7,7 +8,7 @@ type TSearchParams = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export default async function Page({ searchParams }: TSearchParams) {
+export default  function Page({ searchParams }: TSearchParams) {
   if (searchParams.cancelled) {
     return (
       <section className="container m-auto mb-[50px] mt-[20px] flex flex-col md:my-[50px]">

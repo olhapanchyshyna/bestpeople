@@ -1,10 +1,12 @@
+"use server"
+
 import prisma from '@/lib/db'
 import { getErrorMessage } from '@/lib/utils'
 import { GoodCoookieType } from '@/types/types'
 
-export const getGoodsBasketByUserId = async (userId: number | string | undefined): Promise<GoodCoookieType[] | null>  => {
+export const getGoodsBasketByUserId = async (userId: number | string | undefined): Promise<GoodCoookieType[] | undefined>  => {
 	if (!userId) {
-		return null;
+		return undefined;
 	}
 	try {
 		const goodsBasket = await prisma.user.findUnique({
@@ -15,9 +17,9 @@ export const getGoodsBasketByUserId = async (userId: number | string | undefined
 				goodsBasket: true,
 			},
 		});
-		return goodsBasket?.goodsBasket ? JSON.parse(goodsBasket.goodsBasket) : null;
+		return goodsBasket?.goodsBasket ? JSON.parse(goodsBasket.goodsBasket) : undefined;
 	} catch (error) {
 		console.error("Failed to get goods basket:", getErrorMessage(error));
-		return null;
+		return undefined;
 	}
 }
