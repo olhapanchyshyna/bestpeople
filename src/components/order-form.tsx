@@ -60,7 +60,7 @@ const useCitySearch = (initialCity: string) => {
       const cityRef = addresses[0].Ref;
       const departmentData = await getDepartment(cityRef);
       const filtereddepartment = departmentData.data.filter(
-        (warehouse: any) => !warehouse.Postomat,
+        (department: any) => !department.Postomat,
       );
       setDepartment(filtereddepartment);
     } catch (error) {
@@ -164,7 +164,7 @@ export default function OrderForm({ goods }: ByButtonProps) {
               >
                 {value
                   ? department.find(
-                      (warehouse) => departmentLabel(warehouse) === value,
+                      (department) => departmentLabel(department) === value,
                     )?.ShortAddress
                   : "Select department..."}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -173,15 +173,15 @@ export default function OrderForm({ goods }: ByButtonProps) {
             <PopoverContent className="w-[350px] border-[#e6e6e6]  p-0">
               <Command className="w-[350px] !border-2">
                 <CommandList className="!border-2">
-                  <CommandInput placeholder="Search warehouse..." />
+                  <CommandInput placeholder="Search department..." />
                   {department.length === 0 ? (
                     <CommandEmpty>Select city.</CommandEmpty>
                   ) : (
                     <CommandGroup>
-                      {department.map((warehouse) => (
+                      {department.map((department) => (
                         <CommandItem
-                          key={warehouse.Ref}
-                          value={departmentLabel(warehouse)}
+                          key={department.Ref}
+                          value={departmentLabel(department)}
                           onSelect={(currentValue) => {
                             setValue(
                               currentValue === value ? "" : currentValue,
@@ -192,12 +192,12 @@ export default function OrderForm({ goods }: ByButtonProps) {
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              value === departmentLabel(warehouse)
+                              value === departmentLabel(department)
                                 ? "opacity-100"
                                 : "opacity-0",
                             )}
                           />
-                          {departmentLabel(warehouse)}
+                          {departmentLabel(department)}
                         </CommandItem>
                       ))}
                     </CommandGroup>

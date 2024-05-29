@@ -12,3 +12,12 @@ export type CityAndWarehouseType = {
   Ref: string;
   Description: string;
 }
+export type OrderDetails = {
+  city: string;
+  department: string;
+  name: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  message?: string;
+}

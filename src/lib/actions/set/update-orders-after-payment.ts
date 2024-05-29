@@ -12,11 +12,12 @@ export const updateOrdersAfterPayment = async (userId: string | undefined) => {
       where: { id: +userId },
     });
 
-    if (user && user.goodsBasket) {
+    if (user && user.goodsBasket && user.orderDetails) {
       // Добавляем дату к заказу
       const newOrder = {
         date: new Date().toISOString(),
         items: JSON.parse(user.goodsBasket),
+        orderDetails: JSON.parse(user.orderDetails),
       };
 
       // Обновляем массив заказов
@@ -29,6 +30,7 @@ export const updateOrdersAfterPayment = async (userId: string | undefined) => {
         data: {
           orders: JSON.stringify(updatedOrders),
           goodsBasket: null,
+          orderDetails: null,
         },
       });
     }

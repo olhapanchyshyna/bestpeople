@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { setOrderDetails } from "@/lib/actions/set/set-order-details";
 import { Goods } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -94,7 +95,8 @@ export default function ByButton({
   return (
     <button
       className="green-bg mt-[30px] w-[200px] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white"
-      onClick={() => {
+      disabled={isLoading}
+      onClick={async () => {
         const emptyFields: string[] = [];
         Object.entries(formData).forEach(([key, value]) => {
           if (!value && key !== "message") {
@@ -108,10 +110,10 @@ export default function ByButton({
         }
 
         if (emptyFields.length === 0) {
+          await setOrderDetails(user.id, formData);
           checkout();
         }
       }}
-      disabled={isLoading}
     >
       {isLoading ? "Processing..." : "Order"}
     </button>
