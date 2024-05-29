@@ -26,7 +26,7 @@ export const searchSettlements = async (
   }
 };
 
-export const getWarehouses = async (cityRef: string): Promise<any> => {
+export const getDepartment = async (cityRef: string): Promise<any> => {
   try {
     const response = await axios.post(apiUrl, {
       apiKey: apiKey,

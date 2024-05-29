@@ -6,11 +6,10 @@ export const LoginSchema = z.object({
 });
 
 export const RegisterShema = z.object({
-	name: z.string().min(3).max(100),
+  name: z.string().min(3).max(100),
   email: z.string().email().max(100),
   password: z.string().min(6),
 });
-
 
 export const CustomerDetailsForOrder = z.object({
   name: z.string().min(2, {

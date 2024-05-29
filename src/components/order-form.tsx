@@ -22,8 +22,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Textarea } from "@/components/ui/textarea";
-import { getWarehouses, searchSettlements } from "@/lib/actions/novaPoshta";
+import { getDepartment, searchSettlements } from "@/lib/actions/novaPoshta";
 import { cn } from "@/lib/utils";
 import { CustomerDetailsForOrder } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,12 +38,79 @@ type ByButtonProps = {
   goods: Goods[];
 };
 
-export default function OrderForm({ goods }: ByButtonProps) {
-  const [city, setCity] = useState("Київ");
-  const [warehouses, setWarehouses] = useState<any[]>([]);
+const useCitySearch = (initialCity: string) => {
+  const [city, setCity] = useState(initialCity);
+  const [department, setDepartment] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(event.target.value);
+    setError(null);
+  };
+
+  const handleSearch = async () => {
+    setError(null);
+    try {
+      const settlementsData = await searchSettlements(city, "100", "1");
+      const addresses = settlementsData.data[0]?.Addresses;
+      if (!addresses || addresses.length === 0) {
+        setError("City not found");
+        return;
+      }
+      const cityRef = addresses[0].Ref;
+      const departmentData = await getDepartment(cityRef);
+      const filtereddepartment = departmentData.data.filter(
+        (warehouse: any) => !warehouse.Postomat,
+      );
+      setDepartment(filtereddepartment);
+    } catch (error) {
+      setError("Помилка пошуку відділень");
+    }
+  };
+
+  return { city, department, error, handleCityChange, handleSearch };
+};
+
+type FormFieldComponentProps = {
+  control: any;
+  name: string;
+  label: string;
+  placeholder: string;
+  type?: string;
+};
+
+const FormFieldComponent = ({
+  control,
+  name,
+  label,
+  placeholder,
+  type = "text",
+  emptyFields,
+}: FormFieldComponentProps & { emptyFields: string[] }) => {
+  const isEmpty = emptyFields && emptyFields.includes(name);
+  return (
+    <FormField
+      control={control}
+      name={name}
+      render={({ field }) => (
+        <FormItem className={`mb-[20px] mr-[10px] w-[250px] `}>
+          <FormLabel>{label}</FormLabel>
+          <FormControl className={`${isEmpty ? "bg-red-200 " : ""}`}>
+            <Input placeholder={placeholder} {...field} type={type} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
+
+export default function OrderForm({ goods }: ByButtonProps) {
+  const { city, department, error, handleCityChange, handleSearch } =
+    useCitySearch("Київ");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const [emptyFields, setEmptyFields] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof CustomerDetailsForOrder>>({
     resolver: zodResolver(CustomerDetailsForOrder),
@@ -61,37 +127,8 @@ export default function OrderForm({ goods }: ByButtonProps) {
     console.log(values);
   }
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
-    setError(null);
-  };
-
-  const handleSearch = async () => {
-    setError(null);
-    try {
-      const settlementsData = await searchSettlements(city, "100", "1");
-      console.log("Settlements data:", settlementsData);
-      const addresses = settlementsData.data[0]?.Addresses;
-      if (!addresses || addresses.length === 0) {
-        setError("City not found");
-        return;
-      }
-      const cityRef = addresses[0].Ref;
-      const warehousesData = await getWarehouses(cityRef);
-      console.log("Warehouses data:", warehousesData);
-      const filteredWarehouses = warehousesData.data.filter(
-        (warehouse: any) => !warehouse.Postomat,
-      );
-
-      setWarehouses(filteredWarehouses);
-    } catch (error) {
-      console.error("Error searching settlements:", error);
-      setError("Помилка пошуку відділень");
-    }
-  };
-
-  const warehouseLabel = (warehouse: any) =>
-    `№${warehouse.Number} ул. ${warehouse.ShortAddress.replace(city, "")}`;
+  const departmentLabel = (department: any) =>
+    `№${department.Number} ул. ${department.ShortAddress.replace(city, "")}`;
 
   return (
     <Form {...form}>
@@ -126,8 +163,8 @@ export default function OrderForm({ goods }: ByButtonProps) {
                 className="w-[350px] justify-between  border-2 border-[#e6e6e6]"
               >
                 {value
-                  ? warehouses.find(
-                      (warehouse) => warehouseLabel(warehouse) === value,
+                  ? department.find(
+                      (warehouse) => departmentLabel(warehouse) === value,
                     )?.ShortAddress
                   : "Select department..."}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -137,14 +174,14 @@ export default function OrderForm({ goods }: ByButtonProps) {
               <Command className="w-[350px] !border-2">
                 <CommandList className="!border-2">
                   <CommandInput placeholder="Search warehouse..." />
-                  {warehouses.length === 0 ? (
+                  {department.length === 0 ? (
                     <CommandEmpty>Select city.</CommandEmpty>
                   ) : (
                     <CommandGroup>
-                      {warehouses.map((warehouse) => (
+                      {department.map((warehouse) => (
                         <CommandItem
                           key={warehouse.Ref}
-                          value={warehouseLabel(warehouse)}
+                          value={departmentLabel(warehouse)}
                           onSelect={(currentValue) => {
                             setValue(
                               currentValue === value ? "" : currentValue,
@@ -155,12 +192,12 @@ export default function OrderForm({ goods }: ByButtonProps) {
                           <Check
                             className={cn(
                               "mr-2 h-4 w-4",
-                              value === warehouseLabel(warehouse)
+                              value === departmentLabel(warehouse)
                                 ? "opacity-100"
                                 : "opacity-0",
                             )}
                           />
-                          {warehouseLabel(warehouse)}
+                          {departmentLabel(warehouse)}
                         </CommandItem>
                       ))}
                     </CommandGroup>
@@ -175,76 +212,52 @@ export default function OrderForm({ goods }: ByButtonProps) {
       <div className="mt-[60px] w-[100%] max-w-[800px]">
         <h2 className="mb-[20px] text-[24px]">Recipient details</h2>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col">
-        <div className="flex flex-wrap justify-between">
-          <FormField
+          <div className="flex flex-wrap justify-between">
+            <FormFieldComponent
+              control={form.control}
+              name="name"
+              label="Name"
+              placeholder="Your name"
+              emptyFields={emptyFields}
+            />
+            <FormFieldComponent
+              control={form.control}
+              name="lastName"
+              label="Last name"
+              placeholder="Your last name"
+              emptyFields={emptyFields}
+            />
+            <FormFieldComponent
+              control={form.control}
+              name="phone"
+              label="Phone"
+              placeholder="Your phone"
+              emptyFields={emptyFields}
+            />
+            <FormFieldComponent
+              control={form.control}
+              name="email"
+              label="Email"
+              placeholder="Your email"
+              emptyFields={emptyFields}
+            />
+          </div>
+          <FormFieldComponent
             control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="mb-[20px] mr-[10px] w-[250px]">
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Your name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            name="message"
+            label="Message"
+            placeholder="Type your message here."
+            type="textarea"
+            emptyFields={emptyFields}
           />
-          <FormField
-            control={form.control}
-            name="lastName"
-            render={({ field }) => (
-              <FormItem className="mb-[20px] mr-[10px] w-[250px]">
-                <FormLabel>Last name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Your last name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem className="mb-[20px] mr-[10px] w-[250px]">
-                <FormLabel>Phone</FormLabel>
-                <FormControl>
-                  <Input placeholder="Your phone" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="mb-[20px] mr-[10px]  w-[250px]">
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input placeholder="Your email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <FormField
-          control={form.control}
-          name="message"
-          render={({ field }) => (
-            <FormItem className="mb-[20px] mr-[10px] ">
-              <FormControl>
-                <Textarea placeholder="Type your message here." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
+        </form>
       </div>
-      <ByButton goods={goods} />
+
+      <ByButton
+        goods={goods}
+        formData={{ ...form.watch(), city, department: value }}
+        setEmptyFields={setEmptyFields}
+      />
     </Form>
   );
 }
