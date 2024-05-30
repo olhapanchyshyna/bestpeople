@@ -40,7 +40,6 @@ export default function BasketButton({
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
 
-    console.log("111111", currentCookie?.length);
 
     if (currentCookie?.length === 0 || !currentCookie) {
       user

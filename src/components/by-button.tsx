@@ -105,7 +105,7 @@ export default function ByButton({
         });
         if (emptyFields.length > 0) {
           setEmptyFields(emptyFields);
-          console.log(`Порожні поля: ${emptyFields.join(", ")}`);
+
           return;
         }
 

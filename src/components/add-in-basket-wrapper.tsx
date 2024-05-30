@@ -17,7 +17,6 @@ export default function AddInBasketWrapper({
 }: AddInBasketWrapperProps) {
 
   const [countInPage, setCountInPage] = useState(1);
-  console.log("countInPage", countInPage);
 
   return (
     <div className="order-1 flex items-center md:order-none ">

@@ -17,6 +17,7 @@ import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { sendToTelegram } from '../api/telegram'
 
 type TSearchParams = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -29,6 +30,11 @@ export default async function Page({ searchParams }: TSearchParams) {
   // Обновляем заказы до того, как получим последние данные о заказах
   if (searchParams.success && userId) {
     await updateOrdersAfterPayment(userId);
+    try {
+      await sendToTelegram(userId);
+    } catch (error) {
+      console.error('Error sending to Telegram:', error);
+    }
     revalidatePath("/success?success=true");
     revalidatePath("/basket");
   }
