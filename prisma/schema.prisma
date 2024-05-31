@@ -29,6 +29,7 @@ model User {
   password    String
   name        String
   goodsBasket String?
-  orders      String?
   orderDetails String?
+  orders String?
 }
+

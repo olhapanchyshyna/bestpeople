@@ -18,6 +18,8 @@ export const updateOrdersAfterPayment = async (userId: string | undefined) => {
         date: new Date().toISOString(),
         items: JSON.parse(user.goodsBasket),
         orderDetails: JSON.parse(user.orderDetails),
+        isNotified: false,
+        
       };
 
       // Обновляем массив заказов

@@ -6,6 +6,8 @@ export type GoodCoookieType = {
 export type OrderType = {
   date: string;
   items: GoodCoookieType[];
+  isNotified: boolean;
+  orderDetails: OrderDetails;
 };
 
 export type CityAndWarehouseType = {
