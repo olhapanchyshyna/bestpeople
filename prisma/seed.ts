@@ -11,7 +11,6 @@ export default prisma;
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 
-
 const b = [
   "The rich content of isoflavones, especially gynestein, has an inhibitory effect on the development of cancer cells. The most pronounced effect is observed in oncology of the stomach, pancreas, reproductive system and intestines. In addition, ginestein reduces blood clotting and prevents blood clots. Isoflavones have an antioxidant effect, protecting cell membranes from damage by free radicals, stopping the aging process. A number of studies show that consuming soy protein prevents the development of mastopathy, fibroids, polycystic ovary syndrome and endometriosis in women.",
   "Soy protein is a hypoallergenic protein, unlike cows milk proteins. Replacing soy protein with milk protein has saved hundreds of thousands of children born with various types of autoimmune diseases.",

@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Goods {
@@ -23,7 +24,7 @@ model Goods {
   fullDescr   String
 }
 
-model User {
+model UserBest {
   id          Int     @id @default(autoincrement())
   email       String  @unique
   password    String
