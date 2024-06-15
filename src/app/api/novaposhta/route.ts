@@ -1,20 +1,20 @@
-// route.ts
-import { searchSettlements } from '@/lib/actions/novaPoshta'
-import { NextApiRequest, NextApiResponse } from "next";
+import { searchSettlements } from "@/lib/actions/novaPoshta";
+import { NextRequest, NextResponse } from "next/server";
 
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
-    try {
-      const { cityName, limit, page } = req.body;
-      const data = await searchSettlements(cityName, limit, page);
-      res.status(200).json(data);
-    } catch (error) {
-      console.error("Error searching settlements:", error);
-      res.status(500).json({ error: "Failed to search settlements" });
-    }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    res.status(405).end(`Method ${req.method} not allowed`);
+export async function POST(req: NextRequest) {
+  try {
+    const { cityName, limit, page } = await req.json();
+    const data = await searchSettlements(cityName, limit, page);
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error searching settlements:", error);
+    return NextResponse.json(
+      { error: "Failed to search settlements" },
+      { status: 500 },
+    );
   }
+}
+
+export async function OPTIONS() {
+  return NextResponse.json({ message: "Method not allowed" }, { status: 405 });
 }
