@@ -12,7 +12,7 @@ export const setOrderDetails = async (
     return false;
   }
   try {
-    await prisma.user.update({
+    await prisma.userBest.update({
       where: {
         id: +userId,
       },

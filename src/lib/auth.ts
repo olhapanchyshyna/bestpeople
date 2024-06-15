@@ -13,7 +13,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const basketCookie = await getServerSideArrayCookie("basket");
       
       if (basketCookie && user.user.id) {
-        await prisma.user.update({
+        await prisma.userBest.update({
           where: { id: +user.user.id },
           data: {
             goodsBasket: JSON.stringify(basketCookie),

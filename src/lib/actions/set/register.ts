@@ -25,7 +25,7 @@ export const register = async (values: z.infer<typeof RegisterShema>) => {
   }
 
   try {
-    await prisma.user.create({
+    await prisma.userBest.create({
       data: {
         name,
         email,

@@ -8,7 +8,7 @@ export const updateOrdersAfterPayment = async (userId: string | undefined) => {
   }
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.userBest.findUnique({
       where: { id: +userId },
     });
 
@@ -27,7 +27,7 @@ export const updateOrdersAfterPayment = async (userId: string | undefined) => {
       updatedOrders.push(newOrder);
 
       // Обновляем данные пользователя
-      await prisma.user.update({
+      await prisma.userBest.update({
         where: { id: +userId },
         data: {
           orders: JSON.stringify(updatedOrders),

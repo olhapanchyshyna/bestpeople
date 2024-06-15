@@ -9,7 +9,7 @@ export const getGoodsBasketByUserId = async (userId: number | string | undefined
 		return undefined;
 	}
 	try {
-		const goodsBasket = await prisma.user.findUnique({
+		const goodsBasket = await prisma.userBest.findUnique({
 			where: {
 				id: +userId,
 			},

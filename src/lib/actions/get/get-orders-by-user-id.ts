@@ -10,7 +10,7 @@ export const getLatestOrderByUserId = async (
   }
 
   try {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.userBest.findUnique({
       where: {
         id: +userId,
       },

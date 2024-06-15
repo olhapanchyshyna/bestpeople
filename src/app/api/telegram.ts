@@ -46,7 +46,7 @@ export const sendToTelegram = async (userId: string) => {
       throw new Error("Failed to send message to Telegram");
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.userBest.findUnique({
       where: { id: +userId },
     });
 
@@ -59,7 +59,7 @@ export const sendToTelegram = async (userId: string) => {
         return order;
       });
 
-      await prisma.user.update({
+      await prisma.userBest.update({
         where: { id: +userId },
         data: { orders: JSON.stringify(updatedOrders) },
       });
