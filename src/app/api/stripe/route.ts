@@ -59,8 +59,8 @@ export const POST = async (request: any) => {
   const session = await stripe.checkout.sessions.create({
     line_items: stripeItems,
     mode: "payment",
-    success_url: "http://localhost:3000/success?success=true",
-    cancel_url: "http://localhost:3000/cancel?cancelled=true",
+    success_url: "https://bestpeople-ten.vercel.app/success?success=true",
+    cancel_url: "https://bestpeople-ten.vercel.app/cancel?cancelled=true",
   });
 
   return NextResponse.json({ url: session.url });

@@ -34,7 +34,7 @@ export default function ByButton({
   const checkout = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/stripe", {
+      const response = await fetch("https://bestpeople-ten.vercel.app/api/stripe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
