@@ -19,7 +19,7 @@ export default function ButtonCustom({
 }: ButtonProps) {
   return (
     <Button
-      disabled
+      disabled={disabled}
       onClick={onClick} // Передайте обработчик клика в компонент Button
       className={cn(
         `green-bg px-[40px] py-[16px] text-white hover:bg-[#6e860b] hover:text-white`,

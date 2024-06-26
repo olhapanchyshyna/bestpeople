@@ -32,7 +32,6 @@ export default async function Page() {
   let deliveryCost = 0;
   let priseAllGoods = 0;
 
-  console.log(goods.length)
   return (
     <>
       <Breadcrumbs />
