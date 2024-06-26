@@ -32,6 +32,7 @@ export default async function Page() {
   let deliveryCost = 0;
   let priseAllGoods = 0;
 
+  console.log(goods.length)
   return (
     <>
       <Breadcrumbs />
@@ -237,6 +238,7 @@ export default async function Page() {
             </Table>
 
             <ButtonCustom
+              disabled={goods.length === 0 ? true : false}
               text="Continue"
               href="/plase-in-order"
               className="green-bg mt-[30px] w-[100%] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white"
