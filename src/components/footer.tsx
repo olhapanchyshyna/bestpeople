@@ -6,11 +6,16 @@ export default function Footer() {
   return (
     <footer className="h-full bg-[url('/footer-bg.png')] bg-cover bg-no-repeat pb-[30px] pt-[25px] md:pt-[50px]">
       <div className="container flex flex-col justify-between border-t-2 border-slate-400  md:h-[300px]">
-        <div className="mt-[30px] flex flex-col items-start justify-between min-[440px]:items-center md:flex-row md:items-start">
+        <div className="mt-[30px] flex cursor-pointer flex-col items-start justify-between min-[440px]:items-center md:flex-row md:items-start">
           {/* 1 */}
           <div className="mb-[40px] flex flex-col justify-between md:mb-0 md:h-[150px]">
             <Link href="/">
-              <Image src="/logo-white.svg" alt="logo" width={100} height={100} />
+              <Image
+                src="/logo-white.svg"
+                alt="logo"
+                width={100}
+                height={100}
+              />
             </Link>
             <p className="mt-[10px] text-base text-[#E1E1E1] md:mt-0">
               Smart products for your health
@@ -26,19 +31,42 @@ export default function Footer() {
             {/* 2 */}
             <div className="h-[150px]">
               <ul className="flex h-full flex-col justify-between text-[#E1E1E1]">
-                <li className="green">Catalog</li>
-                <li>Shop</li>
-                <li>My office</li>
-                <li>Most selled</li>
+                <li className="green">
+                  {" "}
+                  <Link href="/catalog">Catalog</Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link href="/catalog">Shop</Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link href="/account">My office</Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link href="/catalog/cocktail-pistachio-2">Most selled</Link>
+                </li>
               </ul>
             </div>
             {/* 3 */}
             <div className="h-[150px]">
               <ul className="flex h-full flex-col justify-between text-[#E1E1E1]">
-                <li className="green">Best&People</li>
-                <li>About Company</li>
-                <li>Possibilities</li>
-                <li>Contacts</li>
+                <li className="green">
+                  <Link href="/">Best&People</Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link href="/about-company">About Company </Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link href="/">Possibilities</Link>
+                </li>
+                <li>
+                  {" "}
+                  <Link href="/">Contacts</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -74,7 +102,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <small className="mt-[50px]  min-[440px]:text-center text-[#4f5155] md:mt-0 md:text-left">
+        <small className="mt-[50px]  text-[#4f5155] min-[440px]:text-center md:mt-0 md:text-left">
           ©Best&People All Rights Reserved.
         </small>
       </div>

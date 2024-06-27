@@ -62,7 +62,7 @@ export default function NavigationMenuItems() {
             <NavigationMenuContent className="flex !w-[200px] list-none flex-col py-[20px] text-center">
               <ul>
                 {catalogItems.map((item) => (
-                  <NavigationMenuItem key={item.name} className="my-[5px]">
+                  <NavigationMenuItem key={item.name} className="my-[5px] hover:text-[#6e860b]">
                     <NavigationMenuLink
                       href={`/catalog?category=${item.option}`}
                     >

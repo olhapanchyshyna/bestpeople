@@ -107,7 +107,7 @@ const FormFieldComponent = ({
 
 export default function OrderForm({ goods }: ByButtonProps) {
   const { city, department, error, handleCityChange, handleSearch } =
-    useCitySearch("Київ");
+    useCitySearch('');
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [emptyFields, setEmptyFields] = useState<string[]>([]);
