@@ -135,7 +135,7 @@ export default function OrderForm({ goods }: ByButtonProps) {
       <div>
         <h2 className="mb-[20px] text-[24px]">Delivery</h2>
         <div>
-          <div className="mb-[30px]">
+          <div className=" h-[115px]">
             <h2 className="mb-[7px]">City</h2>
             <div className="flex h-[60px] w-[400px] justify-between border-2 border-[#e6e6e6] px-[10px] focus-within:border-[#343a43b5]">
               <input
