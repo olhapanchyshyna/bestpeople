@@ -41,11 +41,11 @@ export default async function Page() {
   return (
     <section className="container mb-[35px] mt-[44px] md:mb-[85px]">
       <H2 text="Placing an order" className="mb-[42px]" />
-      <div className="flex justify-between">
-        <div>
+      <div className="flex justify-between md:flex-row flex-col">
+        <div className='order-2 md:order-none'>
           <OrderForm goods={goodsWithQuantity} />
         </div>
-        <div className="h-[220px] w-[300px] rounded-[8px] border-2 border-[#E6E6E6] px-[16px] py-[24px] md:w-[230px]">
+        <div className="order-1 md:order-none mb-[40px] md:mb-0 h-[220px] w-[300px] rounded-[8px] border-2 border-[#E6E6E6] px-[16px] py-[24px] md:w-[230px]">
           <h2 className="mb-[10px] text-[20px]">To pay</h2>
           <Table>
             <TableFooter>

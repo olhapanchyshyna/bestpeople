@@ -36,6 +36,8 @@ import ByButton from "./by-button";
 
 type ByButtonProps = {
   goods: Goods[];
+  formData?: any;
+  setEmptyFields?: (fields: string[]) => void;
 };
 
 const useCitySearch = (initialCity: string) => {
@@ -88,6 +90,21 @@ const FormFieldComponent = ({
   emptyFields,
 }: FormFieldComponentProps & { emptyFields: string[] }) => {
   const isEmpty = emptyFields && emptyFields.includes(name);
+  const [isFieldFilled, setIsFieldFilled] = useState(false);
+  const [isFieldActive, setIsFieldActive] = useState(false);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFieldFilled(event.target.value.trim() !== "");
+  };
+
+  const handleFocus = () => {
+    setIsFieldActive(true);
+  };
+
+  const handleBlur = () => {
+    setIsFieldActive(false);
+  };
+
   return (
     <FormField
       control={control}
@@ -95,8 +112,20 @@ const FormFieldComponent = ({
       render={({ field }) => (
         <FormItem className={`mb-[20px] mr-[10px] w-[250px] `}>
           <FormLabel>{label}</FormLabel>
-          <FormControl className={`${isEmpty ? "bg-red-200 " : ""}`}>
-            <Input placeholder={placeholder} {...field} type={type} />
+          <FormControl
+            className={`${isEmpty && !isFieldFilled && !isFieldActive ? "bg-red-200 " : ""}`}
+          >
+            <Input
+              placeholder={placeholder}
+              {...field}
+              type={type}
+              onChange={(e) => {
+                field.onChange(e);
+                handleInputChange(e);
+              }}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -105,27 +134,50 @@ const FormFieldComponent = ({
   );
 };
 
+const customerDetailsSchema = CustomerDetailsForOrder.extend({
+  city: z.string().nonempty("City is required"),
+  department: z.string().nonempty("Department is required"),
+});
+
 export default function OrderForm({ goods }: ByButtonProps) {
   const { city, department, error, handleCityChange, handleSearch } =
-    useCitySearch('');
+    useCitySearch("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [emptyFields, setEmptyFields] = useState<string[]>([]);
+  const [emptyCity, setEmptyCity] = useState(true);
 
-  const form = useForm<z.infer<typeof CustomerDetailsForOrder>>({
-    resolver: zodResolver(CustomerDetailsForOrder),
+  const form = useForm<z.infer<typeof customerDetailsSchema>>({
+    resolver: zodResolver(customerDetailsSchema),
     defaultValues: {
       name: "",
       lastName: "",
       phone: "",
       email: "",
       message: "",
+      city: "",
+      department: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof CustomerDetailsForOrder>) {
-    console.log(values);
-  }
+  const onSubmit = (values: z.infer<typeof customerDetailsSchema>) => {
+    const requiredFields = [
+      "name",
+      "lastName",
+      "phone",
+      "email",
+      "city",
+      "department",
+    ];
+    const emptyFields = requiredFields.filter(
+      (field) => !values[field as keyof typeof values],
+    );
+
+    if (emptyFields.length > 0) {
+      setEmptyFields(emptyFields);
+      return;
+    }
+  };
 
   const departmentLabel = (department: any) =>
     `№${department.Number} ул. ${department.ShortAddress.replace(city, "")}`;
@@ -135,15 +187,20 @@ export default function OrderForm({ goods }: ByButtonProps) {
       <div>
         <h2 className="mb-[20px] text-[24px]">Delivery</h2>
         <div>
-          <div className=" h-[115px]">
-            <h2 className="mb-[7px]">City</h2>
-            <div className="flex h-[60px] w-[400px] justify-between border-2 border-[#e6e6e6] px-[10px] focus-within:border-[#343a43b5]">
+          <div className=" h-[140px]">
+            <h2 className="mb-[7px]">City *</h2>
+            <div
+              className={`flex h-[60px] md:w-[400px] justify-between border-2 px-[10px] ${emptyFields.includes("city") && emptyCity ? "border-red-200" : "border-[#e6e6e6]"} focus-within:border-[#343a43b5]`}
+            >
               <input
                 type="text"
                 value={city}
-                onChange={handleCityChange}
+                onChange={(e) => {
+                  handleCityChange(e);
+                  setEmptyCity(e.target.value.trim() === "");
+                }}
                 placeholder="Enter the name of the city"
-                className="h-[100%] w-[300px] focus-visible:outline-none"
+                className="h-[100%] md:w-[300px] focus-visible:outline-none"
               />
               <button onClick={handleSearch}>
                 <MagnifyingGlassIcon className="h-[25px] w-[25px]" />
@@ -152,16 +209,14 @@ export default function OrderForm({ goods }: ByButtonProps) {
             {error && <p className="mt-2 text-sm text-[#DB4444]">{error}</p>}
           </div>
 
-          
-
-          <h2 className="mb-[7px]">Nova Poshta Department</h2>
+          <h2 className="mb-[7px]">Nova Poshta Department *</h2>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="w-[350px] justify-between  border-2 border-[#e6e6e6]"
+                className={`md:w-[350px] w-[250px] justify-between ${emptyFields.includes("department") && emptyCity ? "bg-red-200" : "border-2 border-[#e6e6e6]"}`}
               >
                 {value
                   ? department.find(
@@ -171,8 +226,8 @@ export default function OrderForm({ goods }: ByButtonProps) {
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[350px] border-[#e6e6e6]  p-0">
-              <Command className="w-[350px] !border-2">
+            <PopoverContent className="md:w-[350px] w-[280px] border-[#e6e6e6]  p-0">
+              <Command className="md:w-[350px] w-[280px] !border-2">
                 <CommandList className="!border-2">
                   <CommandInput placeholder="Search department..." />
                   {department.length === 0 ? (
@@ -217,28 +272,28 @@ export default function OrderForm({ goods }: ByButtonProps) {
             <FormFieldComponent
               control={form.control}
               name="name"
-              label="Name"
+              label="Name *"
               placeholder="Your name"
               emptyFields={emptyFields}
             />
             <FormFieldComponent
               control={form.control}
               name="lastName"
-              label="Last name"
+              label="Last name *"
               placeholder="Your last name"
               emptyFields={emptyFields}
             />
             <FormFieldComponent
               control={form.control}
               name="phone"
-              label="Phone"
+              label="Phone *"
               placeholder="Your phone"
               emptyFields={emptyFields}
             />
             <FormFieldComponent
               control={form.control}
               name="email"
-              label="Email"
+              label="Email *"
               placeholder="Your email"
               emptyFields={emptyFields}
             />
