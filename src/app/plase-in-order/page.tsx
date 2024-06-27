@@ -45,7 +45,7 @@ export default async function Page() {
         <div className='order-2 md:order-none'>
           <OrderForm goods={goodsWithQuantity} />
         </div>
-        <div className="order-1 md:order-none mb-[40px] md:mb-0 h-[220px] w-[300px] rounded-[8px] border-2 border-[#E6E6E6] px-[16px] py-[24px] md:w-[230px]">
+        <div className="order-1 md:order-none mb-[40px] md:mb-0 h-[220px] w-[260px] rounded-[8px] border-2 border-[#E6E6E6] px-[16px] py-[24px] md:w-[230px]">
           <h2 className="mb-[10px] text-[20px]">To pay</h2>
           <Table>
             <TableFooter>
