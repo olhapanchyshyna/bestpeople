@@ -149,9 +149,10 @@ export default function OrderForm({ goods }: ByButtonProps) {
                 <MagnifyingGlassIcon className="h-[25px] w-[25px]" />
               </button>
             </div>
+            {error && <p className="mt-2 text-sm text-[#DB4444]">{error}</p>}
           </div>
 
-          {error && <p className="mt-2 text-sm text-[#DB4444]">{error}</p>}
+          
 
           <h2 className="mb-[7px]">Nova Poshta Department</h2>
           <Popover open={open} onOpenChange={setOpen}>
