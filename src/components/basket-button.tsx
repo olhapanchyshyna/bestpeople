@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { startTransition, useState } from "react";
 import { Button } from "./ui/button";
+import { redirect } from 'next/navigation'
 
 type BasketButtonProps = {
   id: number;
@@ -91,6 +92,7 @@ export default function BasketButton({
           startTransition(() => {
             setIsLoading(true);
             setGoodInBasket(id);
+            redirect("/basket");
           });
         }}
       >
