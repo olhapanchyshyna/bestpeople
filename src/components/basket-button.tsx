@@ -92,7 +92,6 @@ export default function BasketButton({
           startTransition(() => {
             setIsLoading(true);
             setGoodInBasket(id);
-            redirect("/basket");
           });
         }}
       >
@@ -124,6 +123,7 @@ export default function BasketButton({
                   type="button"
                   className="w-[100px] md:w-[200px] !hover:dark-green-bg"
                   onClick={() => {
+                    console.log(1)
                     rPath("/basket");
                   }}
                 >
@@ -138,6 +138,7 @@ export default function BasketButton({
                 <Button
                   className="w-[100px] md:w-[200px]"
                   onClick={() => {
+                    console.log(2)
                     rPath("/basket");
                   }}
                 >

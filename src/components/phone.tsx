@@ -18,9 +18,9 @@ export default function Phone({ type, width, height, className }: PhoneProps) {
         height={height}
         alt="phone"
       />
-      <div className={`${type === "header" ? "dark-green" : "green"} text-xl`}>
+      <a className={`${type === "header" ? "dark-green" : "green"} text-xl`} href="tel:+380954633976">
         095 463 39 76
-      </div>
+      </a>
     </div>
   );
 }

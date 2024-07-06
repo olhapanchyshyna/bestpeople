@@ -38,13 +38,13 @@ export default function PageIcons() {
 
   return (
     <div className="order-3 flex justify-between md:order-none md:w-64">
-      <Phone type="header" width={28} height={28} className="hidden md:flex" />
+      <Phone type="header" width={25} height={28} className="hidden md:flex cursor-pointer" />
       <div className="flex w-16 items-center justify-between">
-        <Link href="/login">
-          <Image src="/profile.svg" alt="profile" width={30} height={30} />
+        <Link href="/login" className='hover:bg-[#c9b64378] rounded-md p-[1px]'>
+          <Image src="/profile.svg" alt="profile" width={28} height={30} />
         </Link>
-        <Link href="/basket" className="relative">
-          <Image src="/basket.svg" alt="basket" width={17} height={30} />
+        <Link href="/basket" className='relative hover:bg-[#c9b64378] rounded-md px-[5px] py-[4px]'>
+          <Image src="/basket.svg" alt="basket" width={18} height={30} />
           {totalQuantity ? (
             <div className="absolute right-[-8px] top-[-8px] flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#fca600] py-[1px] text-[8px] leading-[3px] text-white">
               {totalQuantity}
