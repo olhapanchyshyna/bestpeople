@@ -23,9 +23,8 @@ export const useBasketStore = create<BasketStoreType>((set) => ({
   setTotalQuantity: (newTotal) => set({ totalQuantity: newTotal }),
   fetchBasketData: async (session) => {
     let goods;
-    // console.log(1111, session)
+
     if (session && session.user) {
-      
       goods = await getGoodsBasketByUserId(session.user.id);
     } else {
       goods = await getServerSideArrayCookie("basket");
@@ -35,8 +34,6 @@ export const useBasketStore = create<BasketStoreType>((set) => ({
       (total, currentItem) => total + currentItem.quantity,
       0,
     );
-    
-
     set({ goodsBasket: goods, totalQuantity: total });
   },
   setGoodsBasket: (newBasket) => set({goodsBasket: newBasket})

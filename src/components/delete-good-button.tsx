@@ -44,7 +44,6 @@ export default function DeleteGoodButton({
     );
 
     setTotalQuantity(total);
-    console.log(updatedCookie)
 
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie || [])

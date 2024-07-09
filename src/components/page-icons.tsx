@@ -4,7 +4,7 @@ import { useBasketStore } from "@/lib/store/useBasketStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Phone from "./phone";
 
 export default function PageIcons() {
@@ -13,13 +13,13 @@ export default function PageIcons() {
 
   const { totalQuantity, fetchBasketData } = useBasketStore();
 
-
-  if (!isLoadedDb && session) {
-    console.log(session)
-    fetchBasketData(session);
-    setIsLoadedDb(true);
-  }
-
+  useEffect(() => {
+    if (!isLoadedDb && session) {
+      fetchBasketData(session);
+      setIsLoadedDb(true);
+    }
+  }, [isLoadedDb, session, fetchBasketData]);
+  
   return (
     <div className="order-3 flex justify-between md:order-none md:w-64">
       <Phone
