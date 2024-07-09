@@ -8,20 +8,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { rPath } from "@/lib/actions/revalidate-path";
 import { setGoodsBasketByUserId } from "@/lib/actions/set/set-goods-basket-by-user-id";
 import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { setClientSideArrayCookie } from "@/lib/cookies/client/set-client-side-array-cookie";
+import { useBasketStore } from "@/lib/store/useBasketStore";
 import { GoodCoookieType } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { startTransition, useState } from "react";
 import { Button } from "./ui/button";
-import { redirect } from 'next/navigation'
 
 type BasketButtonProps = {
-  id: number;
+  id: string;
   countInPage: number;
   cookieGoodsArrays: GoodCoookieType[] | null | undefined;
 };
@@ -33,54 +32,68 @@ export default function BasketButton({
 }: BasketButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 
+  const { setGoodsBasket, setTotalQuantity } = useBasketStore();
+
   const { data } = useSession();
   const user = data?.user;
 
-  const setGoodInBasket = (id: number) => {
+  const setGoodInBasket = (id: string) => {
+    let updatedCookie = [];
+
     const currentCookie = user
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
 
 
     if (currentCookie?.length === 0 || !currentCookie) {
-      user
-        ? setGoodsBasketByUserId(user?.id, [
-            { id: id.toString(), quantity: countInPage },
-          ])
-        : setClientSideArrayCookie(
-            "basket",
-            [{ id: id.toString(), quantity: countInPage }],
-            30,
-          );
+      updatedCookie = [{ id: id.toString(), quantity: countInPage }]
+      if (user) {
+        setGoodsBasketByUserId(user?.id, updatedCookie);
+      } else {
+        setClientSideArrayCookie(
+          "basket",
+          updatedCookie,
+          30,
+        );
+      }
+      setGoodsBasket(updatedCookie);
       setIsLoading(false);
-      return;
+
+    } else {
+      const isGoodInBasket = currentCookie?.find(
+        (item) => item.id === id,
+      );
+
+      updatedCookie = !!isGoodInBasket
+        ? currentCookie
+          ? currentCookie.map((item) => {
+              if (item.id === id) {
+                item.quantity += countInPage;
+              }
+              return item;
+            })
+          : []
+        : (currentCookie && [
+            ...currentCookie,
+            { id: id, quantity: countInPage },
+          ]) ||
+          [];
+
+      setGoodsBasket(updatedCookie);
     }
 
-    const isGoodInBasket = currentCookie?.find(
-      (item) => item.id === id.toString(),
+    const total = updatedCookie?.reduce(
+      (total, currentItem) => total + currentItem.quantity,
+      0,
     );
 
-    const updatedCookie = !!isGoodInBasket
-      ? currentCookie
-        ? currentCookie.map((item) => {
-            if (item.id === id.toString()) {
-              item.quantity += countInPage;
-            }
-            return item;
-          })
-        : []
-      : (currentCookie && [
-          ...currentCookie,
-          { id: id.toString(), quantity: countInPage },
-        ]) ||
-        [];
+    setTotalQuantity(total);
 
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie)
       : setClientSideArrayCookie("basket", [...updatedCookie], 30);
+      
     setIsLoading(false);
-
-    rPath("/basket");
   };
 
   return (
@@ -121,11 +134,8 @@ export default function BasketButton({
               >
                 <Button
                   type="button"
-                  className="w-[100px] md:w-[200px] !hover:dark-green-bg"
-                  onClick={() => {
-                    console.log(1)
-                    rPath("/basket");
-                  }}
+                  className="!hover:dark-green-bg w-[100px] md:w-[200px]"
+                  onClick={() => {}}
                 >
                   Close
                 </Button>
@@ -135,13 +145,7 @@ export default function BasketButton({
                 href="/basket"
                 className="w-[100px] rounded-[43px] text-white md:w-[200px] md:text-[16px]"
               >
-                <Button
-                  className="w-[100px] md:w-[200px]"
-                  onClick={() => {
-                    console.log(2)
-                    rPath("/basket");
-                  }}
-                >
+                <Button className="w-[100px] md:w-[200px]" onClick={() => {}}>
                   Go to cart
                 </Button>
               </Link>

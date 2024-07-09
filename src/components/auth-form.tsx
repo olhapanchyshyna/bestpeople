@@ -8,13 +8,13 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { logIn } from "@/lib/actions/set/login";
 import { LoginSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "./ui/input";
-import { logIn } from '@/lib/actions/set/login'
 
 const inputStyles =
   "border-0 border-b-2 font-extralight text-gray-600 focus-visible:border-[#B3DB11]";
@@ -48,7 +48,7 @@ export default function AuthForm() {
               <FormControl>
                 <Input
                   placeholder="Email"
-                  className={`mb-[30px] ${inputStyles}`}
+                  className={`mb-[10px] mt-[20px] ${inputStyles}`}
                   {...field}
                 />
               </FormControl>
@@ -72,15 +72,12 @@ export default function AuthForm() {
             </FormItem>
           )}
         />
-        <div className="mt-[30px] flex items-center justify-between">
-          <Button
-            disabled={isPending}
-            className="green-bg w-[120px] px-[40px] py-[16px] text-white hover:bg-[#6e860b] hover:text-white sm:w-[180px]"
-          >
-            Log In
-          </Button>
-          <p className="mt-2 text-sm text-[#DB4444]">Forgot your password?</p>
-        </div>
+        <Button
+          disabled={isPending}
+          className="green-bg m-auto flex w-[170px] px-[40px] py-[16px] text-white hover:bg-[#6e860b] hover:text-white sm:w-[200px]"
+        >
+          Log In
+        </Button>
       </form>
     </Form>
   );

@@ -8,6 +8,7 @@ import { GoodCoookieType } from "@/types/types";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 import { useSession } from "next-auth/react";
 import { Button } from "./ui/button";
+import { useBasketStore } from '@/lib/store/useBasketStore'
 
 type DeleteGoodButtonProps = {
   id: number;
@@ -20,7 +21,8 @@ export default function DeleteGoodButton({
 }: DeleteGoodButtonProps) {
   const { data } = useSession();
   const user = data?.user;
-
+  const { setGoodsBasket, setTotalQuantity } = useBasketStore();
+  
   const deletwGoodFromBasket = (id: number) => {
     // Get current cookie
     const currentCookie = user
@@ -32,6 +34,17 @@ export default function DeleteGoodButton({
       (item) => item.id !== id.toString(),
     );
     // Set the new cookie
+
+
+    updatedCookie && setGoodsBasket(updatedCookie);
+
+    const total = updatedCookie?.reduce(
+      (total, currentItem) => total + currentItem.quantity,
+      0,
+    );
+
+    setTotalQuantity(total);
+    console.log(updatedCookie)
 
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie || [])

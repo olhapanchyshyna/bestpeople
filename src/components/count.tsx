@@ -3,10 +3,11 @@ import { rPath } from "@/lib/actions/revalidate-path";
 import { setGoodsBasketByUserId } from "@/lib/actions/set/set-goods-basket-by-user-id";
 import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { setClientSideArrayCookie } from "@/lib/cookies/client/set-client-side-array-cookie";
+import { useBasketStore } from "@/lib/store/useBasketStore";
 import { GoodCoookieType } from "@/types/types";
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type CountProps = {
   cookieGoodsArrays?: GoodCoookieType[] | null | undefined;
@@ -25,9 +26,15 @@ export default function Count({
 }: CountProps) {
   const { data } = useSession();
   const user = data?.user;
-  const [count, setCount] = useState(
-    typeAction === "inBasket" ? currentGood?.quantity || 1 : 1,
-  );
+  const { setGoodsBasket, setTotalQuantity } = useBasketStore();
+
+  const [count, setCount] = useState(currentGood?.quantity || 1);
+
+  useEffect(() => {
+    if (currentGood) {
+      setCount(currentGood.quantity);
+    }
+  }, [currentGood]);
 
   const setQuantityAndRedirect = (newCount: number) => {
     const currentCookie = user
@@ -42,6 +49,15 @@ export default function Count({
           return item;
         })
       : [];
+
+    setGoodsBasket(updatedCookie);
+
+    const total = updatedCookie?.reduce(
+      (total, currentItem) => total + currentItem.quantity,
+      0,
+    );
+
+    setTotalQuantity(total);
 
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie)

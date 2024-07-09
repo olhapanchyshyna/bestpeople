@@ -28,7 +28,7 @@ export default async function Page() {
 
   const a = cookieGoodsArrays?.map((item) => +item.id);
   const goods = await getGoodsById(a);
-  
+
   let deliveryCost = 0;
   let priseAllGoods = 0;
 
@@ -104,6 +104,7 @@ export default async function Page() {
 
                         <TableCell>
                           <Count
+                           
                             cookieGoodsArrays={cookieGoodsArrays}
                             currentGood={currentGood}
                             typeAction="inBasket"
@@ -182,6 +183,7 @@ export default async function Page() {
 
                         <TableCell className="flex items-center justify-between pt-[10px]">
                           <Count
+                            
                             cookieGoodsArrays={cookieGoodsArrays}
                             currentGood={currentGood}
                             typeAction="inBasket"

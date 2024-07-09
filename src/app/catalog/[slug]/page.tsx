@@ -107,7 +107,7 @@ export default async function GoodPage({ params }: GoodPageProps) {
 
             <AddInBasketWrapper
               currentGood={isCurrentGood}
-              id={good.id}
+              id={good.id.toString()}
               cookieGoodsArrays={cookieGoodsArrays}
             />
 

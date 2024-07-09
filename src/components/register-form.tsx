@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { register } from "@/lib/actions/set/register";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { Input } from "./ui/input";
 
 const inputStyles =
@@ -23,7 +23,6 @@ const inputStyles =
 
 export default function RegisterForm() {
   const [isPending, startTransition] = useTransition();
-  const [message, setMessage] = useState<string | undefined>("");
   const router = useRouter();
 
   const form = useForm<z.infer<typeof RegisterShema>>({
@@ -41,7 +40,6 @@ export default function RegisterForm() {
         if (res.success) {
           router.push("/login");
         }
-        setMessage(res.error || res.success);
       });
       form.reset();
     });
@@ -58,7 +56,7 @@ export default function RegisterForm() {
               <FormControl>
                 <Input
                   placeholder="Name"
-                  className={`mb-[30px] ${inputStyles}`}
+                  className={`mb-[10px] mt-[20px] ${inputStyles}`}
                   {...field}
                 />
               </FormControl>
@@ -74,7 +72,7 @@ export default function RegisterForm() {
               <FormControl>
                 <Input
                   placeholder="Email"
-                  className={`mb-[30px] ${inputStyles}`}
+                  className={`mb-[10px] mt-[20px] ${inputStyles}`}
                   {...field}
                 />
               </FormControl>
@@ -100,12 +98,11 @@ export default function RegisterForm() {
         />
         <Button
           disabled={isPending}
-          className="green-bg w-[120px] px-[40px] py-[16px] text-white hover:bg-[#6e860b] hover:text-white sm:w-[180px]"
+          className="green-bg m-auto flex w-[170px] px-[40px] py-[16px] text-white hover:bg-[#6e860b] hover:text-white sm:w-[200px]"
         >
           Register
         </Button>
       </form>
-      {message && <p className="text-[#DB4444]">{message}</p>}
     </Form>
   );
 }

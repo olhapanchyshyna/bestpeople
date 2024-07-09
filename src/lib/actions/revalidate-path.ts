@@ -3,5 +3,5 @@
 import { revalidatePath } from 'next/cache'
 
 export const rPath = (path: string) => {
-	revalidatePath(path);
+	revalidatePath(path, "layout");
 }

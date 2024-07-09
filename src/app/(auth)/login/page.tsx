@@ -12,7 +12,7 @@ export default async function Page() {
   }
   return (
     <main>
-      <H2 className="mb-[30px] font-light lg:text-[36px]" text="Log In" />
+      <H2 className="mb-[40px] font-light lg:text-[36px]" text="Log In" />
 
       <AuthForm />
 

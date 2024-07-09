@@ -44,8 +44,8 @@ const navItems: MenuItem[] = [
 export default function NavigationMenuItems() {
   const renderMenuItems = (items: MenuItem[]) => {
     return items.map((item) => (
-      <NavigationMenuItem key={item.name} className="my-[5px]">
-        <NavigationMenuLink href={item.src}>{item.name}</NavigationMenuLink>
+      <NavigationMenuItem key={item.name} className="my-[5px] hover:bg-[#f1f5f9] py-[8px] px-[10px] rounded-[5px]">
+        <NavigationMenuLink href={item.src} className=''>{item.name}</NavigationMenuLink>
       </NavigationMenuItem>
     ));
   };
@@ -90,9 +90,9 @@ export default function NavigationMenuItems() {
               />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[50%] justify-between">
+          <SheetContent side="left" className="w-[60%] justify-between">
             <NavigationMenu className="m-auto mt-[50px] justify-between">
-              <NavigationMenuList className="flex w-[120px] flex-col !justify-between text-base md:w-[350px]">
+              <NavigationMenuList className="flex w-[140px] flex-col !justify-between text-base md:w-[350px]">
                 {/* About company & Contacts */}
 
                 {renderMenuItems(navItems.slice(1))}
@@ -106,7 +106,7 @@ export default function NavigationMenuItems() {
                       {catalogItems.map((item) => (
                         <NavigationMenuItem
                           key={item.name}
-                          className="my-[5px]"
+                          className="my-[5px] hover:text-[#6e860b]"
                         >
                           <NavigationMenuLink
                             href={`/catalog?category=${item.option}`}

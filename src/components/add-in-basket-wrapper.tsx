@@ -6,7 +6,7 @@ import Count from "./count";
 
 type AddInBasketWrapperProps = {
   currentGood: GoodCoookieType | undefined;
-  id: number;
+  id: string;
   cookieGoodsArrays: GoodCoookieType[] | null | undefined;
 };
 

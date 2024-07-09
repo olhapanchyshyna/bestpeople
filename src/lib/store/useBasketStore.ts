@@ -1,23 +1,41 @@
-import create from 'zustand';
-import { getGoodsBasketByUserId } from '@/lib/actions/get/get-goods-basket-by-user-id';
-import { getServerSideArrayCookie } from '@/lib/cookies/server/get-server-side-array-cookie';
+import { Session } from "next-auth";
+import { create } from "zustand";
+import { getGoodsBasketByUserId } from "../actions/get/get-goods-basket-by-user-id";
+import { getServerSideArrayCookie } from "../cookies/server/get-server-side-array-cookie";
 
-const useBasketStore = create((set) => ({
-  cookieGoodsArrays: [],
+type goodsBasketType = {
+  id: string;
+  quantity: number;
+};
+
+type BasketStoreType = {
+  goodsBasket: goodsBasketType[] | undefined;
+  totalQuantity: number;
+  setTotalQuantity: (newTotal: number | undefined) => void;
+  fetchBasketData: (session: Session | null) => void;
+  setGoodsBasket: (newBasket: goodsBasketType[]) => void;
+};
+
+export const useBasketStore = create<BasketStoreType>((set) => ({
+  goodsBasket: [],
   totalQuantity: 0,
-  fetchBasketData: async (session: any) => {
+  count: 1,
+  setTotalQuantity: (newTotal) => set({ totalQuantity: newTotal }),
+  fetchBasketData: async (session) => {
     let goods;
-    if (session) {
+    if (session && session.user) {
       goods = await getGoodsBasketByUserId(session.user.id);
     } else {
-      goods = await getServerSideArrayCookie('basket');
+      goods = await getServerSideArrayCookie("basket");
     }
 
-    const total = goods?.reduce((total, currentItem) => total + currentItem.quantity, 0);
+    const total = goods?.reduce(
+      (total, currentItem) => total + currentItem.quantity,
+      0,
+    );
 
-    set({ cookieGoodsArrays: goods, totalQuantity: total });
+    set({ goodsBasket: goods, totalQuantity: total });
   },
-  updateTotalQuantity: (newTotal: any) => set({ totalQuantity: newTotal }),
-}));
+  setGoodsBasket: (newBasket) => set({goodsBasket: newBasket})
 
-export default useBasketStore;
+}));
