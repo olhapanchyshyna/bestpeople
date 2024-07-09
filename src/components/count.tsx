@@ -26,7 +26,7 @@ export default function Count({
 }: CountProps) {
   const { data } = useSession();
   const user = data?.user;
-  const { setGoodsBasket, setTotalQuantity } = useBasketStore();
+  const { setGoodsBasket, setTotalQuantity, goodsBasket } = useBasketStore();
 
   const [count, setCount] = useState(currentGood?.quantity || 1);
 
