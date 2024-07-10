@@ -11,6 +11,7 @@ type goodsBasketType = {
 type BasketStoreType = {
   goodsBasket: goodsBasketType[] | undefined;
   totalQuantity: number;
+  isPending: boolean;
   setTotalQuantity: (newTotal: number | undefined) => void;
   fetchBasketData: (session: Session | null) => void;
   setGoodsBasket: (newBasket: goodsBasketType[]) => void;
@@ -20,6 +21,7 @@ export const useBasketStore = create<BasketStoreType>((set) => ({
   goodsBasket: [],
   totalQuantity: 0,
   count: 1,
+  isPending: true,
   setTotalQuantity: (newTotal) => set({ totalQuantity: newTotal }),
   fetchBasketData: async (session) => {
     let goods;
@@ -34,8 +36,7 @@ export const useBasketStore = create<BasketStoreType>((set) => ({
       (total, currentItem) => total + currentItem.quantity,
       0,
     );
-    set({ goodsBasket: goods, totalQuantity: total });
+    set({ goodsBasket: goods, totalQuantity: total, isPending: false });
   },
-  setGoodsBasket: (newBasket) => set({goodsBasket: newBasket})
-
+  setGoodsBasket: (newBasket) => set({ goodsBasket: newBasket }),
 }));

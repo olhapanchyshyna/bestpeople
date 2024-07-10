@@ -26,13 +26,18 @@ export default function Count({
 }: CountProps) {
   const { data } = useSession();
   const user = data?.user;
-  const { setGoodsBasket, setTotalQuantity, goodsBasket } = useBasketStore();
+  const { setGoodsBasket, setTotalQuantity } = useBasketStore();
 
-  const [count, setCount] = useState(currentGood?.quantity || 1);
+  const [count, setCount] = useState(
+    typeAction === "inGoodPage" ? 1 : currentGood?.quantity || 1,
+  );
 
   useEffect(() => {
     if (currentGood) {
       setCount(currentGood.quantity);
+    }
+    if(typeAction === "inGoodPage"){
+      setCount(1);
     }
   }, [currentGood]);
 

@@ -14,6 +14,7 @@ export type CityAndWarehouseType = {
   Ref: string;
   Description: string;
 }
+
 export type OrderDetails = {
   city: string;
   department: string;
@@ -23,3 +24,5 @@ export type OrderDetails = {
   email: string;
   message?: string;
 }
+
+

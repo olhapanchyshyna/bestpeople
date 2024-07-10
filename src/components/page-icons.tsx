@@ -19,7 +19,7 @@ export default function PageIcons() {
       setIsLoadedDb(true);
     }
   }, [isLoadedDb, session, fetchBasketData]);
-  
+
   return (
     <div className="order-3 flex justify-between md:order-none md:w-64">
       <Phone
