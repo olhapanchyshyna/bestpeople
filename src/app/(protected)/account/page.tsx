@@ -36,7 +36,6 @@ export default async function Page() {
         action={async () => {
           "use server";
           await signOut();
-          revalidatePath("/login", '');
         }}
       >
         <button type="submit" className="w-[100px] text-center text-red-400">
