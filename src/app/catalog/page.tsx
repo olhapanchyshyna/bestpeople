@@ -43,12 +43,12 @@ export default async function Page() {
             <Aside />
           </div>
 
-          <Suspense>
+          {/* <Suspense>
             <CatalogListWrapper
               initialAllGoods={goods}
               totalCount={totalCount}
             />
-          </Suspense>
+          </Suspense> */}
         </div>
       </div>
     </>
