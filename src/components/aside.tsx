@@ -39,7 +39,7 @@ const popularCategory = [
 export default function Aside() {
   const [activeOption, setActiveOption] = useState<string | null>("all");
   const [activeButton, setActiveButton] = useState<string | null>("all");
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const { handleTakeCategory } = useCustomHook();
   const { setCategory, category } = useGoodsStore();
