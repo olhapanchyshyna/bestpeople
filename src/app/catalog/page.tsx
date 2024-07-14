@@ -10,15 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { getGoods } from '@/lib/actions/get/get-goods'
 
-// type PageProps = {
-//   searchParams: {
-//     page: string;
-//   };
-// };
-
 export default async function Page() {
-  // const page = searchParams.page || "1";
-
   const { totalCount, goods } = await getGoods({category: "all"})
 
   if(!totalCount || !goods){
