@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           });
           // console.log(1111)
-          // revalidatePath('/basket', 'page');
+          revalidatePath('/basket', 'page');
         } else {
           await prisma.userBest.update({
             where: { id: +user.user.id },

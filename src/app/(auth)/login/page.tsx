@@ -1,6 +1,7 @@
 import AuthForm from "@/components/auth-form";
 import H2 from "@/components/h2";
 import { auth } from "@/lib/auth";
+import { revalidatePath } from 'next/cache'
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

@@ -26,36 +26,37 @@ import { useEffect, useState } from "react";
 import Loading from "./loading";
 
 type BasketPageProps = {
-  session: Session | null;
+  goodsBasketByUserId: GoodCoookieType[] | undefined;
+  goodsData: Goods[] ;
 };
 
-export default function BasketPage({ session }: BasketPageProps) {
-  const { goodsBasket, isPending, setIsPending } = useBasketStore();
+export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPageProps) {
+  const { goodsBasket, isPending } = useBasketStore();
   const [cookieGoodsArrays, setCookieGoodsArrays] = useState<
     GoodCoookieType[] | undefined
-  >(undefined);
-  const [goods, setGoods] = useState<Goods[]>([]);
+  >(goodsBasketByUserId);
+  const [goods, setGoods] = useState<Goods[]>(goodsData);
   const [filteredItem, setFilteredItem] = useState<Goods[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (session) {
-        try {
-          const cookieData = await getGoodsBasketByUserId(session?.user?.id);
-          setCookieGoodsArrays(cookieData);
-          const ids = cookieData?.map((item) => +item.id);
-          const goodsData = await getGoodsById(ids);
-          setGoods(goodsData);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        } finally {
-          setIsPending(false);
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (session) {
+  //       try {
+  //         const cookieData = await getGoodsBasketByUserId(session?.user?.id);
+  //         setCookieGoodsArrays(cookieData);
+  //         const ids = cookieData?.map((item) => +item.id);
+  //         const goodsData = await getGoodsById(ids);
+  //         setGoods(goodsData);
+  //       } catch (error) {
+  //         console.error("Error fetching data:", error);
+  //       } finally {
+  //         setIsPending(false);
+  //       }
+  //     }
+  //   };
 
-    fetchData();
-  }, [session, setIsPending]);
+  //   fetchData();
+  // }, [session, setIsPending]);
 
   useEffect(() => {
     if (goods && goodsBasket) {
@@ -70,7 +71,6 @@ export default function BasketPage({ session }: BasketPageProps) {
   let deliveryCost = 0;
   let priseAllGoods = 0;
 
-  console.log('filteredItem', filteredItem)
   return (
     <>
       <Breadcrumbs />
