@@ -19,7 +19,7 @@ export const logIn = async (values: z.infer<typeof LoginSchema>) => {
   const user = await getUserByEmail(email);
 
   if (!user) {
-    return { error: "User with this email does not exist" };
+    return { error: "User with this email not found" };
   }
 
   try {
@@ -28,7 +28,8 @@ export const logIn = async (values: z.infer<typeof LoginSchema>) => {
       password,
       redirectTo: "/",
     });
-    return true;
+    // return true;
+    return { success: "success" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

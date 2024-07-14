@@ -2,6 +2,9 @@ import { Session } from "next-auth";
 import { create } from "zustand";
 import { getGoodsBasketByUserId } from "../actions/get/get-goods-basket-by-user-id";
 import { getServerSideArrayCookie } from "../cookies/server/get-server-side-array-cookie";
+import { GoodCoookieType } from '@/types/types'
+import { useOptimistic } from 'react'
+import { Goods } from '@prisma/client'
 
 type goodsBasketType = {
   id: string;
@@ -9,34 +12,22 @@ type goodsBasketType = {
 };
 
 type BasketStoreType = {
-  goodsBasket: goodsBasketType[] | undefined;
+  goodsBasket: GoodCoookieType[] | undefined;
   totalQuantity: number;
   isPending: boolean;
   setTotalQuantity: (newTotal: number | undefined) => void;
-  fetchBasketData: (session: Session | null) => void;
-  setGoodsBasket: (newBasket: goodsBasketType[]) => void;
+  setGoodsBasket: (newBasket: GoodCoookieType[] | undefined) => void;
+  setIsPending: (isPending: boolean) => void
 };
+
+
 
 export const useBasketStore = create<BasketStoreType>((set) => ({
   goodsBasket: [],
   totalQuantity: 0,
   count: 1,
-  isPending: true,
+  isPending: false,
   setTotalQuantity: (newTotal) => set({ totalQuantity: newTotal }),
-  fetchBasketData: async (session) => {
-    let goods;
-
-    if (session && session.user) {
-      goods = await getGoodsBasketByUserId(session.user.id);
-    } else {
-      goods = await getServerSideArrayCookie("basket");
-    }
-
-    const total = goods?.reduce(
-      (total, currentItem) => total + currentItem.quantity,
-      0,
-    );
-    set({ goodsBasket: goods, totalQuantity: total, isPending: false });
-  },
   setGoodsBasket: (newBasket) => set({ goodsBasket: newBasket }),
+  setIsPending: (isPending) => set({ isPending: isPending }),
 }));

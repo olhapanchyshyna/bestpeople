@@ -9,13 +9,14 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useCustomHook } from "@/lib/hooks";
+import { useGoodsStore } from "@/lib/store/useGoods";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ButtonCustom from "./button";
 import SliderDistance from "./slider-distance";
-import { Button } from './ui/button'
-import Link from 'next/link'
+import { Button } from "./ui/button";
 
 const allCategory = [
   { name: "All goods", option: "all" },
@@ -36,21 +37,25 @@ const popularCategory = [
 ];
 
 export default function Aside() {
-  const [activeOption, setActiveOption] = useState<string | null>(null);
-  const [activeButton, setActiveButton] = useState<string | null>(null);
+  const [activeOption, setActiveOption] = useState<string | null>("all");
+  const [activeButton, setActiveButton] = useState<string | null>("all");
   const searchParams = useSearchParams();
 
-  const {handleTakeCategory} = useCustomHook();
+  const { handleTakeCategory } = useCustomHook();
+  const { setCategory, category } = useGoodsStore();
 
   useEffect(() => {
-    const category = searchParams.get("category");
-    setActiveOption(category);
-    setActiveButton(category);
-  }, [searchParams]);
+    // const category = searchParams.get("category");
+    // setActiveOption(category);
+    // setActiveButton(category);
+  }, [activeOption, activeButton]);
 
   return (
     <aside className="sticky top-2 mb-[40px] flex w-[100%] flex-col bg-[#f7fbe7] px-[10px] md:w-[240px] md:bg-transparent">
-      <Button className='bg-[#FCA600] hover:bg-[#d95145] w-[60%]'> <Link href='/catalog?category=all'>Reset Filters</Link></Button>
+      <Button className="w-[60%] bg-[#FCA600] hover:bg-[#d95145]">
+        {" "}
+        <Link href="/catalog?category=all">Reset Filters</Link>
+      </Button>
       <Accordion type="multiple" defaultValue={["item-1"]}>
         <AccordionItem value="item-1">
           <AccordionTrigger className="text-[20px] no-underline">
@@ -62,7 +67,11 @@ export default function Aside() {
                 <div key={item.name} className="flex items-center space-x-2">
                   <RadioGroupItem
                     checked={activeOption === item.option}
-                    onClick={() => handleTakeCategory(item.option)}
+                    onClick={() => {
+                      setCategory(item.option);
+                      setActiveOption(item.option);
+                      handleTakeCategory(item.option);
+                    }}
                     value={item.option}
                     id={item.option}
                     className={cn(

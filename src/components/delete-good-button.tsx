@@ -1,6 +1,5 @@
 "use client";
 
-import { rPath } from "@/lib/actions/revalidate-path";
 import { setGoodsBasketByUserId } from "@/lib/actions/set/set-goods-basket-by-user-id";
 import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { setClientSideArrayCookie } from "@/lib/cookies/client/set-client-side-array-cookie";
@@ -29,14 +28,15 @@ export default function DeleteGoodButton({
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
 
+    // console.log("cookieGoodsArrays", cookieGoodsArrays);
     // Filter out the good with the id that matches the id passed to the function
     const updatedCookie = currentCookie?.filter(
       (item) => item.id !== id.toString(),
     );
     // Set the new cookie
+    console.log("updatedCookie", updatedCookie);
 
     updatedCookie && setGoodsBasket(updatedCookie);
-
 
     const total = updatedCookie?.reduce(
       (total, currentItem) => total + currentItem.quantity,
@@ -48,8 +48,7 @@ export default function DeleteGoodButton({
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie || [])
       : setClientSideArrayCookie("basket", [...(updatedCookie || [])], 30);
-
-    rPath("/basket");
+      
   };
 
   return (

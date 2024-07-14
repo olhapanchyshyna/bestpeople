@@ -8,16 +8,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getGoods } from '@/lib/actions/get/get-goods'
 
-type PageProps = {
-  searchParams: {
-    page: string;
-  };
-};
+// type PageProps = {
+//   searchParams: {
+//     page: string;
+//   };
+// };
 
-export default async function Page({ searchParams }: PageProps) {
-  const page = searchParams.page || "1";
+export default async function Page() {
+  // const page = searchParams.page || "1";
 
+  const { totalCount, goods } = await getGoods({category: "all"})
+
+  if(!totalCount || !goods){
+    throw new Error('initial goods not found in data base')
+  }
   return (
     <>
       <Breadcrumbs />
@@ -44,7 +50,7 @@ export default async function Page({ searchParams }: PageProps) {
             <Aside />
           </div>
 
-          <CatalogListWrapper page={+page} />
+          <CatalogListWrapper initialAllGoods={goods} totalCount={totalCount}/>
         </div>
       </div>
     </>

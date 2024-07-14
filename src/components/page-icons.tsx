@@ -1,24 +1,41 @@
 "use client";
 
+import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
+import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { useBasketStore } from "@/lib/store/useBasketStore";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useTransition } from "react";
 import Phone from "./phone";
 
 export default function PageIcons() {
-  const { data: session, update } = useSession();
-  const [isLoadedDb, setIsLoadedDb] = useState(false);
+  const { data: session, status } = useSession();
+  const [isPending, startTransition] = useTransition();
 
-  const { totalQuantity, fetchBasketData } = useBasketStore();
+  const { totalQuantity, setTotalQuantity, setGoodsBasket, setIsPending } =
+    useBasketStore();
 
   useEffect(() => {
-    if (!isLoadedDb && session) {
-      fetchBasketData(session);
-      setIsLoadedDb(true);
-    }
-  }, [isLoadedDb, session, fetchBasketData]);
+    startTransition(async () => {
+      let goods;
+      if (status !== "loading") {
+        if (session && session.user) {
+          goods = await getGoodsBasketByUserId(session.user.id);
+        } else {
+          goods = await getServerSideArrayCookie("basket");
+        }
+        const total = goods?.reduce(
+          (total, currentItem) => total + currentItem.quantity,
+          0,
+        );
+
+        setTotalQuantity(total);
+        setGoodsBasket(goods);
+        setIsPending(false);
+      }
+    });
+  }, [status]);
 
   return (
     <div className="order-3 flex justify-between md:order-none md:w-64">

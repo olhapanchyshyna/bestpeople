@@ -1,20 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form"
-import { logIn } from "@/lib/actions/set/login"
-import { LoginSchema } from "@/lib/validations"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useState, useTransition } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import { Input } from "./ui/input"
+} from "@/components/ui/form";
+import { logIn } from "@/lib/actions/set/login";
+import { LoginSchema } from "@/lib/validations";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Input } from "./ui/input";
 
 const inputStyles =
   "border-0 border-b-2 font-extralight text-gray-600 focus-visible:border-[#B3DB11]";
@@ -35,12 +35,10 @@ export default function AuthForm() {
   function onSubmit(values: z.infer<typeof LoginSchema>) {
     startTransition(() => {
       logIn(values).then((res) => {
-        if (res === true) {
-          setMessage("Login successful");
-        } else if ('error' in res) {
+        if (res && res.error) {
           setMessage(res.error);
         }
-      })
+      });
       form.reset();
     });
   }

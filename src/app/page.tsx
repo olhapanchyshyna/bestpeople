@@ -3,9 +3,16 @@ import Benefits from "@/components/benefits";
 import CategorySlider from "@/components/category-slider";
 import PopularGoods from "@/components/popular-goods";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { getGoods } from '@/lib/actions/get/get-goods'
 import Image from "next/image";
 
-export default function page() {
+export default async function Page() {
+
+  const initialPopularGoods = await getGoods({category: "popular"})
+
+  if(!initialPopularGoods){
+    throw new Error('initial goods not found in data base')
+  }
   return (
     <main>
       <section className="!h-[calc(100vh-75px)]">
@@ -21,7 +28,7 @@ export default function page() {
         </AspectRatio>
       </section>
       <CategorySlider />
-      <PopularGoods />
+      <PopularGoods initialPopularGoods={initialPopularGoods.goods}/>
       <Advantages />
       <Benefits />
     </main>

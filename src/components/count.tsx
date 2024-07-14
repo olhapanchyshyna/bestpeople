@@ -68,7 +68,7 @@ export default function Count({
       ? setGoodsBasketByUserId(user?.id, updatedCookie)
       : setClientSideArrayCookie("basket", [...updatedCookie], 30);
 
-    rPath("/basket");
+    // rPath("/basket");
   };
 
   const handleDecrease = () => {

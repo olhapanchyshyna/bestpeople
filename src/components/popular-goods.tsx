@@ -1,9 +1,16 @@
+import { Goods } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
 import GoodsList from "./goods-list";
 import H2 from "./h2";
 
-export default function PopularGoods() {
+type PopularGoodsProps = {
+  initialPopularGoods: Goods[];
+};
+
+export default function PopularGoods({
+  initialPopularGoods,
+}: PopularGoodsProps) {
   return (
     <section className="container pb-[70px] pt-[100px]">
       <div className="flex justify-between ">
@@ -24,7 +31,7 @@ export default function PopularGoods() {
           />
         </Link>
       </div>
-      <GoodsList category="popular" />
+      <GoodsList initialGoods={initialPopularGoods} />
     </section>
   );
 }

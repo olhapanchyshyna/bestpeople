@@ -6,7 +6,7 @@ export function SkeletonCard({ itemLength = 3 }) {
       {Array.from({ length: itemLength }).map((_, index) => (
         <Skeleton
           key={index}
-          className="m-[5px] rounded-[8px] bg-slate-300 px-[10px] pb-[20px] pt-[20px] h-[220px] md:h-[350px] w-[300px] md:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px]"
+          className="m-[5px] rounded-[8px] bg-slate-300 px-[10px] pb-[20px] pt-[20px] !h-[220px] md:h-[350px] w-[300px] md:w-[240px] sm:px-[21px] sm:pb-[30px] sm:pt-[60px]"
         />
       ))}
     </div>

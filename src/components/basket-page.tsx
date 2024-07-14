@@ -14,30 +14,58 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
+import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
+import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { useBasketStore } from "@/lib/store/useBasketStore";
 import { GoodCoookieType } from "@/types/types";
 import { Goods } from "@prisma/client";
+import { Session } from "next-auth";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import Loading from "./loading";
 
-type BasketGoodsListProps = {
-  goods: Goods[];
-  cookieGoodsArrays: GoodCoookieType[] | undefined;
+type BasketPageProps = {
+  session: Session | null;
 };
 
-export default function BasketPage({
-  goods,
-  cookieGoodsArrays,
-}: BasketGoodsListProps) {
+export default function BasketPage({ session }: BasketPageProps) {
   const { goodsBasket, isPending } = useBasketStore();
+  const [cookieGoodsArrays, setCookieGoodsArrays] = useState<
+    GoodCoookieType[] | undefined
+  >(undefined);
+  const [goods, setGoods] = useState<Goods[]>([]);
+  
+  console.log(1)
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session) {
+        try {
+          const cookieData = session
+            ? await getGoodsBasketByUserId(session?.user?.id)
+            : await getServerSideArrayCookie("basket");
+          setCookieGoodsArrays(cookieData);
 
-  if (!goodsBasket) return null;
+          const ids = cookieData?.map((item) => +item.id);
+          const goodsData = await getGoodsById(ids);
+          setGoods(goodsData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [goodsBasket, session]); // Depend on goodsBasket if needed
 
   const filteredItem = goods.filter((item, i) => {
-    return goodsBasket.find((itemGood) => {
-      return itemGood.id === item.id.toString();
-    });
+    return (
+      goodsBasket &&
+      goodsBasket.find((itemGood) => {
+        return itemGood.id === item.id.toString();
+      })
+    );
   });
 
   let deliveryCost = 0;
@@ -49,7 +77,7 @@ export default function BasketPage({
         <H2 text="Basket" className="mb-[40px]" />
         <div className="flex flex-col justify-between lg:flex-row">
           {isPending ? (
-            <Loading className='m-auto'/>
+            <Loading className="m-auto" />
           ) : (
             <div className="mb-[30px] md:rounded-[8px] md:border-2 md:border-[#E6E6E6] lg:mb-0">
               {filteredItem?.length === 0 ? (
@@ -167,6 +195,7 @@ export default function BasketPage({
                       const currentGood = cookieGoodsArrays?.find(
                         (item) => item.id === invoice.id.toString(),
                       );
+
                       return (
                         <TableRow key={invoice.title}>
                           <TableCell className="flex justify-between px-[20px] pb-[10px] pt-[20px]">
@@ -215,7 +244,6 @@ export default function BasketPage({
             </div>
           )}
 
-          {/*------- 2---- */}
           <div className="h-[300px] w-[300px] rounded-[8px] border-2 border-[#E6E6E6] px-[16px] py-[24px] md:w-[230px]">
             <h2 className="mb-[10px] text-[20px]">To pay</h2>
             <Table>
