@@ -32,14 +32,14 @@ export default async function Page() {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              {/* <Aside /> */}
+              <Aside />
             </AccordionContent>
           </AccordionItem>
         </Accordion>
 
         <div className="flex flex-col items-center justify-between md:flex-row md:items-start">
           <div className="mr-[20px]  hidden w-[240px] md:block">
-            {/* <Aside /> */}
+            <Aside />
           </div>
 
           {/* <CatalogListWrapper initialAllGoods={goods} totalCount={totalCount} /> */}
