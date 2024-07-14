@@ -1,5 +1,4 @@
 "use client";
-import { rPath } from "@/lib/actions/revalidate-path";
 import { setGoodsBasketByUserId } from "@/lib/actions/set/set-goods-basket-by-user-id";
 import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { setClientSideArrayCookie } from "@/lib/cookies/client/set-client-side-array-cookie";
@@ -36,10 +35,10 @@ export default function Count({
     if (currentGood) {
       setCount(currentGood.quantity);
     }
-    if(typeAction === "inGoodPage"){
+    if (typeAction === "inGoodPage") {
       setCount(1);
     }
-  }, [currentGood]);
+  }, [currentGood, typeAction]);
 
   const setQuantityAndRedirect = (newCount: number) => {
     const currentCookie = user

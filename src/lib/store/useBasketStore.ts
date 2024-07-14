@@ -26,7 +26,7 @@ export const useBasketStore = create<BasketStoreType>((set) => ({
   goodsBasket: [],
   totalQuantity: 0,
   count: 1,
-  isPending: false,
+  isPending: true,
   setTotalQuantity: (newTotal) => set({ totalQuantity: newTotal }),
   setGoodsBasket: (newBasket) => set({ goodsBasket: newBasket }),
   setIsPending: (isPending) => set({ isPending: isPending }),

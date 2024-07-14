@@ -8,6 +8,7 @@ type GoodsStoreType = {
 	setGoods: (goods:  Goods[] | undefined) => void;
 	setFilteredGoods: (filteredGoods:  Goods[] | undefined) => void;
 	setCategory: (category:  string) => void;
+
 };
 
 export const useGoodsStore = create<GoodsStoreType>((set) => ({

@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/table";
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
-import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { useBasketStore } from "@/lib/store/useBasketStore";
 import { GoodCoookieType } from "@/types/types";
 import { Goods } from "@prisma/client";
@@ -31,45 +30,47 @@ type BasketPageProps = {
 };
 
 export default function BasketPage({ session }: BasketPageProps) {
-  const { goodsBasket, isPending } = useBasketStore();
+  const { goodsBasket, isPending, setIsPending } = useBasketStore();
   const [cookieGoodsArrays, setCookieGoodsArrays] = useState<
     GoodCoookieType[] | undefined
   >(undefined);
   const [goods, setGoods] = useState<Goods[]>([]);
-  
-  console.log(1)
+  const [filteredItem, setFilteredItem] = useState<Goods[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       if (session) {
         try {
-          const cookieData = session
-            ? await getGoodsBasketByUserId(session?.user?.id)
-            : await getServerSideArrayCookie("basket");
+          const cookieData = await getGoodsBasketByUserId(session?.user?.id);
           setCookieGoodsArrays(cookieData);
-
           const ids = cookieData?.map((item) => +item.id);
           const goodsData = await getGoodsById(ids);
           setGoods(goodsData);
         } catch (error) {
           console.error("Error fetching data:", error);
+        } finally {
+          setIsPending(false);
         }
       }
     };
 
     fetchData();
-  }, [goodsBasket, session]); // Depend on goodsBasket if needed
+  }, [session, setIsPending]);
 
-  const filteredItem = goods.filter((item, i) => {
-    return (
-      goodsBasket &&
-      goodsBasket.find((itemGood) => {
-        return itemGood.id === item.id.toString();
-      })
-    );
-  });
+  useEffect(() => {
+    if (goods && goodsBasket) {
+      const filtered = goods.filter((item) =>
+        goodsBasket.find((itemGood) => itemGood.id === item.id.toString()),
+      );
+      setFilteredItem(filtered);
+      setCookieGoodsArrays(goodsBasket)
+    }
+  }, [goodsBasket, goods]);
 
   let deliveryCost = 0;
   let priseAllGoods = 0;
+
+  console.log('filteredItem', filteredItem)
   return (
     <>
       <Breadcrumbs />
@@ -80,7 +81,7 @@ export default function BasketPage({ session }: BasketPageProps) {
             <Loading className="m-auto" />
           ) : (
             <div className="mb-[30px] md:rounded-[8px] md:border-2 md:border-[#E6E6E6] lg:mb-0">
-              {filteredItem?.length === 0 ? (
+              {filteredItem.length === 0 ? (
                 <Table className="hidden w-[100%] md:table lg:w-[710px]">
                   <TableBody>
                     <TableRow>
@@ -110,7 +111,7 @@ export default function BasketPage({ session }: BasketPageProps) {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredItem?.map((invoice) => {
+                    {filteredItem.map((invoice) => {
                       const imgArray = JSON.parse(invoice.img);
                       const currentGood = cookieGoodsArrays?.find(
                         (item) => item.id === invoice.id.toString(),
@@ -134,7 +135,6 @@ export default function BasketPage({ session }: BasketPageProps) {
                                 className="mr-[30px]"
                               />
                               <div className="max-w-[150px] text-[#1A1A1A]">
-                                {" "}
                                 {invoice.title}
                               </div>
                             </Link>
@@ -152,7 +152,7 @@ export default function BasketPage({ session }: BasketPageProps) {
                           </TableCell>
                           <TableCell className="dark-green">
                             {currentGood
-                              ? currentGood?.quantity * invoice.price
+                              ? currentGood.quantity * invoice.price
                               : invoice.price}
                             $
                           </TableCell>
@@ -170,7 +170,7 @@ export default function BasketPage({ session }: BasketPageProps) {
                 </Table>
               )}
 
-              {filteredItem?.length === 0 ? (
+              {filteredItem.length === 0 ? (
                 <Table className="table w-[100%] md:hidden lg:w-[710px]">
                   <TableBody>
                     <TableRow>
@@ -190,7 +190,7 @@ export default function BasketPage({ session }: BasketPageProps) {
               ) : (
                 <Table className="table w-[100%] md:hidden lg:w-[710px]">
                   <TableBody className="flex flex-col">
-                    {filteredItem?.map((invoice) => {
+                    {filteredItem.map((invoice) => {
                       const imgArray = JSON.parse(invoice.img);
                       const currentGood = cookieGoodsArrays?.find(
                         (item) => item.id === invoice.id.toString(),
@@ -211,7 +211,6 @@ export default function BasketPage({ session }: BasketPageProps) {
                                 className="mr-[30px]"
                               />
                               <div className="max-w-[150px] text-[16px] text-[#1A1A1A]">
-                                {" "}
                                 {invoice.title}
                               </div>
                             </Link>
@@ -230,7 +229,7 @@ export default function BasketPage({ session }: BasketPageProps) {
                             />
                             <div className="dark-green text-[20px]">
                               {currentGood
-                                ? currentGood?.quantity * invoice.price
+                                ? currentGood.quantity * invoice.price
                                 : invoice.price}
                               $
                             </div>
@@ -279,7 +278,7 @@ export default function BasketPage({ session }: BasketPageProps) {
             </Table>
 
             <ButtonCustom
-              disabled={filteredItem.length === 0 ? true : false}
+              disabled={filteredItem.length === 0}
               text="Continue"
               href="/plase-in-order"
               className="green-bg mt-[30px] w-[100%] rounded-[42px] px-[40px] py-[13px] text-white hover:bg-[#6e860b] hover:text-white"

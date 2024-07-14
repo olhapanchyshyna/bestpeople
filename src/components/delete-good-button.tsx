@@ -28,13 +28,11 @@ export default function DeleteGoodButton({
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
 
-    // console.log("cookieGoodsArrays", cookieGoodsArrays);
     // Filter out the good with the id that matches the id passed to the function
     const updatedCookie = currentCookie?.filter(
       (item) => item.id !== id.toString(),
     );
     // Set the new cookie
-    console.log("updatedCookie", updatedCookie);
 
     updatedCookie && setGoodsBasket(updatedCookie);
 
