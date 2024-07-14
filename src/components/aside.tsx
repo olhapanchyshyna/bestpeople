@@ -5,17 +5,17 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useCustomHook } from "@/lib/hooks";
-import { useGoodsStore } from "@/lib/store/useGoods";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import ButtonCustom from "./button";
-import SliderDistance from "./slider-distance";
-import { Button } from "./ui/button";
+} from "@/components/ui/accordion"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { useCustomHook } from "@/lib/hooks"
+import { useGoodsStore } from "@/lib/store/useGoods"
+import { cn } from "@/lib/utils"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import ButtonCustom from "./button"
+import SliderDistance from "./slider-distance"
+import { Button } from "./ui/button"
 
 const allCategory = [
   { name: "All goods", option: "all" },

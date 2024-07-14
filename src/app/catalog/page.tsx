@@ -9,7 +9,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { getGoods } from "@/lib/actions/get/get-goods";
-import { Suspense } from "react";
 
 export default async function Page() {
   const { totalCount, goods } = await getGoods({ category: "all" });
@@ -33,22 +32,17 @@ export default async function Page() {
               </div>
             </AccordionTrigger>
             <AccordionContent>
-              <Aside />
+              {/* <Aside /> */}
             </AccordionContent>
           </AccordionItem>
         </Accordion>
 
         <div className="flex flex-col items-center justify-between md:flex-row md:items-start">
           <div className="mr-[20px]  hidden w-[240px] md:block">
-            <Aside />
+            {/* <Aside /> */}
           </div>
 
-          {/* <Suspense>
-            <CatalogListWrapper
-              initialAllGoods={goods}
-              totalCount={totalCount}
-            />
-          </Suspense> */}
+          {/* <CatalogListWrapper initialAllGoods={goods} totalCount={totalCount} /> */}
         </div>
       </div>
     </>
