@@ -12,7 +12,6 @@ import { useCustomHook } from "@/lib/hooks";
 import { useGoodsStore } from "@/lib/store/useGoods";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ButtonCustom from "./button";
 import SliderDistance from "./slider-distance";
@@ -39,7 +38,6 @@ const popularCategory = [
 export default function Aside() {
   const [activeOption, setActiveOption] = useState<string | null>("all");
   const [activeButton, setActiveButton] = useState<string | null>("all");
-  // const searchParams = useSearchParams();
 
   const { handleTakeCategory } = useCustomHook();
   const { setCategory, category } = useGoodsStore();
