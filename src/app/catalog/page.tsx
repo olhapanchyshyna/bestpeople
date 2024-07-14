@@ -8,13 +8,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getGoods } from '@/lib/actions/get/get-goods'
+import { getGoods } from "@/lib/actions/get/get-goods";
+import { Suspense } from "react";
 
 export default async function Page() {
-  const { totalCount, goods } = await getGoods({category: "all"})
+  const { totalCount, goods } = await getGoods({ category: "all" });
 
-  if(!totalCount || !goods){
-    throw new Error('initial goods not found in data base')
+  if (!totalCount || !goods) {
+    throw new Error("initial goods not found in data base");
   }
   return (
     <>
@@ -42,7 +43,12 @@ export default async function Page() {
             <Aside />
           </div>
 
-          <CatalogListWrapper initialAllGoods={goods} totalCount={totalCount}/>
+          <Suspense>
+            <CatalogListWrapper
+              initialAllGoods={goods}
+              totalCount={totalCount}
+            />
+          </Suspense>
         </div>
       </div>
     </>
