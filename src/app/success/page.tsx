@@ -12,19 +12,19 @@ import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
 import { getItemsFromOrders } from "@/lib/actions/get/get-items-from-orders";
 import { getLatestOrderByUserId } from "@/lib/actions/get/get-orders-by-user-id";
 import { updateOrdersAfterPayment } from "@/lib/actions/set/update-orders-after-payment";
-import { auth } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { sendToTelegram } from '../api/telegram'
+import { sendToTelegram } from "../api/telegram";
+import { getServerSession } from 'next-auth'
 
 type TSearchParams = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default async function Page({ searchParams }: TSearchParams) {
-  const session = await auth();
+  const session = await getServerSession();
   const userId = session?.user?.id;
 
   // Обновляем заказы до того, как получим последние данные о заказах
@@ -33,7 +33,7 @@ export default async function Page({ searchParams }: TSearchParams) {
     try {
       await sendToTelegram(userId);
     } catch (error) {
-      console.error('Error sending to Telegram:', error);
+      console.error("Error sending to Telegram:", error);
     }
     revalidatePath("/success?success=true");
     revalidatePath("/basket");

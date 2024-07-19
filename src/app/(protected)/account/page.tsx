@@ -1,18 +1,23 @@
+
+import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import H2 from "@/components/h2";
-import { auth, signOut } from "@/lib/auth";
+import SignoutButton from '@/components/signout-button'
+// import { signOut } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { signOut } from 'next-auth/react'
 import { revalidatePath } from "next/cache";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
-  const session = await auth();
-  const user = session?.user;
+  const session = await getServerSession(authOptions);
 
   if (!session) redirect("/login");
+  
   return (
-    <section className="container my-[65px] ">
+    <section className="container my-[65px] flex flex-col">
       <h2 className="text-center text-[36px] font-normal">
-        Hello! <span className="dark-green">{user?.name}</span>{" "}
+        Hello! <span className="dark-green">{session.user?.name}</span>{" "}
       </h2>
       <H2
         text="You are in the buyer's personal account"
@@ -28,20 +33,10 @@ export default async function Page() {
       />
 
       <div className="mt-[60px] text-center">
-        Email: <span className="font-medium">{user?.email}</span>
+        Email: <span className="font-medium">{session.user?.email}</span>
       </div>
 
-      <form
-        className="m-auto mt-[10px] w-[100px]"
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button type="submit" className="w-[100px] text-center text-red-400">
-          Sign Out
-        </button>
-      </form>
+      <SignoutButton/>
     </section>
   );
 }

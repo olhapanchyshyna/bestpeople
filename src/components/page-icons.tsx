@@ -1,40 +1,84 @@
 "use client";
 
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
-import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
+import { getClientSideArrayCookie } from "@/lib/cookies/client/get-client-side-array-cookie";
 import { useBasketStore } from "@/lib/store/useBasketStore";
+import { GoodCoookieType } from "@/types/types";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useTransition } from "react";
 import Phone from "./phone";
 
 export default function PageIcons() {
   const { data: session, status } = useSession();
   const [isPending, startTransition] = useTransition();
+  // const pathname = usePathname();
 
   const { totalQuantity, setTotalQuantity, setGoodsBasket, setIsPending } =
     useBasketStore();
 
-  useEffect(() => {
-    startTransition(async () => {
-      let goods;
-      if (status !== "loading") {
-        if (session && session.user) {
-          goods = await getGoodsBasketByUserId(session.user.id);
-        } else {
-          goods = await getServerSideArrayCookie("basket");
-        }
-        const total = goods?.reduce(
-          (total, currentItem) => total + currentItem.quantity,
-          0,
-        );
+  // useEffect(() => {
+  //   startTransition(async () => {
+  //     let goods;
+  //     if (status !== "loading") {
+  //       if (session && session.user) {
+  //         goods = await getGoodsBasketByUserId(session.user.id);
+  //       } else {
+  //         goods = await getServerSideArrayCookie("basket");
+  //       }
+  //       const total = goods?.reduce(
+  //         (total, currentItem) => total + currentItem.quantity,
+  //         0,
+  //       );
 
-        setTotalQuantity(total);
-        setGoodsBasket(goods);
-        setIsPending(false);
+  //       setTotalQuantity(total);
+  //       setGoodsBasket(goods);
+  //       setIsPending(false);
+  //     }
+  //   });
+  // }, [status]);
+
+  const handleTotalQuantity = (goods: GoodCoookieType[]) => {
+    const total = goods?.reduce(
+      (total, currentItem) => total + currentItem.quantity,
+      0,
+    );
+    setTotalQuantity(total);
+  };
+
+  // useLayoutEffect(() => {
+  //   if (status === "authenticated") {
+  //     if (session && session.user) {
+  //       getGoodsBasketByUserId(session.user.id).then((goods) => {
+  //         goods && handleTotalQuantity(goods);
+  //         setIsPending(false);
+  //       });
+  //     }
+  //   }
+  //   if (status === "unauthenticated") {
+  //     const goods = getClientSideArrayCookie("basket");
+  //     setGoodsBasket(goods);
+  //     goods && handleTotalQuantity(goods);
+  //     setIsPending(false);
+  //   }
+  // }, [pathname, status]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      if (session && session.user) {
+        getGoodsBasketByUserId(session.user.id).then((goods) => {
+          goods && handleTotalQuantity(goods);
+          setIsPending(false);
+        });
       }
-    });
+    } else if (status === "unauthenticated") {
+      const goods = getClientSideArrayCookie("basket");
+      setGoodsBasket(goods);
+      goods && handleTotalQuantity(goods);
+      setIsPending(false);
+    }
   }, [status]);
 
   return (

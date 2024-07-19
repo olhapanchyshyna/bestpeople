@@ -14,12 +14,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
-import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
 import { useBasketStore } from "@/lib/store/useBasketStore";
 import { GoodCoookieType } from "@/types/types";
 import { Goods } from "@prisma/client";
 import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -27,17 +26,23 @@ import Loading from "./loading";
 
 type BasketPageProps = {
   goodsBasketByUserId: GoodCoookieType[] | undefined;
-  goodsData: Goods[] ;
+  goodsData: Goods[];
+  session: Session | null;
 };
 
-export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPageProps) {
-  const { goodsBasket, isPending } = useBasketStore();
+export default function BasketPage({
+  goodsBasketByUserId,
+  goodsData,
+  session,
+}: BasketPageProps) {
+  const { goodsBasket, isPending, setGoodsBasket } = useBasketStore();
   const [cookieGoodsArrays, setCookieGoodsArrays] = useState<
     GoodCoookieType[] | undefined
   >(goodsBasketByUserId);
   const [goods, setGoods] = useState<Goods[]>(goodsData);
   const [filteredItem, setFilteredItem] = useState<Goods[]>([]);
 
+  // const portalId = document.querySelector('#portal-basket-icon')
   // useEffect(() => {
   //   const fetchData = async () => {
   //     if (session) {
@@ -50,13 +55,17 @@ export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPag
   //       } catch (error) {
   //         console.error("Error fetching data:", error);
   //       } finally {
-  //         setIsPending(false);
+  //         // setIsPending(false);
   //       }
   //     }
   //   };
 
   //   fetchData();
-  // }, [session, setIsPending]);
+  // }, [session]);
+
+  useEffect(() => {
+    setGoodsBasket(goodsBasketByUserId);
+  }, [goodsBasketByUserId]);
 
   useEffect(() => {
     if (goods && goodsBasket) {
@@ -64,9 +73,9 @@ export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPag
         goodsBasket.find((itemGood) => itemGood.id === item.id.toString()),
       );
       setFilteredItem(filtered);
-      setCookieGoodsArrays(goodsBasket)
+      setCookieGoodsArrays(goodsBasket);
     }
-  }, [goodsBasket, goods]);
+  }, [goodsBasket, goods, session]);
 
   let deliveryCost = 0;
   let priseAllGoods = 0;
@@ -144,11 +153,13 @@ export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPag
                           </TableCell>
 
                           <TableCell>
-                            <Count
-                              cookieGoodsArrays={cookieGoodsArrays}
-                              currentGood={currentGood}
-                              typeAction="inBasket"
-                            />
+                            {/* <SessionProvider> */}
+                              <Count
+                                cookieGoodsArrays={cookieGoodsArrays}
+                                currentGood={currentGood}
+                                typeAction="inBasket"
+                              />
+                            {/* </SessionProvider> */}
                           </TableCell>
                           <TableCell className="dark-green">
                             {currentGood
@@ -158,10 +169,12 @@ export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPag
                           </TableCell>
 
                           <TableCell className="p-0 pr-[10px] text-right ">
-                            <DeleteGoodButton
-                              id={invoice.id}
-                              cookieGoodsArrays={cookieGoodsArrays}
-                            />
+                          {/* <SessionProvider> */}
+                              <DeleteGoodButton
+                                id={invoice.id}
+                                cookieGoodsArrays={cookieGoodsArrays}
+                              />
+                            {/* </SessionProvider> */}
                           </TableCell>
                         </TableRow>
                       );
@@ -215,18 +228,22 @@ export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPag
                               </div>
                             </Link>
 
-                            <DeleteGoodButton
-                              id={invoice.id}
-                              cookieGoodsArrays={cookieGoodsArrays}
-                            />
+                            {/* <SessionProvider> */}
+                              <DeleteGoodButton
+                                id={invoice.id}
+                                cookieGoodsArrays={cookieGoodsArrays}
+                              />
+                            {/* </SessionProvider> */}
                           </TableCell>
 
                           <TableCell className="flex items-center justify-between pt-[10px]">
-                            <Count
-                              cookieGoodsArrays={cookieGoodsArrays}
-                              currentGood={currentGood}
-                              typeAction="inBasket"
-                            />
+                            {/* <SessionProvider> */}
+                              <Count
+                                cookieGoodsArrays={cookieGoodsArrays}
+                                currentGood={currentGood}
+                                typeAction="inBasket"
+                              />
+                            {/* </SessionProvider> */}
                             <div className="dark-green text-[20px]">
                               {currentGood
                                 ? currentGood.quantity * invoice.price
@@ -286,6 +303,7 @@ export default function BasketPage({ goodsBasketByUserId,  goodsData}: BasketPag
           </div>
         </div>
       </section>
+      {/* {portalId && createPortal(<BasketIcon />, portalId)} */}
     </>
   );
 }

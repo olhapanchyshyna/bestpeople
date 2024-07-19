@@ -13,6 +13,7 @@ import { Suspense } from "react";
 
 export default async function Page() {
   const { totalCount, goods } = await getGoods({ category: "all" });
+ 
 
   if (!totalCount || !goods) {
     throw new Error("initial goods not found in data base");

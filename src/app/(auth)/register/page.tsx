@@ -1,7 +1,5 @@
-import AuthForm from "@/components/auth-form";
 import H2 from "@/components/h2";
-import RegisterForm from '@/components/register-form'
-import { auth } from '@/lib/auth'
+import RegisterForm from "@/components/register-form";
 import Link from "next/link";
 
 export default async function Page() {

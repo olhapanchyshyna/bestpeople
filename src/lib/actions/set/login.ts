@@ -1,11 +1,9 @@
-"use server";
 
 import { LoginSchema } from "@/lib/validations";
-import { AuthError } from "next-auth";
 import { z } from "zod";
 
-import { signIn } from "@/lib/auth";
 import { getUserByEmail } from "../get/get-user-by-email";
+import { signIn } from 'next-auth/react'
 
 export const logIn = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -15,7 +13,6 @@ export const logIn = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   const { email, password } = validatedFields.data;
-
   const user = await getUserByEmail(email);
 
   if (!user) {
@@ -23,22 +20,20 @@ export const logIn = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   try {
-    await signIn("credentials", {
+    const result = await signIn("credentials", {
       email,
       password,
-      redirectTo: "/",
+      redirect: false,
     });
-    // return true;
+
+    if (result?.error) {
+      return { error: result.error };
+    }
+
+    // Возвращаем простой объект с результатом
     return { success: "success" };
   } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return { error: "Invalid password" };
-        default:
-          return { error: "Something went wrong" };
-      }
-    }
-    throw error;
+    console.error("Unexpected error during sign in:", error);
+    return { error: String(error) }; // Возвращаем строку ошибки
   }
 };

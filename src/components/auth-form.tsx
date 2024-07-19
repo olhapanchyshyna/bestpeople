@@ -11,7 +11,9 @@ import {
 import { logIn } from "@/lib/actions/set/login";
 import { LoginSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useLayoutEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Input } from "./ui/input";
@@ -21,7 +23,8 @@ const inputStyles =
 
 export default function AuthForm() {
   const [isPending, startTransition] = useTransition();
-
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const [message, setMessage] = useState<string | undefined>("");
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -42,6 +45,12 @@ export default function AuthForm() {
       form.reset();
     });
   }
+
+  useLayoutEffect(() => {
+    if (status === "authenticated") {
+      router.push("/account");
+    }
+  }, [status]);
 
   return (
     <Form {...form}>

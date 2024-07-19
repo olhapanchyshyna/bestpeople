@@ -1,6 +1,6 @@
 // export const publicRoutes = ["/", "catalog", "/catalog/[slug]", "/basket", "/about-company", ];
 
-export const authRoutes = ["/auth/login", "/auth/register"];
+export const authRoutes = ["/login", "/register"];
 
 export const apiRoutes = ["/api/stripe", "/api/auth", "/api/novaposhta"];
 

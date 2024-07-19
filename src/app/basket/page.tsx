@@ -1,13 +1,14 @@
 import BasketPage from "@/components/basket-page";
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
-import { auth } from "@/lib/auth";
+
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
+import { getServerSession } from "next-auth";
+import { authOptions } from '../api/auth/[...nextauth]/route'
 
 
 export default async function Page() {
-  const session = await auth();
-
+  const session = await getServerSession(authOptions);  
   if (!session) {
     const goodsBasketCookie = await getServerSideArrayCookie("basket");
     const ids = goodsBasketCookie?.map((item) => +item.id);
@@ -17,6 +18,7 @@ export default async function Page() {
       <BasketPage
         goodsBasketByUserId={goodsBasketCookie}
         goodsData={goodsData}
+        session={session}
       />
     );
   } else if (session) {
@@ -28,6 +30,7 @@ export default async function Page() {
       <BasketPage
         goodsBasketByUserId={goodsBasketByUserId}
         goodsData={goodsData}
+        session={session}
       />
     );
   }

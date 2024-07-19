@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Goods } from "@prisma/client";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Check, ChevronsUpDown } from "lucide-react";
+import { SessionProvider } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -190,7 +191,7 @@ export default function OrderForm({ goods }: ByButtonProps) {
           <div className=" h-[140px]">
             <h2 className="mb-[7px]">City *</h2>
             <div
-              className={`flex h-[60px] md:w-[400px] justify-between border-2 px-[10px] ${emptyFields.includes("city") && emptyCity ? "border-red-200" : "border-[#e6e6e6]"} focus-within:border-[#343a43b5]`}
+              className={`flex h-[60px] justify-between border-2 px-[10px] md:w-[400px] ${emptyFields.includes("city") && emptyCity ? "border-red-200" : "border-[#e6e6e6]"} focus-within:border-[#343a43b5]`}
             >
               <input
                 type="text"
@@ -200,7 +201,7 @@ export default function OrderForm({ goods }: ByButtonProps) {
                   setEmptyCity(e.target.value.trim() === "");
                 }}
                 placeholder="Enter the name of the city"
-                className="h-[100%] md:w-[300px] focus-visible:outline-none"
+                className="h-[100%] focus-visible:outline-none md:w-[300px]"
               />
               <button onClick={handleSearch}>
                 <MagnifyingGlassIcon className="h-[25px] w-[25px]" />
@@ -216,7 +217,7 @@ export default function OrderForm({ goods }: ByButtonProps) {
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className={`md:w-[350px] w-[250px] justify-between ${emptyFields.includes("department") && emptyCity ? "bg-red-200" : "border-2 border-[#e6e6e6]"}`}
+                className={`w-[250px] justify-between md:w-[350px] ${emptyFields.includes("department") && emptyCity ? "bg-red-200" : "border-2 border-[#e6e6e6]"}`}
               >
                 {value
                   ? department.find(
@@ -226,8 +227,8 @@ export default function OrderForm({ goods }: ByButtonProps) {
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="md:w-[350px] w-[280px] border-[#e6e6e6]  p-0">
-              <Command className="md:w-[350px] w-[280px] !border-2">
+            <PopoverContent className="w-[280px] border-[#e6e6e6] p-0  md:w-[350px]">
+              <Command className="w-[280px] !border-2 md:w-[350px]">
                 <CommandList className="!border-2">
                   <CommandInput placeholder="Search department..." />
                   {department.length === 0 ? (
@@ -309,11 +310,13 @@ export default function OrderForm({ goods }: ByButtonProps) {
         </form>
       </div>
 
-      <ByButton
-        goods={goods}
-        formData={{ ...form.watch(), city, department: value }}
-        setEmptyFields={setEmptyFields}
-      />
+
+        <ByButton
+          goods={goods}
+          formData={{ ...form.watch(), city, department: value }}
+          setEmptyFields={setEmptyFields}
+        />
+    
     </Form>
   );
 }

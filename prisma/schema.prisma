@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
@@ -25,15 +25,14 @@ model Goods {
 }
 
 model UserBest {
-  id          Int     @id @default(autoincrement())
-  email       String  @unique
-  password    String
-  name        String
-  goodsBasket String?
+  id           Int     @id @default(autoincrement())
+  email        String  @unique
+  password     String
+  name         String
+  goodsBasket  String?
   orderDetails String?
-  orders String?
+  orders       String?
 }
-
 
 // Using same database for 3 projects
 
@@ -74,5 +73,3 @@ model EventoEvent {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
-
-
