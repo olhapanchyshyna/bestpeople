@@ -23,9 +23,10 @@ const inputStyles =
 
 export default function AuthForm() {
   const [isPending, startTransition] = useTransition();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const [message, setMessage] = useState<string | undefined>("");
+  const [pending, setPending] = useState(false)
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -37,6 +38,7 @@ export default function AuthForm() {
 
   function onSubmit(values: z.infer<typeof LoginSchema>) {
     startTransition(() => {
+      setPending(true)
       logIn(values).then((res) => {
         if (res && res.error) {
           setMessage(res.error);
@@ -49,6 +51,7 @@ export default function AuthForm() {
   useLayoutEffect(() => {
     if (status === "authenticated") {
       router.push("/account");
+      setPending(false)
     }
   }, [status]);
 
@@ -93,10 +96,11 @@ export default function AuthForm() {
           </p>
         )}
         <Button
-          disabled={isPending}
+          disabled={pending}
           className="green-bg m-auto flex w-[170px] px-[40px] py-[16px] text-white hover:bg-[#6e860b] hover:text-white sm:w-[200px]"
         >
-          Log In
+          {pending ? 'Loading...' : 'Log In'}
+          
         </Button>
       </form>
     </Form>
