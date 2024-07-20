@@ -1,10 +1,11 @@
 import BasketPage from "@/components/basket-page";
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
+import { authOptions } from '@/lib/auth-options'
 
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { getServerSession } from "next-auth";
-import { authOptions } from '../api/auth/[...nextauth]/route'
+
 
 
 export default async function Page() {

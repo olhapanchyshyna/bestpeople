@@ -1,7 +1,8 @@
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+
 import H2 from "@/components/h2";
 import SignoutButton from '@/components/signout-button'
+import { authOptions } from '@/lib/auth-options'
 // import { signOut } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { signOut } from 'next-auth/react'

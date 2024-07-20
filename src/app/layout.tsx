@@ -5,8 +5,9 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { Roboto } from "next/font/google";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+
 import "./globals.css";
+import { authOptions } from '@/lib/auth-options'
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
