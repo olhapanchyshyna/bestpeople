@@ -44,25 +44,17 @@ export default function BasketButton({
       ? cookieGoodsArrays
       : getClientSideArrayCookie("basket");
 
-
     if (currentCookie?.length === 0 || !currentCookie) {
-      updatedCookie = [{ id: id.toString(), quantity: countInPage }]
+      updatedCookie = [{ id: id.toString(), quantity: countInPage }];
       if (user) {
         setGoodsBasketByUserId(user?.id, updatedCookie);
       } else {
-        setClientSideArrayCookie(
-          "basket",
-          updatedCookie,
-          30,
-        );
+        setClientSideArrayCookie("basket", updatedCookie, 30);
       }
       setGoodsBasket(updatedCookie);
       setIsLoading(false);
-
     } else {
-      const isGoodInBasket = currentCookie?.find(
-        (item) => item.id === id,
-      );
+      const isGoodInBasket = currentCookie?.find((item) => item.id === id);
 
       updatedCookie = !!isGoodInBasket
         ? currentCookie
@@ -92,7 +84,7 @@ export default function BasketButton({
     user
       ? setGoodsBasketByUserId(user?.id, updatedCookie)
       : setClientSideArrayCookie("basket", [...updatedCookie], 30);
-      
+
     setIsLoading(false);
   };
 

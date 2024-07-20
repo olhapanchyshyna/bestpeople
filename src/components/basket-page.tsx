@@ -42,7 +42,6 @@ export default function BasketPage({
   const [goods, setGoods] = useState<Goods[]>(goodsData);
   const [filteredItem, setFilteredItem] = useState<Goods[]>([]);
 
-  // const portalId = document.querySelector('#portal-basket-icon')
   // useEffect(() => {
   //   const fetchData = async () => {
   //     if (session) {
@@ -62,6 +61,7 @@ export default function BasketPage({
 
   //   fetchData();
   // }, [session]);
+
 
   useEffect(() => {
     setGoodsBasket(goodsBasketByUserId);

@@ -3,11 +3,12 @@ import OrderForm from "@/components/order-form";
 import { Table, TableCell, TableFooter, TableRow } from "@/components/ui/table";
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
 import { getGoodsById } from "@/lib/actions/get/get-goods-by-id";
+import { authOptions } from '@/lib/auth-options'
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { getServerSession } from 'next-auth'
 
 export default async function Page() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   const cookieGoodsArrays = session
     ? await getGoodsBasketByUserId(session?.user?.id)

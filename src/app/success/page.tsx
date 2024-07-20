@@ -18,13 +18,14 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { sendToTelegram } from "../api/telegram";
 import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth-options'
 
 type TSearchParams = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default async function Page({ searchParams }: TSearchParams) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   const userId = session?.user?.id;
 
   // Обновляем заказы до того, как получим последние данные о заказах

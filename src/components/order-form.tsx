@@ -142,7 +142,7 @@ const customerDetailsSchema = CustomerDetailsForOrder.extend({
 
 export default function OrderForm({ goods }: ByButtonProps) {
   const { city, department, error, handleCityChange, handleSearch } =
-    useCitySearch("");
+    useCitySearch("Київ");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [emptyFields, setEmptyFields] = useState<string[]>([]);
@@ -200,7 +200,7 @@ export default function OrderForm({ goods }: ByButtonProps) {
                   handleCityChange(e);
                   setEmptyCity(e.target.value.trim() === "");
                 }}
-                placeholder="Enter the name of the city"
+                placeholder="Київ"
                 className="h-[100%] focus-visible:outline-none md:w-[300px]"
               />
               <button onClick={handleSearch}>

@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getGood } from "@/lib/actions/get/get-good";
 import { getGoodsBasketByUserId } from "@/lib/actions/get/get-goods-basket-by-user-id";
+import { authOptions } from '@/lib/auth-options'
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { getServerSession } from 'next-auth'
 
@@ -38,7 +39,7 @@ function renderDescription(foolDescrArray: string[]) {
 }
 
 export default async function GoodPage({ params }: GoodPageProps) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);  
 
   const cookieGoodsArrays = session
     ? await getGoodsBasketByUserId(session?.user?.id)

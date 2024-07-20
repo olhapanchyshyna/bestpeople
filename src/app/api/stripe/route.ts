@@ -10,6 +10,7 @@ const getActiveProducts = async () => {
 };
 
 export const POST = async (request: any) => {
+  console.log('hi')
   const { products } = await request.json();
   const data = products;
   let activeProducts = await getActiveProducts();

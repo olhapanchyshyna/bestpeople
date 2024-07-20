@@ -6,10 +6,9 @@ import { authOptions } from '@/lib/auth-options'
 import { getServerSideArrayCookie } from "@/lib/cookies/server/get-server-side-array-cookie";
 import { getServerSession } from "next-auth";
 
-
-
 export default async function Page() {
   const session = await getServerSession(authOptions);  
+
   if (!session) {
     const goodsBasketCookie = await getServerSideArrayCookie("basket");
     const ids = goodsBasketCookie?.map((item) => +item.id);
